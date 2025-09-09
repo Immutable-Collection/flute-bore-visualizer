@@ -1,0 +1,32 @@
+* flute-bore-visualizer
+Clojure code to assist in comparing bores and tone holes in baroque flutes
+
+- Models of extant baroque flutes
+- Database
+** Why?
+The baroque flute represents the greatest sophistication of the simple flute, and if built and played well can give 3+ fully chromatic octaves. However the subtlties of the creation of the bore to do this are no longer (if ever?) fully understood. Because of this modern reproductions are largely made as perfect copies of extant flutes, engineered to 0.01mm tolerances.
+I want to know why one particular flute plays so well in the 3rd octave, and can I achieve that in a flute modelled on another historical example that has a better tone but is only good in the first two octaves. 
+To do this we need a tool that can effectively compare the bore differences quickly and easily even though the 2 flutes in question are in different pitches.
+We also plan to use the data collected here to create models that can be used with CFD software to actually see the differences in the flow of air through different flutes at different pitches.
+
+A minimal set of measurements of the bore would look like this. Normally there would be more pairs of points.
+|----------+---------------|
+| from cap | bore diameter |
+|----------+---------------|
+|        0 |            19 |
+|      210 |            19 |
+|      410 |            14 |
+|      530 |            12 |
+|      600 |          12.5 |
+|----------+---------------|
+
+More details for a model:
+|----------+---------------+--------+----------------|
+| from cap | bore diameter | radius | outer diameter |
+|----------+---------------+--------+----------------|
+|        0 |            19 |    9.5 |             26 |
+|      210 |            19 |    9.5 |             27 |
+|      410 |            14 |      7 |             24 |
+|      530 |            12 |      6 |             23 |
+|      600 |          12.5 |   6.25 |             20 |
+|----------+---------------+--------+----------------|
