@@ -34,8 +34,10 @@ More details for a model:
 #+TBLFM: $3=$2/2
 
 ** Rudall and Carte
+This flute has a foot extension allowing playing down to C rather than the usual D.
 The Head Section is lined with a brass tube that is *18.95mm* ID and *199.5mm* long. The reason the *Length* measurements of the lowest 2 sections don't start at 0 is that the measurements begin from the bottom of the circular mortice where the sections are assembled.
-*** Left Hand Section
+*** Bore
+**** Left Hand Section
 |----------+--------+--------|
 | Diameter | Length | Radius |
 |----------+--------+--------|
@@ -82,7 +84,7 @@ The Head Section is lined with a brass tube that is *18.95mm* ID and *199.5mm* l
 |     15.5 |    209 |   7.75 |
 |----------+--------+--------|
 #+TBLFM: $3=$1/2
-*** Right Hand Section
+**** Right Hand Section
 |----------+--------+--------|
 | Diameter | Length | Radius |
 |----------+--------+--------|
@@ -111,7 +113,7 @@ The Head Section is lined with a brass tube that is *18.95mm* ID and *199.5mm* l
 |     13.4 |    131 |    6.7 |
 |----------+--------+--------|
 #+TBLFM: $3=$1/2
-*** Foot Section
+**** Foot Section
 |----------+--------+--------|
 | Diameter | Length | Radius |
 |----------+--------+--------|
@@ -142,3 +144,41 @@ The Head Section is lined with a brass tube that is *18.95mm* ID and *199.5mm* l
 |     10.8 |    130 |    5.4 |
 |----------+--------+--------|
 #+TBLFM: $3=$1/2
+*** Holes 
+**** Headjoint
+Measured from the centre of the soundhole to the end of the wooden part of the headjoint that would butt up against the barrel when the tuning slide is fully closed. There is another 37mm to the point where the left hand section would start. To play at A440 the tuning slide would be extended to 21.5mm
+|-------+--------+--------+----------------+--------|
+| Along | Across | Length | From LHS tenon |   A440 |
+|-------+--------+--------+----------------+--------|
+|  12.3 |   11.0 |  90.95 |         127.95 | 149.45 |
+|-------+--------+--------+----------------+--------|
+#+TBLFM: $4=$3+37
+#+TBLFM: $5=$4+21.5
+**** Left Hand Section
+Measured from the outer end of the left hand tenon (0 length on the bore measurement table)
+|----------+--------|
+| Diameter | Length |
+|----------+--------|
+|     7.35 |   84.3 |
+|      8.5 |  120.6 |
+|     7.24 |  157.4 |
+|----------+--------|
+**** Right Hand Section
+Measured from the outer end of the mortice on the left hand end of the section (0 length on the bore measurement table)
+|----------+--------|
+| Diameter | Length |
+|----------+--------|
+|     9.25 |   26.5 |
+|    10.96 |   60.4 |
+|     7.23 |   98.2 |
+|----------+--------|
+**** Foot Section
+Measured from the outer end of the mortice on the left hand end of the section (0 length on the bore measurement table)
+|----------+--------|
+| Diameter | Length |
+|----------+--------|
+|     12.3 |   28.3 |
+|     12.8 |   59.6 |
+|    10.08 |     93 |
+|----------+--------|
+
