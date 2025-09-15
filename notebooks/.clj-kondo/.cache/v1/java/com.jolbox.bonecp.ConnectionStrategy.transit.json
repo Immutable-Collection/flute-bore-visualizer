@@ -1,1 +1,0 @@
-["^ ","~:members",["^ ","getConnection",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"pollConnection",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"terminateAllConnections",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"cleanupConnection",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
