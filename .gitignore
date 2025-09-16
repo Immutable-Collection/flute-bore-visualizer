@@ -13,3 +13,5 @@ pom.xml.asc
 .nrepl-port
 .cpcache/
 notebooks/.clj-kondo/
+notebooks/.calva/output-window/output.calva-repl
+notebooks/.lsp/.cache/db.transit.json
