@@ -1,5 +1,6 @@
 (ns demo
      (:require [tablecloth.api :as tc]
+               [clojure.edn :as edn]
                [scicloj.tableplot.v1.plotly :as plotly])
 )
 
@@ -23,6 +24,21 @@ df
     (plotly/layer-line {:=mark-color "purple"}))
 
 (def flute 
- (-> "Rudall and Carte.edn"
+ (-> "notebooks/Rudall and Carte.edn"
      slurp
-     edn/read-string))
+     edn/read-string)) 
+
+(def left-hand-section (-> flute :flute :bore :left-hand-section :measurements ))
+
+(tc/dataset left-hand-section)
+
+(def right-hand-section (-> flute :flute :bore :right-hand-section :measurements ))
+
+(tc/dataset right-hand-section)
+
+(def foot-section (-> flute :flute :bore :foot-section :measurements ))
+
+(tc/dataset foot-section)
+
+;(def flute-data (concat right-hand-section left-hand-section foot-section))
+
