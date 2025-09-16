@@ -1,0 +1,125 @@
+{:flute
+ {:name "Rudall and Carte"
+  :foot-extension true
+  :head-section
+  {:lining
+   {:material "brass"
+    :inner-diameter-mm 18.95
+    :length-mm 199.5}
+   :note "The Head Section is lined with a brass tube that is 18.95mm ID and 199.5mm long."}
+  :bore
+  {:left-hand-section
+   {:measurements
+    [{:diameter 18.9 :length 0 :radius 9.45}
+     {:diameter 18.8 :length 3 :radius 9.4}
+     {:diameter 18.7 :length 4 :radius 9.35}
+     {:diameter 18.6 :length 6 :radius 9.3}
+     {:diameter 18.5 :length 8 :radius 9.25}
+     {:diameter 18.4 :length 11 :radius 9.2}
+     {:diameter 18.3 :length 13 :radius 9.15}
+     {:diameter 18.2 :length 17 :radius 9.1}
+     {:diameter 18.1 :length 29 :radius 9.05}
+     {:diameter 18.0 :length 35 :radius 9.0}
+     {:diameter 17.9 :length 42 :radius 8.95}
+     {:diameter 17.8 :length 47 :radius 8.9}
+     {:diameter 17.7 :length 51 :radius 8.85}
+     {:diameter 17.6 :length 60 :radius 8.8}
+     {:diameter 17.5 :length 65 :radius 8.75}
+     {:diameter 17.4 :length 72 :radius 8.7}
+     {:diameter 17.3 :length 79 :radius 8.65}
+     {:diameter 17.2 :length 84 :radius 8.6}
+     {:diameter 17.1 :length 96 :radius 8.55}
+     {:diameter 17.0 :length 102 :radius 8.5}
+     {:diameter 16.9 :length 107 :radius 8.45}
+     {:diameter 16.8 :length 112 :radius 8.4}
+     {:diameter 16.7 :length 117 :radius 8.35}
+     {:diameter 16.6 :length 123 :radius 8.3}
+     {:diameter 16.5 :length 130 :radius 8.25}
+     {:diameter 16.4 :length 139 :radius 8.2}
+     {:diameter 16.3 :length 145 :radius 8.15}
+     {:diameter 16.2 :length 151 :radius 8.1}
+     {:diameter 16.1 :length 155 :radius 8.05}
+     {:diameter 16.0 :length 161 :radius 8.0}
+     {:diameter 15.9 :length 165 :radius 7.95}
+     {:diameter 15.8 :length 173 :radius 7.9}
+     {:diameter 15.7 :length 177 :radius 7.85}
+     {:diameter 15.6 :length 183 :radius 7.8}
+     {:diameter 15.5 :length 187 :radius 7.75}
+     {:diameter 15.4 :length 188 :radius 7.7}
+     {:diameter 15.3 :length 193 :radius 7.65}
+     {:diameter 15.2 :length 200 :radius 7.6}
+     {:diameter 15.3 :length 205 :radius 7.65}
+     {:diameter 15.4 :length 207 :radius 7.7}
+     {:diameter 15.5 :length 209 :radius 7.75}]}
+   :right-hand-section
+   {:measurements
+    [{:diameter 15.0 :length 21 :radius 7.5}
+     {:diameter 14.9 :length 23 :radius 7.45}
+     {:diameter 14.8 :length 28 :radius 7.4}
+     {:diameter 14.7 :length 33 :radius 7.35}
+     {:diameter 14.6 :length 38 :radius 7.3}
+     {:diameter 14.5 :length 43 :radius 7.25}
+     {:diameter 14.4 :length 45 :radius 7.2}
+     {:diameter 14.3 :length 50 :radius 7.15}
+     {:diameter 14.2 :length 55 :radius 7.1}
+     {:diameter 14.1 :length 59 :radius 7.05}
+     {:diameter 14.0 :length 63 :radius 7.0}
+     {:diameter 13.9 :length 70 :radius 6.95}
+     {:diameter 13.8 :length 74 :radius 6.9}
+     {:diameter 13.7 :length 78 :radius 6.85}
+     {:diameter 13.6 :length 87 :radius 6.8}
+     {:diameter 13.5 :length 92 :radius 6.75}
+     {:diameter 13.4 :length 97 :radius 6.7}
+     {:diameter 13.3 :length 105 :radius 6.65}
+     {:diameter 13.2 :length 110 :radius 6.6}
+     {:diameter 13.1 :length 114 :radius 6.55}
+     {:diameter 13.2 :length 125 :radius 6.6}
+     {:diameter 13.3 :length 128 :radius 6.65}
+     {:diameter 13.4 :length 131 :radius 6.7}]}
+   :foot-section
+   {:measurements
+    [{:diameter 13.0 :length 22 :radius 6.5}
+     {:diameter 12.9 :length 23 :radius 6.45}
+     {:diameter 12.8 :length 25 :radius 6.4}
+     {:diameter 12.7 :length 27 :radius 6.35}
+     {:diameter 12.6 :length 32 :radius 6.3}
+     {:diameter 12.5 :length 34 :radius 6.25}
+     {:diameter 12.4 :length 36 :radius 6.2}
+     {:diameter 12.3 :length 43 :radius 6.15}
+     {:diameter 12.2 :length 47 :radius 6.1}
+     {:diameter 12.1 :length 52 :radius 6.05}
+     {:diameter 12.0 :length 56 :radius 6.0}
+     {:diameter 11.9 :length 64 :radius 5.95}
+     {:diameter 11.8 :length 67 :radius 5.9}
+     {:diameter 11.7 :length 71 :radius 5.85}
+     {:diameter 11.6 :length 77 :radius 5.8}
+     {:diameter 11.5 :length 84 :radius 5.75}
+     {:diameter 11.4 :length 87 :radius 5.7}
+     {:diameter 11.3 :length 95 :radius 5.65}
+     {:diameter 11.2 :length 105 :radius 5.6}
+     {:diameter 11.1 :length 107 :radius 5.55}
+     {:diameter 11.0 :length 114 :radius 5.5}
+     {:diameter 10.9 :length 115 :radius 5.45}
+     {:diameter 10.8 :length 122 :radius 5.4}
+     {:diameter 10.8 :length 128 :radius 5.4}
+     {:diameter 10.8 :length 130 :radius 5.4}]}}
+  :holes
+  {:headjoint
+   {:note "Measured from the centre of the soundhole to the end of the wooden part of the headjoint that would butt up against the barrel when the tuning slide is fully closed. There is another 37mm to the point where the left hand section would start. To play at A440 the tuning slide would be extended to 21.5mm"
+    :measurements
+    [{:along 12.3 :across 11.0 :length 90.95 :from-lhs-tenon 127.95 :a440 149.45}]}
+   :left-hand-section
+   {:measurements
+    [{:diameter 7.35 :length 84.3}
+     {:diameter 8.5 :length 120.6}
+     {:diameter 7.24 :length 157.4}]}
+   :right-hand-section
+   {:measurements
+    [{:diameter 9.25 :length 26.5}
+     {:diameter 10.96 :length 60.4}
+     {:diameter 7.23 :length 98.2}]}
+   :foot-section
+   {:measurements
+    [{:diameter 12.3 :length 28.3}
+     {:diameter 12.8 :length 59.6}
+     {:diameter 10.08 :length 93}]}}}}

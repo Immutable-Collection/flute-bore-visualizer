@@ -13,6 +13,7 @@
 
 df
 
+
 (-> df
     #_(tc/select-rows #(-> % :variable (= "unemploy")))
     (plotly/base {:=x :from-cap
@@ -20,3 +21,8 @@ df
                   :=width 1200
                   :=height 400})
     (plotly/layer-line {:=mark-color "purple"}))
+
+(def flute 
+ (-> "Rudall and Carte.edn"
+     slurp
+     edn/read-string))
