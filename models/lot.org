@@ -1,11 +1,11 @@
-
 * Lot
 :PROPERTIES:
 :ATTACH_DIR: /Users/iain/Code/ImmutableCollection/flute-bore-visualizer/models/lot-images
 :END:
 Dayton Miller Collection DCM615. The Embouchore on this example was compromised, probably as part of an attempt to retune it. The measurements given here are from another Lot flute with the original embouchure.
 [[file:lot-images/screenshot-20250922-160337.png]]
-** Head Joint
+** Bore Diameters
+*** Head Joint
 Original measurements taken from the cap end. Total length is *222.8mm* and the embouchure hole is *12mm* diameter and *153mm* from the lower end of the headjoint, measured to the lower edge of the embouchure hole. This gives a correction of -222.8 + 153 + 6 which is *-63.8mm*
 |---------------+-------------------+-------------------------|
 | Bore Diameter | Distance from cap | Distance from Soundhole |
@@ -18,7 +18,7 @@ Original measurements taken from the cap end. Total length is *222.8mm* and the 
 |          19.5 |               191 |                   127.2 |
 |---------------+-------------------+-------------------------|
 #+TBLFM: $3=$2-63.8
-** Middle Joint
+*** Middle Joint
 Correction here is 153 + 6 - 28.5
 |---------------+--------------------------+-------------------------|
 | Bore Diameter | Distance from left tenon | Distance from soundhole |
@@ -36,13 +36,11 @@ Correction here is 153 + 6 - 28.5
 |          18.1 |                       83 |                   213.5 |
 |          18.0 |                       86 |                   216.5 |
 |          17.9 |                       89 |                   219.5 |
-|          17.8 |                          |                   130.5 |
 |          17.7 |                      101 |                   231.5 |
 |          17.6 |                      106 |                   236.5 |
 |          17.5 |                      110 |                   240.5 |
 |          17.4 |                      119 |                   249.5 |
 |          17.3 |                      125 |                   255.5 |
-|          17.2 |                          |                   130.5 |
 |          17.1 |                      138 |                   268.5 |
 |          17.0 |                    142.5 |                    273. |
 |          16.9 |                      149 |                   279.5 |
@@ -60,7 +58,7 @@ Correction here is 153 + 6 - 28.5
 |          15.9 |                      215 |                   345.5 |
 |---------------+--------------------------+-------------------------|
 #+TBLFM: $3=$2+130.5
-** Right Hand Joint
+*** Right Hand Joint
 Correction is 153 + 6 + 158.5 = *317.5*
 |---------------+----------------------------+-------------------------|
 | Bore Diameter | distance from left mortice | Distance from soundhole |
@@ -89,7 +87,7 @@ Correction is 153 + 6 + 158.5 = *317.5*
 |          13.3 |                        161 |                   478.5 |
 |---------------+----------------------------+-------------------------|
 #+TBLFM: $3=$2+317.5
-** Foot Joint
+*** Foot Joint
 This section was measured the other way, so the correction will be 153 + 6 + 158.5 + 144.4 + 97.6 - <Distance from end>
 *559.5 - $2*
 |---------------+-------------------+-------------------------|
@@ -103,7 +101,6 @@ This section was measured the other way, so the correction will be 153 + 6 + 158
 |          14.5 |                55 |                   504.5 |
 |          14.4 |                57 |                   502.5 |
 |          14.3 |                60 |                   499.5 |
-|          14.2 |                   |                   559.5 |
 |          14.1 |                63 |                   496.5 |
 |          14.0 |                66 |                   493.5 |
 |          13.9 |                68 |                   491.5 |
@@ -114,4 +111,40 @@ This section was measured the other way, so the correction will be 153 + 6 + 158
 |         13.43 |                78 |                   481.5 |
 |---------------+-------------------+-------------------------|
 #+TBLFM: $3=559.5-$2
+** Holes
+Distance from centre of soundhole to end of headjoint is 153 + 6 *159mm*
+Holes are measured to the edge, so the centre must be found by adding half the longtitudonal diameter.
+*** Heead Joint
+|--------------+---------+-------------------------|
+| Longitudonal | Lateral | distance from Soundhole |
+|--------------+---------+-------------------------|
+|           12 |      12 |                       0 |
+|--------------+---------+-------------------------|
 
+*** Middle Joint
+|-------------------------+---------------+---------+-------------------------|
+| Distance from Headjoint | Longtitudonal | Lateral | Distance from Soundhole |
+|-------------------------+---------------+---------+-------------------------|
+|                    64.6 |           6.9 |    6.45 |                  227.05 |
+|                     102 |          6.85 |     6.5 |                 264.425 |
+|                   141.7 |          5.75 |    5.55 |                 303.575 |
+|-------------------------+---------------+---------+-------------------------|
+#+TBLFM: $4=$1+159+($2/2)
+*** Right Hand Joint
+Correction is *159* for the head joint and *158.5* for the middle joint.
+|------------------------+---------------+---------+-------------------------|
+| Distance from LH Joint | Longtitudonal | Lateral | Distance from Soundhole |
+|------------------------+---------------+---------+-------------------------|
+|                  40.15 |           6.8 |     6.5 |                  361.05 |
+|                  78.65 |          6.35 |    6.15 |                 399.325 |
+|                  116.9 |          4.95 |     4.9 |                 436.875 |
+|------------------------+---------------+---------+-------------------------|
+#+TBLFM: $4=$1+($2/2)+159+158.5
+*** Foot Joint
+Correction is *159* + *158.5* + *144.4*
+|------------------------+---------------+---------+-------------------------|
+| Distance from RH Joint | Longtitudonal | Lateral | Distance from Soundhole |
+|------------------------+---------------+---------+-------------------------|
+|                   30.8 |           9.1 |     8.7 |                  497.25 |
+|------------------------+---------------+---------+-------------------------|
+#+TBLFM: $4=$1+($2/2)+159+158.5+144.4
