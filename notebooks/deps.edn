@@ -1,6 +1,7 @@
 {:deps {org.scicloj/clay {:mvn/version "RELEASE"}
         org.scicloj/noj {:mvn/version "2-beta18"}
         scicloj/tablecloth {:mvn/version "7.042"}
+        scad-clj/scad-clj {:mvn/version "0.5.3"}
 }
  :paths ["src" "notebooks"]}
 
