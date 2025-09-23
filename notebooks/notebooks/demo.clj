@@ -3,6 +3,7 @@
                [clojure.edn :as edn]
                [scicloj.tableplot.v1.plotly :as plotly]
                [scad-clj.model :as m]
+               [clojure.java.shell :refer [sh]]
                [scad-clj.scad :refer [write-scad] :as scad])
 )
 
@@ -128,4 +129,7 @@ df
         diameters inside-lengths
         finger-holes-diameter finger-holes-position)))
 
+(sh "openscad" "-o" "flute_example.stl" "flute_example.scad")
 ;openscad -o flute_example.stl flute_example.scad
+;openscad --imgsize=800,600 --render -o preview.png flute_example.scad
+(sh "openscad" "--imgsize=800,600" "--render" "-o" "preview.png" "flute_example.scad")
