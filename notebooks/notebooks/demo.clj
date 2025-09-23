@@ -1,11 +1,11 @@
 (ns demo
-     (:require [tablecloth.api :as tc]
-               [clojure.edn :as edn]
-               [scicloj.tableplot.v1.plotly :as plotly]
-               [scad-clj.model :as m]
-               [clojure.java.shell :refer [sh]]
-               [scad-clj.scad :refer [write-scad] :as scad])
-)
+  (:require [tablecloth.api :as tc]
+            [clojure.edn :as edn]
+            [scicloj.tableplot.v1.plotly :as plotly]
+            [scad-clj.model :as m]
+            [scicloj.kindly.v4.kind :as kind]
+            [clojure.java.shell :refer [sh]]
+            [scad-clj.scad :refer [write-scad] :as scad]))
 
 (def wood [{:from-cap 0 :bore-diameter 19 :bore-radius 9.5 :outer-diameter 26 :outer-radius 13}
            {:from-cap 210 :bore-diameter 19 :bore-radius 9.5 :outer-diameter 27 :outer-radius 13.5}
@@ -26,20 +26,20 @@ df
                   :=height 400})
     (plotly/layer-line {:=mark-color "purple"}))
 
-(def flute 
- (-> "notebooks/Rudall and Carte.edn"
-     slurp
-     edn/read-string)) 
+(def flute
+  (-> "notebooks/Rudall and Carte.edn"
+      slurp
+      edn/read-string))
 
-(def left-hand-section (-> flute :flute :bore :left-hand-section :measurements ))
+(def left-hand-section (-> flute :flute :bore :left-hand-section :measurements))
 
 (tc/dataset left-hand-section)
 
-(def right-hand-section (-> flute :flute :bore :right-hand-section :measurements ))
+(def right-hand-section (-> flute :flute :bore :right-hand-section :measurements))
 
 (tc/dataset right-hand-section)
 
-(def foot-section (-> flute :flute :bore :foot-section :measurements ))
+(def foot-section (-> flute :flute :bore :foot-section :measurements))
 
 (tc/dataset foot-section)
 
@@ -65,7 +65,7 @@ df
   [finger-holes-diameter finger-holes-position]
   (apply m/union
          (for [i (range (count finger-holes-diameter))]
-           (->> (m/cylinder (/ (nth finger-holes-diameter i) 2) 40 )
+           (->> (m/cylinder (/ (nth finger-holes-diameter i) 2) 40)
                 (m/rotate [0 90 0])
                 (m/translate [0 0 (nth finger-holes-position i)])))))
 
@@ -132,4 +132,9 @@ df
 (sh "openscad" "-o" "flute_example.stl" "flute_example.scad")
 ;openscad -o flute_example.stl flute_example.scad
 ;openscad --imgsize=800,600 --render -o preview.png flute_example.scad
-(sh "openscad" "--imgsize=800,600" "--render" "-o" "preview.png" "flute_example.scad")
+(sh "openscad" "--imgsize=800,600" "--render" "-o" "notebooks/preview.png" "flute_example.scad")
+
+
+; [Flute Preview](preview.png)
+(kind/hiccup
+ [:img {:src "notebooks/preview.png"}])
