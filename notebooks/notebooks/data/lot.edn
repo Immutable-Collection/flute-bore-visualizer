@@ -1,0 +1,134 @@
+{
+ :bore{
+ :head-joint [{:bore-diameter 20.0 :distance-from-cap 1   :distance-from-soundhole -62.8}
+                  {:bore-diameter 19.9 :distance-from-cap 15  :distance-from-soundhole -48.8}
+                  {:bore-diameter 19.8 :distance-from-cap 165 :distance-from-soundhole 101.2}
+                  {:bore-diameter 19.7 :distance-from-cap 175 :distance-from-soundhole 111.2}
+                  {:bore-diameter 19.6 :distance-from-cap 185 :distance-from-soundhole 121.2}
+                  {:bore-diameter 19.5 :distance-from-cap 191 :distance-from-soundhole 127.2}]
+:middle-joint [{:bore-diameter 19.1 :distance-from-left-tenon 2   :distance-from-soundhole 132.5}
+                    {:bore-diameter 19.0 :distance-from-left-tenon 34  :distance-from-soundhole 164.5}
+                    {:bore-diameter 18.9 :distance-from-left-tenon 45  :distance-from-soundhole 175.5}
+                    {:bore-diameter 18.8 :distance-from-left-tenon 52  :distance-from-soundhole 182.5}
+                    {:bore-diameter 18.7 :distance-from-left-tenon 58  :distance-from-soundhole 188.5}
+                    {:bore-diameter 18.6 :distance-from-left-tenon 63  :distance-from-soundhole 193.5}
+                    {:bore-diameter 18.5 :distance-from-left-tenon 68  :distance-from-soundhole 198.5}
+                    {:bore-diameter 18.4 :distance-from-left-tenon 72  :distance-from-soundhole 202.5}
+                    {:bore-diameter 18.3 :distance-from-left-tenon 72  :distance-from-soundhole 202.5}
+                    {:bore-diameter 18.2 :distance-from-left-tenon 80  :distance-from-soundhole 210.5}
+                    {:bore-diameter 18.1 :distance-from-left-tenon 83  :distance-from-soundhole 213.5}
+                    {:bore-diameter 18.0 :distance-from-left-tenon 86  :distance-from-soundhole 216.5}
+                    {:bore-diameter 17.9 :distance-from-left-tenon 89  :distance-from-soundhole 219.5}
+                    {:bore-diameter 17.7 :distance-from-left-tenon 101 :distance-from-soundhole 231.5}
+                    {:bore-diameter 17.6 :distance-from-left-tenon 106 :distance-from-soundhole 236.5}
+                    {:bore-diameter 17.5 :distance-from-left-tenon 110 :distance-from-soundhole 240.5}
+                    {:bore-diameter 17.4 :distance-from-left-tenon 119 :distance-from-soundhole 249.5}
+                    {:bore-diameter 17.3 :distance-from-left-tenon 125 :distance-from-soundhole 255.5}
+                    {:bore-diameter 17.1 :distance-from-left-tenon 138 :distance-from-soundhole 268.5}
+                    {:bore-diameter 17.0 :distance-from-left-tenon 142.5 :distance-from-soundhole 273.0}
+                    {:bore-diameter 16.9 :distance-from-left-tenon 149 :distance-from-soundhole 279.5}
+                    {:bore-diameter 16.8 :distance-from-left-tenon 156 :distance-from-soundhole 286.5}
+                    {:bore-diameter 16.7 :distance-from-left-tenon 165 :distance-from-soundhole 295.5}
+                    {:bore-diameter 16.6 :distance-from-left-tenon 170 :distance-from-soundhole 300.5}
+                    {:bore-diameter 16.5 :distance-from-left-tenon 174 :distance-from-soundhole 304.5}
+                    {:bore-diameter 16.4 :distance-from-left-tenon 180 :distance-from-soundhole 310.5}
+                    {:bore-diameter 16.3 :distance-from-left-tenon 182 :distance-from-soundhole 312.5}
+                    {:bore-diameter 16.2 :distance-from-left-tenon 186 :distance-from-soundhole 316.5}
+                    {:bore-diameter 16.1 :distance-from-left-tenon 189 :distance-from-soundhole 319.5}
+                    {:bore-diameter 16.0 :distance-from-left-tenon 191 :distance-from-soundhole 321.5}
+                    {:bore-diameter 15.9 :distance-from-left-tenon 194 :distance-from-soundhole 324.5}
+                    {:bore-diameter 15.8 :distance-from-left-tenon 208 :distance-from-soundhole 338.5}
+                    {:bore-diameter 15.9 :distance-from-left-tenon 215 :distance-from-soundhole 345.5}]
+:right-hand-joint [{:bore-diameter 15.4 :distance-from-left-mortice 29   :distance-from-soundhole 346.5}
+                        {:bore-diameter 15.3 :distance-from-left-mortice 34   :distance-from-soundhole 351.5}
+                        {:bore-diameter 15.2 :distance-from-left-mortice 51   :distance-from-soundhole 368.5}
+                        {:bore-diameter 15.1 :distance-from-left-mortice 53   :distance-from-soundhole 370.5}
+                        {:bore-diameter 15.0 :distance-from-left-mortice 55   :distance-from-soundhole 372.5}
+                        {:bore-diameter 14.9 :distance-from-left-mortice 61   :distance-from-soundhole 378.5}
+                        {:bore-diameter 14.8 :distance-from-left-mortice 68   :distance-from-soundhole 385.5}
+                        {:bore-diameter 14.7 :distance-from-left-mortice 75   :distance-from-soundhole 392.5}
+                        {:bore-diameter 14.6 :distance-from-left-mortice 80   :distance-from-soundhole 397.5}
+                        {:bore-diameter 14.5 :distance-from-left-mortice 88   :distance-from-soundhole 405.5}
+                        {:bore-diameter 14.4 :distance-from-left-mortice 93   :distance-from-soundhole 410.5}
+                        {:bore-diameter 14.3 :distance-from-left-mortice 96   :distance-from-soundhole 413.5}
+                        {:bore-diameter 14.2 :distance-from-left-mortice 98   :distance-from-soundhole 415.5}
+                        {:bore-diameter 14.1 :distance-from-left-mortice 106  :distance-from-soundhole 423.5}
+                        {:bore-diameter 14.0 :distance-from-left-mortice 111  :distance-from-soundhole 428.5}
+                        {:bore-diameter 13.9 :distance-from-left-mortice 119  :distance-from-soundhole 436.5}
+                        {:bore-diameter 13.8 :distance-from-left-mortice 128  :distance-from-soundhole 445.5}
+                        {:bore-diameter 13.7 :distance-from-left-mortice 137  :distance-from-soundhole 454.5}
+                        {:bore-diameter 13.6 :distance-from-left-mortice 142.5 :distance-from-soundhole 460.0}
+                        {:bore-diameter 13.5 :distance-from-left-mortice 145.5 :distance-from-soundhole 463.0}
+                        {:bore-diameter 13.4 :distance-from-left-mortice 152  :distance-from-soundhole 469.5}
+                        {:bore-diameter 13.3 :distance-from-left-mortice 161  :distance-from-soundhole 478.5}]
+:foot-joint [{:bore-diameter 15.0  :distance-from-end 40  :distance-from-soundhole 519.5}
+                  {:bore-diameter 14.9  :distance-from-end 45  :distance-from-soundhole 514.5}
+                  {:bore-diameter 14.8  :distance-from-end 47  :distance-from-soundhole 512.5}
+                  {:bore-diameter 14.7  :distance-from-end 50  :distance-from-soundhole 509.5}
+                  {:bore-diameter 14.6  :distance-from-end 51  :distance-from-soundhole 508.5}
+                  {:bore-diameter 14.5  :distance-from-end 55  :distance-from-soundhole 504.5}
+                  {:bore-diameter 14.4  :distance-from-end 57  :distance-from-soundhole 502.5}
+                  {:bore-diameter 14.3  :distance-from-end 60  :distance-from-soundhole 499.5}
+                  {:bore-diameter 14.1  :distance-from-end 63  :distance-from-soundhole 496.5}
+                  {:bore-diameter 14.0  :distance-from-end 66  :distance-from-soundhole 493.5}
+                  {:bore-diameter 13.9  :distance-from-end 68  :distance-from-soundhole 491.5}
+                  {:bore-diameter 13.8  :distance-from-end 70  :distance-from-soundhole 489.5}
+                  {:bore-diameter 13.7  :distance-from-end 71  :distance-from-soundhole 488.5}
+                  {:bore-diameter 13.6  :distance-from-end 73  :distance-from-soundhole 486.5}
+                  {:bore-diameter 13.5  :distance-from-end 76  :distance-from-soundhole 483.5}
+                  {:bore-diameter 13.43 :distance-from-end 78  :distance-from-soundhole 481.5}]       
+ }
+:outside-diameter{
+ :head-joint [{:distance-from-lhj 222.8 :min 29.3  :max 29.1  :distance-from-soundhole -63.8  :diameter 29.2}
+                     {:distance-from-lhj 159   :min 30.25 :max 30.15 :distance-from-soundhole 0      :diameter 30.2}
+                     {:distance-from-lhj 47.8  :min 29.8  :max 29.5  :distance-from-soundhole 111.2  :diameter 29.65}
+                     {:distance-from-lhj 38.16 :min 29.85 :max 29.85 :distance-from-soundhole 120.84 :diameter 29.85}
+                     {:distance-from-lhj 38.15 :min 30.2  :max 30.2  :distance-from-soundhole 120.85 :diameter 30.2}
+                     {:distance-from-lhj 37.8  :min 30.2  :max 30.2  :distance-from-soundhole 121.2  :diameter 30.2}
+                     {:distance-from-lhj 36.8  :min 31.4  :max 31.4  :distance-from-soundhole 122.2  :diameter 31.4}
+                     {:distance-from-lhj 36.79 :min 31    :max 31    :distance-from-soundhole 122.21 :diameter 31}
+                     {:distance-from-lhj 36.25 :min 31    :max 31    :distance-from-soundhole 122.75 :diameter 31}
+                     {:distance-from-lhj 36.24 :min 30.6  :max 30.6  :distance-from-soundhole 122.76 :diameter 30.6}
+                     {:distance-from-lhj 20.2  :min 35.45 :max 35.05 :distance-from-soundhole 138.8  :diameter 35.25}
+                     {:distance-from-lhj 2.51  :min 30.8  :max 30.8  :distance-from-soundhole 156.49 :diameter 30.8}
+                     {:distance-from-lhj 2.5   :min 31.05 :max 31.05 :distance-from-soundhole 156.5  :diameter 31.05}
+                     {:distance-from-lhj 2     :min 31.05 :max 31.05 :distance-from-soundhole 157    :diameter 31.05}
+                     {:distance-from-lhj 1.9   :min 31.85 :max 31.85 :distance-from-soundhole 157.1  :diameter 31.85}
+                     {:distance-from-lhj 1     :min 30    :max 30    :distance-from-soundhole 158    :diameter 30}
+                     {:distance-from-lhj 0     :min 30    :max 30    :distance-from-soundhole 159    :diameter 30}]
+:middle-joint [{:distance-from-soundhole 159.05 :diameter 29.2}
+                       {:distance-from-soundhole 317.49 :diameter 26.0}]
+:right-hand-joint [{:distance-from-middle-joint 0     :min 27.15 :max 27.15 :distance-from-soundhole 317.5}
+                           {:distance-from-middle-joint 0.5   :min 27.15 :max 27.15 :distance-from-soundhole 318.0}
+                           {:distance-from-middle-joint 1.2   :min 28.7  :max 28.7  :distance-from-soundhole 318.7}
+                           {:distance-from-middle-joint 1.7   :min 27.9  :max 27.9  :distance-from-soundhole 319.2}
+                           {:distance-from-middle-joint 2     :min 27.9  :max 27.9  :distance-from-soundhole 319.5}
+                           {:distance-from-middle-joint 2.1   :min 27.2  :max 27.2  :distance-from-soundhole 319.6}
+                           {:distance-from-middle-joint 17.2  :min 31.6  :max 31.5  :distance-from-soundhole 334.7}
+                           {:distance-from-middle-joint 29.79 :min 27.0  :max 27.0  :distance-from-soundhole 347.29}
+                           {:distance-from-middle-joint 29.8  :min 27.45 :max 27.45 :distance-from-soundhole 347.3}
+                           {:distance-from-middle-joint nil   :min 28.3  :max 28.3  :distance-from-soundhole 317.5}
+                           {:distance-from-middle-joint 31.7  :min 27.0  :max 27.0  :distance-from-soundhole 349.2}
+                           {:distance-from-middle-joint 31.71 :min 26.68 :max 26.68 :distance-from-soundhole 349.21}
+                           {:distance-from-middle-joint 144.4 :min 25.95 :max 26.95 :distance-from-soundhole 461.9}]
+:foot-joint [{:distance-from-lhj 0    :diameter 27    :distance-from-soundhole 461.9}
+                     {:distance-from-lhj 28.6 :diameter 25.6  :distance-from-soundhole 490.5}
+                     {:distance-from-lhj 97.6 :diameter 24.75 :distance-from-soundhole 559.5}]                  
+}
+:finger-holes {:head-joint
+               [{:longitudinal 12 :lateral 12 :distance-from-soundhole 0}]
+              
+               :middle-joint
+               [{:distance-from-headjoint 64.6 :longitudinal 6.9  :lateral 6.45 :distance-from-soundhole 227.05}
+                {:distance-from-headjoint 102  :longitudinal 6.85 :lateral 6.5  :distance-from-soundhole 264.425}
+                {:distance-from-headjoint 141.7 :longitudinal 5.75 :lateral 5.55 :distance-from-soundhole 303.575}]
+              
+               :right-hand-joint
+               [{:distance-from-lh-joint 40.15  :longitudinal 6.8  :lateral 6.5  :distance-from-soundhole 361.05}
+                {:distance-from-lh-joint 78.65  :longitudinal 6.35 :lateral 6.15 :distance-from-soundhole 399.325}
+                {:distance-from-lh-joint 116.9  :longitudinal 4.95 :lateral 4.9  :distance-from-soundhole 436.875}]
+              
+               :foot-joint
+               [{:distance-from-rh-joint 30.8 :longitudinal 9.1 :lateral 8.7 :distance-from-soundhole 497.25}]}
+ 
+}
