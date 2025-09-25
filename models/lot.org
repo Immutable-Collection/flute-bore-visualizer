@@ -2,7 +2,7 @@
 :PROPERTIES:
 :ATTACH_DIR: /Users/iain/Code/ImmutableCollection/flute-bore-visualizer/models/lot-images
 :END:
-Dayton Miller Collection DCM615. The Embouchore on this example was compromised, probably as part of an attempt to retune it. The measurements given here are from another Lot flute with the original embouchure.
+Dayton Miller Collection DCM615. The embouchure on this example was compromised, probably as part of an attempt to retune it. The measurements of the embouchure given here are from another Lot flute with no apparent
 [[file:lot-images/screenshot-20250922-160337.png]]
 ** Bore Diameters
 *** Head Joint
@@ -175,17 +175,17 @@ Correction is 153 + 6 - <Distance>
 
 ** Holes
 Distance from centre of soundhole to end of headjoint is 153 + 6 *159mm*
-Holes are measured to the edge, so the centre must be found by adding half the longtitudonal diameter.
+Holes are measured to the edge, so the centre must be found by adding half the longitudinal diameter.
 *** Head Joint
 |--------------+---------+-------------------------|
-| Longitudonal | Lateral | distance from Soundhole |
+| Longitudinal | Lateral | distance from Soundhole |
 |--------------+---------+-------------------------|
 |           12 |      12 |                       0 |
 |--------------+---------+-------------------------|
 
 *** Middle Joint
 |-------------------------+---------------+---------+-------------------------|
-| Distance from Headjoint | Longtitudonal | Lateral | Distance from Soundhole |
+| Distance from Headjoint | Longitudinal | Lateral | Distance from Soundhole |
 |-------------------------+---------------+---------+-------------------------|
 |                    64.6 |           6.9 |    6.45 |                  227.05 |
 |                     102 |          6.85 |     6.5 |                 264.425 |
@@ -194,19 +194,19 @@ Holes are measured to the edge, so the centre must be found by adding half the l
 #+TBLFM: $4=$1+159+($2/2)
 *** Right Hand Joint
 Correction is *159* for the head joint and *158.5* for the middle joint.
-|------------------------+---------------+---------+-------------------------|
-| Distance from LH Joint | Longtitudonal | Lateral | Distance from Soundhole |
-|------------------------+---------------+---------+-------------------------|
-|                  40.15 |           6.8 |     6.5 |                  361.05 |
-|                  78.65 |          6.35 |    6.15 |                 399.325 |
-|                  116.9 |          4.95 |     4.9 |                 436.875 |
-|------------------------+---------------+---------+-------------------------|
+|------------------------+--------------+---------+-------------------------|
+| Distance from LH Joint | Longitudinal | Lateral | Distance from Soundhole |
+|------------------------+--------------+---------+-------------------------|
+|                  40.15 |          6.8 |     6.5 |                  361.05 |
+|                  78.65 |         6.35 |    6.15 |                 399.325 |
+|                  116.9 |         4.95 |     4.9 |                 436.875 |
+|------------------------+--------------+---------+-------------------------|
 #+TBLFM: $4=$1+($2/2)+159+158.5
 *** Foot Joint
 Correction is *159* + *158.5* + *144.4*
-|------------------------+---------------+---------+-------------------------|
-| Distance from RH Joint | Longtitudonal | Lateral | Distance from Soundhole |
-|------------------------+---------------+---------+-------------------------|
-|                   30.8 |           9.1 |     8.7 |                  497.25 |
-|------------------------+---------------+---------+-------------------------|
+|------------------------+--------------+---------+-------------------------|
+| Distance from RH Joint | Longitudinal | Lateral | Distance from Soundhole |
+|------------------------+--------------+---------+-------------------------|
+|                   30.8 |          9.1 |     8.7 |                  497.25 |
+|------------------------+--------------+---------+-------------------------|
 #+TBLFM: $4=$1+($2/2)+159+158.5+144.4
