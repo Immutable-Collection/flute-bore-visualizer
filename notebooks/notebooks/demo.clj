@@ -1,13 +1,13 @@
 (ns demo
   (:require
-    [clojure.edn :as edn]
-    [flute :refer [export-png-file export-stl-file render-code-model
-                   rudall-and-carte]]
-    [scicloj.kindly.v4.kind :as kind]
-    [scicloj.tableplot.v1.plotly :as plotly]
-    [tablecloth.api :as tc]))
+   [clojure.edn :as edn]
+   [flute :refer [export-png-file export-stl-file polygon-rotator
+                  render-code-model rudall-and-carte]]
+   [scad-clj.scad :refer [write-scad] :as scad]
+   [scicloj.kindly.v4.kind :as kind]
+   [scicloj.tableplot.v1.plotly :as plotly]
+   [tablecloth.api :as tc]))
 
-;; TODO read from edn file
 (def wood
   (-> "notebooks/data/wood.edn"
       slurp
@@ -27,7 +27,7 @@ df
     (plotly/layer-line {:=mark-color "purple"}))
 
 (def flute
-  (-> "notebooks/Rudall and Carte.edn"
+  (-> "notebooks/data/Rudall and Carte.edn"
       slurp
       edn/read-string))
 
@@ -64,12 +64,14 @@ df
 (def finger-holes-diameter [10,10,10,10])
 (def finger-holes-position [30,60,90,120])
 
-;; Render to SCAD file
-(render-code-model "flute_example.scad"
-                   (rudall-and-carte
-                     outside-diameters lengths
-                     diameters inside-lengths
-                     finger-holes-diameter finger-holes-position))
+
+(spit "flute_example.scad" 
+ (rudall-and-carte
+    outside-diameters lengths
+    diameters inside-lengths
+    finger-holes-diameter finger-holes-position))
+
+
 
 (export-stl-file "notebooks/flute_example.stl" "flute_example.scad")
 
@@ -78,3 +80,44 @@ df
 ;; [Flute Preview](preview.png)
 (kind/hiccup
   [:img {:src "notebooks/preview.png"}])
+
+; ## LOT flute 
+; ### Data
+(def lot
+  (-> "notebooks/data/lot.edn"
+      slurp
+      edn/read-string
+      ))
+
+
+(defn extract-items-from-edn [path-in-model model-data diameter-key]
+  (map (fn [x] {:diameter (get x diameter-key) :distance (:distance-from-soundhole x)}) (get-in model-data path-in-model)))
+
+(def bore-data (sort-by :distance (apply concat (map (fn [path] (extract-items-from-edn path lot :bore-diameter)) [[:bore :head-joint] 
+                                                                                                    [:bore :foot-joint]
+                                                                                                    [:bore :right-hand-joint]
+                                                                                                    [:bore :middle-joint]]))))
+(def outside-diameter-data (sort-by :distance (apply concat (map (fn [path] (extract-items-from-edn path lot :diameter)) [[:outside-diameter :head-joint]
+                                                                                                                    [:outside-diameter :foot-joint]
+                                                                                                          [:outside-diameter :right-hand-joint]
+                                                                                                                    [:outside-diameter :middle-joint]]))))
+
+(def outside-diameter-ds (tc/dataset outside-diameter-data))  
+
+outside-diameter-ds
+
+(-> outside-diameter-ds
+    (plotly/base {:=x :distance
+                  :=y :diameter
+                  :=width 1200
+                  :=height 400})
+    (plotly/layer-line {:=mark-color "blue"}))
+
+(def bore-data-ds (tc/dataset bore-data))
+
+(-> bore-data-ds
+    (plotly/base {:=x :distance
+                  :=y :diameter
+                  :=width 1200
+                  :=height 400})
+    (plotly/layer-line {:=mark-color "green"}))

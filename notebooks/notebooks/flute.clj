@@ -29,11 +29,12 @@
     (polygon-rotator diameters inside-lengths)
     (finger-holes finger-holes-diameter finger-holes-position)))
 
+;; Render to SCAD file
 (defn render-code-model
   [model filename]
   (spit filename
         (write-scad
-          model)))
+         model)))
 
 (defn export-stl-file
   [stl-file filename]
