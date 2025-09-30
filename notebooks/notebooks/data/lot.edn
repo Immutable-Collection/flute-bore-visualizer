@@ -134,20 +134,21 @@
              {:distance-from-lhj 28.61, :diameter 25.6,  :distance-from-soundhole 490.51}
              {:distance-from-lhj 97.6,  :diameter 24.75, :distance-from-soundhole 559.5}]                
 }
-:finger-holes {:head-joint
-               [{:longitudinal 12 :lateral 12 :distance-from-soundhole 0}]
-              
-               :middle-joint
-               [{:distance-from-headjoint 64.6 :longitudinal 6.9  :lateral 6.45 :distance-from-soundhole 227.05}
-                {:distance-from-headjoint 102  :longitudinal 6.85 :lateral 6.5  :distance-from-soundhole 264.425}
-                {:distance-from-headjoint 141.7 :longitudinal 5.75 :lateral 5.55 :distance-from-soundhole 303.575}]
-              
-               :right-hand-joint
-               [{:distance-from-lh-joint 40.15  :longitudinal 6.8  :lateral 6.5  :distance-from-soundhole 361.05}
-                {:distance-from-lh-joint 78.65  :longitudinal 6.35 :lateral 6.15 :distance-from-soundhole 399.325}
-                {:distance-from-lh-joint 116.9  :longitudinal 4.95 :lateral 4.9  :distance-from-soundhole 436.875}]
-              
-               :foot-joint
-               [{:distance-from-rh-joint 30.8 :longitudinal 9.1 :lateral 8.7 :distance-from-soundhole 497.25}]}
+:finger-holes
+{:head-joint
+ [{:longitudinal 12, :lateral 12, :distance-from-soundhole 0, :diameter 6}],
+
+ :middle-joint
+ [{:distance-from-headjoint 64.6, :longitudinal 6.9, :lateral 6.45, :distance-from-soundhole 227.05, :diameter 6.675}
+  {:distance-from-headjoint 102, :longitudinal 6.85, :lateral 6.5, :distance-from-soundhole 264.425, :diameter 6.675}
+  {:distance-from-headjoint 141.7, :longitudinal 5.75, :lateral 5.55, :distance-from-soundhole 303.575, :diameter 5.65}],
+
+ :right-hand-joint
+ [{:distance-from-lh-joint 40.15, :longitudinal 6.8, :lateral 6.5, :distance-from-soundhole 361.05, :diameter 6.65}
+  {:distance-from-lh-joint 78.65, :longitudinal 6.35, :lateral 6.15, :distance-from-soundhole 399.325, :diameter 6.25}
+  {:distance-from-lh-joint 116.9, :longitudinal 4.95, :lateral 4.9, :distance-from-soundhole 436.875, :diameter 4.925}],
+
+ :foot-joint
+ [{:distance-from-rh-joint 30.8, :longitudinal 9.1, :lateral 8.7, :distance-from-soundhole 497.25, :diameter 8.9}]}
  
 }
