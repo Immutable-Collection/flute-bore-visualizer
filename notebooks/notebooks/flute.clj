@@ -43,3 +43,17 @@
 (defn export-png-file
   [picture filename]
   (sh "openscad" "--imgsize=800,600" "--render" "-o" picture filename))
+
+(defn lot-model
+  [outside-specs bore-specs finger-holes-specs]
+  (let [outside-diameters (map :distance outside-specs)
+  lengths (map :diameter outside-specs)
+  diameters (map :distance bore-specs)
+  inside-lengths (map :diameter bore-specs)
+  finger-holes-diameter (map :distance finger-holes-specs)
+  finger-holes-position (map :diameter finger-holes-specs)
+  ]
+  (m/difference
+   (polygon-rotator outside-diameters lengths)
+   (polygon-rotator diameters inside-lengths)
+   (finger-holes finger-holes-diameter finger-holes-position))))

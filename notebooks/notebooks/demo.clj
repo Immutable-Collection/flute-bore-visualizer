@@ -2,7 +2,7 @@
   (:require
    [clojure.edn :as edn]
    [flute :refer [export-png-file export-stl-file polygon-rotator
-                  render-code-model rudall-and-carte]]
+                  render-code-model rudall-and-carte lot-model]]
    [scad-clj.scad :refer [write-scad] :as scad]
    [scicloj.kindly.v4.kind :as kind]
    [scicloj.tableplot.v1.plotly :as plotly]
@@ -73,9 +73,9 @@ df
 
 
 
-(export-stl-file "notebooks/flute_example.stl" "flute_example.scad")
+;(export-stl-file "notebooks/flute_example.stl" "flute_example.scad")
 
-(export-png-file  "notebooks/preview.png" "flute_example.scad")
+;(export-png-file  "notebooks/preview.png" "flute_example.scad")
 
 ;; [Flute Preview](preview.png)
 (kind/hiccup
@@ -121,3 +121,18 @@ outside-diameter-ds
                   :=width 1200
                   :=height 400})
     (plotly/layer-line {:=mark-color "green"}))
+
+(def finger-hole-data (sort-by :distance
+ (apply concat (map (fn [path] (extract-items-from-edn path lot :diameter)) [[:finger-holes :head-joint]
+                                                                                                                          
+                                                                            [:finger-holes :foot-joint]
+                                                                               [:finger-holes :right-hand-joint]
+                                                                              [:finger-holes :middle-joint]]))))
+
+finger-hole-data
+
+(spit "lot.scad"
+      (lot-model
+       outside-diameter-data
+       bore-data
+       finger-hole-data ))
