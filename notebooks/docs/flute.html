@@ -78,14 +78,14 @@
   [stl-file filename]
   (sh &quot;openscad&quot; &quot;-o&quot; stl-file filename))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn export-png-file
   [picture filename]
-  (sh &quot;openscad&quot; &quot;--imgsize=800,600&quot; &quot;--render&quot; &quot;-o&quot; picture filename))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn lot
+  (sh &quot;openscad&quot; &quot;--imgsize=800,600&quot; &quot;--render&quot; &quot;-o&quot; picture filename))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn lot-model
   [outside-specs bore-specs finger-holes-specs]
-  (let [outside-diameters (map :distance outside-specs)
-  lengths (map :diameter outside-specs)
-  diameters (map :distance bore-specs)
-  inside-lengths (map :diameter bore-specs)
-  finger-holes-diameter (map :distance finger-holes-specs)
-  finger-holes-position (map :diameter finger-holes-specs)
+  (let [outside-diameters (map :diameter outside-specs)
+  lengths (map  :distance outside-specs)
+  diameters (map  :diameter bore-specs)
+  inside-lengths (map :distance bore-specs)
+  finger-holes-diameter (map  :diameter finger-holes-specs)
+  finger-holes-position (map :distance finger-holes-specs)
   ]
   (m/difference
    (polygon-rotator outside-diameters lengths)

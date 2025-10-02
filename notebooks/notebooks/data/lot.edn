@@ -1,6 +1,6 @@
 {
  :bore{
- :head-joint [{:bore-diameter 20.0 :distance-from-cap 1   :distance-from-soundhole -62.8}
+ :head-joint [{:bore-diameter 20.0 :distance-from-cap 1   :distance-from-soundhole -64.8}
                   {:bore-diameter 19.9 :distance-from-cap 15  :distance-from-soundhole -48.8}
                   {:bore-diameter 19.8 :distance-from-cap 165 :distance-from-soundhole 101.2}
                   {:bore-diameter 19.7 :distance-from-cap 175 :distance-from-soundhole 111.2}
@@ -61,7 +61,9 @@
                         {:bore-diameter 13.5 :distance-from-left-mortice 145.5 :distance-from-soundhole 463.0}
                         {:bore-diameter 13.4 :distance-from-left-mortice 152  :distance-from-soundhole 469.5}
                         {:bore-diameter 13.3 :distance-from-left-mortice 161  :distance-from-soundhole 478.5}]
-:foot-joint [{:bore-diameter 15.0  :distance-from-end 40  :distance-from-soundhole 519.5}
+:foot-joint [
+    {:bore-diameter 15.0  :distance-from-end 40  :distance-from-soundhole 569.5}
+    {:bore-diameter 15.0  :distance-from-end 40  :distance-from-soundhole 519.5}
                   {:bore-diameter 14.9  :distance-from-end 45  :distance-from-soundhole 514.5}
                   {:bore-diameter 14.8  :distance-from-end 47  :distance-from-soundhole 512.5}
                   {:bore-diameter 14.7  :distance-from-end 50  :distance-from-soundhole 509.5}

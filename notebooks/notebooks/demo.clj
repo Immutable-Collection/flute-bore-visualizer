@@ -132,7 +132,15 @@ outside-diameter-ds
 finger-hole-data
 
 (spit "lot.scad"
-      (lot-model
-       outside-diameter-data
-       bore-data
-       finger-hole-data ))
+(write-scad (lot-model
+             outside-diameter-data
+             bore-data
+             finger-hole-data))
+      )
+
+;(export-stl-file "notebooks/lot.stl" "lot.scad")
+
+;(export-png-file  "notebooks/lot.png" "lot.scad")
+
+(kind/hiccup
+ [:img {:src "notebooks/lot.png"}])

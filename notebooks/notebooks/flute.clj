@@ -46,12 +46,12 @@
 
 (defn lot-model
   [outside-specs bore-specs finger-holes-specs]
-  (let [outside-diameters (map :distance outside-specs)
-  lengths (map :diameter outside-specs)
-  diameters (map :distance bore-specs)
-  inside-lengths (map :diameter bore-specs)
-  finger-holes-diameter (map :distance finger-holes-specs)
-  finger-holes-position (map :diameter finger-holes-specs)
+  (let [outside-diameters (map :diameter outside-specs)
+  lengths (map  :distance outside-specs)
+  diameters (map  :diameter bore-specs)
+  inside-lengths (map :distance bore-specs)
+  finger-holes-diameter (map  :diameter finger-holes-specs)
+  finger-holes-position (map :distance finger-holes-specs)
   ]
   (m/difference
    (polygon-rotator outside-diameters lengths)
