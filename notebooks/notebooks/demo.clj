@@ -2,7 +2,7 @@
   (:require
    [clojure.edn :as edn]
    [flute :refer [export-png-file export-stl-file polygon-rotator
-                  render-code-model rudall-and-carte lot-model]]
+                  render-code-model rudall-and-carte lot-model cut-view]]
    [scad-clj.scad :refer [write-scad] :as scad]
    [scicloj.kindly.v4.kind :as kind]
    [scicloj.tableplot.v1.plotly :as plotly]
@@ -131,16 +131,28 @@ outside-diameter-ds
 
 finger-hole-data
 
+
+(def generated-lot-model (lot-model
+                outside-diameter-data
+                bore-data
+                finger-hole-data))
+
+
+
 (spit "lot.scad"
-(write-scad (lot-model
-             outside-diameter-data
-             bore-data
-             finger-hole-data))
+      (write-scad generated-lot-model)
       )
+
+(spit "lot-cut.scad"
+      (write-scad (cut-view generated-lot-model)))
 
 ;(export-stl-file "notebooks/lot.stl" "lot.scad")
 
-;(export-png-file  "notebooks/lot.png" "lot.scad")
+(export-png-file  "notebooks/lot-cut.png" "lot-cut.scad")
 
 (kind/hiccup
  [:img {:src "notebooks/lot.png"}])
+
+
+(kind/hiccup
+[:img {:src "notebooks/lot-cut.png"}]) 

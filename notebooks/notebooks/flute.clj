@@ -57,3 +57,11 @@
    (polygon-rotator outside-diameters lengths)
    (polygon-rotator diameters inside-lengths)
    (finger-holes finger-holes-diameter finger-holes-position))))
+
+
+(defn cut-view [model]
+
+(m/rotate 3.14
+    (m/difference
+ model
+ (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false})))))
