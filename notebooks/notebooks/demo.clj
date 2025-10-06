@@ -1,12 +1,12 @@
 (ns demo
   (:require
-   [clojure.edn :as edn]
-   [flute :refer [export-png-file export-stl-file polygon-rotator
-                  render-code-model rudall-and-carte lot-model cut-view]]
-   [scad-clj.scad :refer [write-scad] :as scad]
-   [scicloj.kindly.v4.kind :as kind]
-   [scicloj.tableplot.v1.plotly :as plotly]
-   [tablecloth.api :as tc]))
+    [clojure.edn :as edn]
+    [flute :refer [export-png-file export-stl-file polygon-rotator
+                   render-code-model rudall-and-carte lot-model cut-view]]
+    [scad-clj.scad :refer [write-scad] :as scad]
+    [scicloj.kindly.v4.kind :as kind]
+    [scicloj.tableplot.v1.plotly :as plotly]
+    [tablecloth.api :as tc]))
 
 (def wood
   (-> "notebooks/data/wood.edn"
@@ -64,45 +64,44 @@ df
 (def finger-holes-diameter [10,10,10,10])
 (def finger-holes-position [30,60,90,120])
 
+(spit "flute_example.scad"
+      (rudall-and-carte
+        outside-diameters lengths
+        diameters inside-lengths
+        finger-holes-diameter finger-holes-position))
 
-(spit "flute_example.scad" 
- (rudall-and-carte
-    outside-diameters lengths
-    diameters inside-lengths
-    finger-holes-diameter finger-holes-position))
+;; (export-stl-file "notebooks/flute_example.stl" "flute_example.scad")
 
-
-
-;(export-stl-file "notebooks/flute_example.stl" "flute_example.scad")
-
-;(export-png-file  "notebooks/preview.png" "flute_example.scad")
+;; (export-png-file  "notebooks/preview.png" "flute_example.scad")
 
 ;; [Flute Preview](preview.png)
 (kind/hiccup
   [:img {:src "notebooks/preview.png"}])
 
-; ## LOT flute 
-; ### Data
+;; ## LOT flute
+;; ### Data
 (def lot
   (-> "notebooks/data/lot.edn"
       slurp
-      edn/read-string
-      ))
+      edn/read-string))
 
-
-(defn extract-items-from-edn [path-in-model model-data diameter-key]
+(defn extract-items-from-edn
+  [path-in-model model-data diameter-key]
   (map (fn [x] {:diameter (get x diameter-key) :distance (:distance-from-soundhole x)}) (get-in model-data path-in-model)))
 
-(def bore-data (sort-by :distance (apply concat (map (fn [path] (extract-items-from-edn path lot :bore-diameter)) [[:bore :head-joint] 
-                                                                                                    [:bore :foot-joint]
-                                                                                                    [:bore :right-hand-joint]
-                                                                                                    [:bore :middle-joint]]))))
-(def outside-diameter-data (sort-by :distance (apply concat (map (fn [path] (extract-items-from-edn path lot :diameter)) [[:outside-diameter :head-joint]
-                                                                                                                    [:outside-diameter :foot-joint]
-                                                                                                          [:outside-diameter :right-hand-joint]
-                                                                                                                    [:outside-diameter :middle-joint]]))))
+(def bore-data
+  (sort-by :distance (apply concat (map (fn [path] (extract-items-from-edn path lot :bore-diameter)) [[:bore :head-joint]
+                                                                                                      [:bore :foot-joint]
+                                                                                                      [:bore :right-hand-joint]
+                                                                                                      [:bore :middle-joint]]))))
 
-(def outside-diameter-ds (tc/dataset outside-diameter-data))  
+(def outside-diameter-data
+  (sort-by :distance (apply concat (map (fn [path] (extract-items-from-edn path lot :diameter)) [[:outside-diameter :head-joint]
+                                                                                                 [:outside-diameter :foot-joint]
+                                                                                                 [:outside-diameter :right-hand-joint]
+                                                                                                 [:outside-diameter :middle-joint]]))))
+
+(def outside-diameter-ds (tc/dataset outside-diameter-data))
 
 outside-diameter-ds
 
@@ -122,37 +121,34 @@ outside-diameter-ds
                   :=height 400})
     (plotly/layer-line {:=mark-color "green"}))
 
-(def finger-hole-data (sort-by :distance
- (apply concat (map (fn [path] (extract-items-from-edn path lot :diameter)) [[:finger-holes :head-joint]
-                                                                                                                          
-                                                                            [:finger-holes :foot-joint]
-                                                                               [:finger-holes :right-hand-joint]
-                                                                              [:finger-holes :middle-joint]]))))
+(def finger-hole-data
+  (sort-by :distance
+           (apply concat (map (fn [path] (extract-items-from-edn path lot :diameter)) [[:finger-holes :head-joint]
+
+                                                                                       [:finger-holes :foot-joint]
+                                                                                       [:finger-holes :right-hand-joint]
+                                                                                       [:finger-holes :middle-joint]]))))
 
 finger-hole-data
 
-
-(def generated-lot-model (lot-model
-                outside-diameter-data
-                bore-data
-                finger-hole-data))
-
-
+(def generated-lot-model
+  (lot-model
+    outside-diameter-data
+    bore-data
+    finger-hole-data))
 
 (spit "lot.scad"
-      (write-scad generated-lot-model)
-      )
+      (write-scad generated-lot-model))
 
 (spit "lot-cut.scad"
       (write-scad (cut-view generated-lot-model)))
 
-;(export-stl-file "notebooks/lot.stl" "lot.scad")
+;; (export-stl-file "notebooks/lot.stl" "lot.scad")
 
 (export-png-file  "notebooks/lot-cut.png" "lot-cut.scad")
 
 (kind/hiccup
- [:img {:src "notebooks/lot.png"}])
-
+  [:img {:src "notebooks/lot.png"}])
 
 (kind/hiccup
-[:img {:src "notebooks/lot-cut.png"}]) 
+  [:img {:src "notebooks/lot-cut.png"}])

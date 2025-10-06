@@ -34,7 +34,7 @@
   [model filename]
   (spit filename
         (write-scad
-         model)))
+          model)))
 
 (defn export-stl-file
   [stl-file filename]
@@ -47,21 +47,20 @@
 (defn lot-model
   [outside-specs bore-specs finger-holes-specs]
   (let [outside-diameters (map :diameter outside-specs)
-  lengths (map  :distance outside-specs)
-  diameters (map  :diameter bore-specs)
-  inside-lengths (map :distance bore-specs)
-  finger-holes-diameter (map  :diameter finger-holes-specs)
-  finger-holes-position (map :distance finger-holes-specs)
-  ]
-  (m/difference
-   (polygon-rotator outside-diameters lengths)
-   (polygon-rotator diameters inside-lengths)
-   (finger-holes finger-holes-diameter finger-holes-position))))
-
-
-(defn cut-view [model]
-
-(m/rotate 3.14
+        lengths (map  :distance outside-specs)
+        diameters (map  :diameter bore-specs)
+        inside-lengths (map :distance bore-specs)
+        finger-holes-diameter (map  :diameter finger-holes-specs)
+        finger-holes-position (map :distance finger-holes-specs)]
     (m/difference
- model
- (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false})))))
+      (polygon-rotator outside-diameters lengths)
+      (polygon-rotator diameters inside-lengths)
+      (finger-holes finger-holes-diameter finger-holes-position))))
+
+(defn cut-view
+  [model]
+
+  (m/rotate 3.14
+            (m/difference
+              model
+              (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false})))))
