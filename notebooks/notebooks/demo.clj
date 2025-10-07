@@ -152,3 +152,10 @@ finger-hole-data
 
 (kind/hiccup
   [:img {:src "notebooks/lot-cut.png"}])
+
+;; closing hour through
+;; ## Music note
+
+;; ### edn format list of
+;; #### putting finger on holes [{:hole-number}]
+;; #### blowing speed [{:speed :time }] 

@@ -59,8 +59,7 @@
 
 (defn cut-view
   [model]
-
-  (m/rotate 3.14
-            (m/difference
-              model
-              (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false})))))
+  (m/rotate (/ 3.142 2) [0 1 0] (m/rotate 3.14 [0 0 1]
+                                          (m/difference
+                                            model
+                                            (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false}))))))
