@@ -1,9 +1,9 @@
 * Lot
 :PROPERTIES:
-:ATTACH_DIR: /Users/iain/Code/ImmutableCollection/flute-bore-visualizer/models/lot-images
+:ATTACH_DIR: /Users/iain/Code/ImmutableCollection/flute-bore-visualizer/models/images
 :END:
-Dayton Miller Collection DCM615. The embouchure on this example was compromised, probably as part of an attempt to retune it. The measurements of the embouchure given here are from another Lot flute with no apparent
-[[file:lot-images/screenshot-20250922-160337.png]]
+Dayton Miller Collection DCM615. The embouchure on this example was compromised, probably as part of an attempt to retune it. The measurements of the embouchure given here are from another similar Lot flute with no apparent alteration.
+[[file:images/Lot-plan.png]]
 ** Bore Diameters
 *** Head Joint
 Original measurements taken from the cap end. Total length is *222.8mm* and the embouchure hole is *12mm* diameter and *153mm* from the lower end of the headjoint, measured to the lower edge of the embouchure hole. This gives a correction of -222.8 + 153 + 6 which is *-63.8mm*
