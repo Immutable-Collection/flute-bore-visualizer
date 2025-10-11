@@ -1,5 +1,5 @@
 #+ATTR_ORG: :width 800  
-[[file:images/Delusse.png]] 
+[[file:images/Delusse-E1368.png]] 
 #+ATTR_ORG: :width 1000
 [[file:images/Delusse-plan.png]]
 ** Left hand joint
