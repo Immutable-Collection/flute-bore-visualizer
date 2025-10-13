@@ -135,7 +135,10 @@ finger-hole-data
   (lot-model
     outside-diameter-data
     bore-data
-    finger-hole-data))
+    finger-hole-data
+   {:start-from-soundhole -20 :end-from-soundhole -40 :diameter 20}
+   [2 3 5]
+   ))
 
 (spit "lot.scad"
       (write-scad generated-lot-model))
