@@ -8,7 +8,7 @@ The baroque flute represents the greatest sophistication of the simple flute, an
 I want to know why one particular flute plays so well in the 3rd octave, and can I achieve that in a flute modelled on another historical example that has a better tone but is only good in the first two octaves. 
 To do this we need a tool that can effectively compare the bore differences quickly and easily even though the 2 flutes in question are in different pitches.
 We also plan to use the data collected here to create models that can be used with CFD software to actually see the differences in the flow of air through different flutes at different pitches.
-
+** Data Collection
 A minimal set of measurements of the bore would look like this. Normally there would be more pairs of points.
 |----------+---------------|
 | from cap | bore diameter |
@@ -32,3 +32,8 @@ More details for a model:
 |----------+---------------+--------+----------------+--------|
 #+TBLFM: $5=$4/2
 #+TBLFM: $3=$2/2
+
+** Embouchure Emulation
+The players embouchure forms a narrow tube that directs air against the edge of the sound hole. To emaulate this we will use a tube. As a starting point we will make this oval, 9mm by 3mm, although this will need to be refined later, especial when exploring the higher register.
+[[file:images/embouchure-emulation.jpg]]
+The players lip also covers some of the soundhole and this affects the tuning. We can explore this once the model is working.
