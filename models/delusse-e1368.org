@@ -1,11 +1,14 @@
+* Delusse E-1368
 #+ATTR_ORG: :width 800  
-[[file:images/Delusse-E1368.png]] 
+[[file:images/Delusse-E1368.png]]
+** Plan 
 #+ATTR_ORG: :width 1000
-[[file:images/Delusse-plan.png]]
+[[file:images/Delusse-E1368-plan.png]]
 ** Left hand joint
-#+ATTR_ORG: :width 300
-[[file:images/Delusse-bore1.png]]
-
+*** Plan extract
+#+ATTR_ORG: :width 250
+[[file:images/Delusse-E1368-bore1.png]]
+*** Data
 |----------+----------------------------|
 | Diameter | Distance from end of tenon |
 |----------+----------------------------|
@@ -51,11 +54,11 @@
 |    14.55 |                        205 |
 |     14.6 |                        210 |
 |----------+----------------------------|
-
 ** Right hand joint
-#+ATTR_ORG: :width 200
- [[file:images/Delusse-bore2.png]]
-
+*** Plan extract
+#+ATTR_ORG: :width 150
+ [[file:images/Delusse-E1368-bore2.png]]
+*** Data
 |----------+------------------------------|
 | Diameter | Distance from end of mortice |
 |----------+------------------------------|
@@ -85,5 +88,37 @@
 |    12.48 |                        154.5 |
 |----------+------------------------------|
 ** Foot joint
-#+ATTR_ORG: :width 250
- [[file:images/Delusse-bore3.png]]
+*** Plan extract
+#+ATTR_ORG: :width 150
+ [[file:images/Delusse-E1368-bore3.png]]
+*** Data
+|----------+---------------------------------|
+| Diameter | Distance from Bottom of mortice |
+|----------+---------------------------------|
+|     14.6 |                               0 |
+|     14.5 |                               3 |
+|     14.4 |                             4.5 |
+|     14.3 |                               8 |
+|     14.2 |                            11.5 |
+|     14.1 |                            14.5 |
+|     14.0 |                              17 |
+|     13.9 |                              19 |
+|     13.8 |                              22 |
+|     13.7 |                              25 |
+|     13.6 |                              28 |
+|     13.5 |                              31 |
+|     13.4 |                              33 |
+|     13.3 |                              36 |
+|     13.2 |                            38.5 |
+|     13.1 |                              40 |
+|     13.0 |                              43 |
+|     12.9 |                              45 |
+|     12.8 |                              48 |
+|     12.7 |                              53 |
+|     12.6 |                              57 |
+|     12.5 |                              63 |
+|     12.4 |                              67 |
+|     12.3 |                              71 |
+|     11.7 |                              78 |
+|----------+---------------------------------|
+
