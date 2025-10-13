@@ -1,13 +1,9 @@
 {
+ :cork {:start-from-soundhole 17 :end-from-soundhole 19 :diameter 20}
  :bore{
  :head-joint [{:bore-diameter 20.0 :distance-from-cap 1   :distance-from-soundhole -64.8}
                   {:bore-diameter 19.9 :distance-from-cap 15  :distance-from-soundhole -48.8}
-                  ;TODO separate the cork
-                  ;cork start 
-                  {:bore-diameter 0.01 :distance-from-cap 15  :distance-from-soundhole -19.8}
-                  {:bore-diameter 0.01 :distance-from-cap 15  :distance-from-soundhole -19.7}
-                  {:bore-diameter 19.9 :distance-from-cap 15  :distance-from-soundhole -19.68}
-                  ;cork end
+
                   {:bore-diameter 19.8 :distance-from-cap 165 :distance-from-soundhole 101.2}
                   {:bore-diameter 19.7 :distance-from-cap 175 :distance-from-soundhole 111.2}
                   {:bore-diameter 19.6 :distance-from-cap 185 :distance-from-soundhole 121.2}

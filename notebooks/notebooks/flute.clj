@@ -45,17 +45,24 @@
   (sh "openscad" "--imgsize=800,600" "--render" "-o" picture filename))
 
 (defn lot-model
-  [outside-specs bore-specs finger-holes-specs]
-  (let [outside-diameters (map :diameter outside-specs)
-        lengths (map  :distance outside-specs)
-        diameters (map  :diameter bore-specs)
-        inside-lengths (map :distance bore-specs)
-        finger-holes-diameter (map  :diameter finger-holes-specs)
-        finger-holes-position (map :distance finger-holes-specs)]
-    (m/difference
-      (polygon-rotator outside-diameters lengths)
-      (polygon-rotator diameters inside-lengths)
-      (finger-holes finger-holes-diameter finger-holes-position))))
+  ([outside-specs bore-specs finger-holes-specs]
+   (lot-model outside-specs bore-specs finger-holes-specs {:start-from-soundhole -20 :end-from-soundhole -40 :diameter 20}))
+  ([outside-specs bore-specs finger-holes-specs cork]
+   (let [outside-diameters (map :diameter outside-specs)
+         lengths (map  :distance outside-specs)
+         diameters (map  :diameter bore-specs)
+         inside-lengths (map :distance bore-specs)
+         finger-holes-diameter (map  :diameter finger-holes-specs)
+         finger-holes-position (map :distance finger-holes-specs)
+         ;; TODO cork should be generated from the diameter of the bore
+         cork-diameters [(:diameter cork) (:diameter cork)]
+         cork-positions [(:start-from-soundhole cork) (:end-from-soundhole cork)]]
+     (m/union
+       (m/difference
+         (polygon-rotator outside-diameters lengths)
+         (polygon-rotator diameters inside-lengths)
+         (finger-holes finger-holes-diameter finger-holes-position))
+       (polygon-rotator cork-diameters cork-positions)))))
 
 (defn cut-view
   [model]
