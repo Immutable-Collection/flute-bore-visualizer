@@ -1,4 +1,4 @@
-1. Cork & putting fingers on the holes -> 3d modeling (Monday)
+f1. Cork & putting fingers on the holes -> 3d modeling (Monday)
 ouchure -> change direction & shape & airflow peed & angle of the air (9mm wide & 3mm high)
 2. Running the simulation on the Fluidx3d (Tuesday)
 3. Taking some movie from the simulation (Tuesday)
