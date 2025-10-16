@@ -1,4 +1,4 @@
-
+$fn = 80;
 
 
 module polygon_rotator(points_diameter,points_position) {

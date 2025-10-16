@@ -137,7 +137,7 @@ finger-hole-data
     bore-data
     finger-hole-data
    {:start-from-soundhole -20 :end-from-soundhole -40 :diameter 20}
-   [2 3 5]
+   []
    ))
 
 (spit "lot.scad"
@@ -155,6 +155,8 @@ finger-hole-data
 
 (kind/hiccup
   [:img {:src "notebooks/lot-cut.png"}])
+
+; TODO automatic convert Text base STL to binary STL
 
 ;; closing hour through
 ;; ## Music note
