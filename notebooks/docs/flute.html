@@ -67,10 +67,11 @@
                 (m/rotate [0 90 0])
                 (m/translate [0 0 (nth finger-holes-position i)])))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn rudall-and-carte
   [outside-diameters lengths diameters inside-lengths finger-holes-diameter finger-holes-position]
-  (m/difference
+
+  (m/with-fn 60 (m/difference
     (polygon-rotator outside-diameters lengths)
     (polygon-rotator diameters inside-lengths)
-    (finger-holes finger-holes-diameter finger-holes-position)))</code></pre></div></div><div style="margin:15px;"><div><p>Render to SCAD file</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn render-code-model
+    (finger-holes finger-holes-diameter finger-holes-position))))</code></pre></div></div><div style="margin:15px;"><div><p>Render to SCAD file</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn render-code-model
   [model filename]
   (spit filename
         (write-scad
@@ -82,6 +83,8 @@
   ([outside-specs bore-specs finger-holes-specs]
    (lot-model outside-specs bore-specs finger-holes-specs {:start-from-soundhole -20 :end-from-soundhole -40 :diameter 20}))
   ([outside-specs bore-specs finger-holes-specs cork]
+   (lot-model outside-specs bore-specs finger-holes-specs cork []))
+  ([outside-specs bore-specs finger-holes-specs cork inactive-holes]
    (let [outside-diameters (map :diameter outside-specs)
          lengths (map  :distance outside-specs)
          diameters (map  :diameter bore-specs)
@@ -90,13 +93,21 @@
          finger-holes-position (map :distance finger-holes-specs)
          ;; TODO cork should be generated from the diameter of the bore
          cork-diameters [(:diameter cork) (:diameter cork)]
-         cork-positions [(:start-from-soundhole cork) (:end-from-soundhole cork)]]
+         cork-positions [(:start-from-soundhole cork) (:end-from-soundhole cork)]
+         ; filter out inactive holes
+         remove-indexed (fn [s v] (vec (keep-indexed (fn [i x] (when (not (s i)) x)) v)))
+         filtered-finger-holes-diameter (vec (remove-indexed (set inactive-holes) finger-holes-diameter))
+         filtered-finger-holes-position (vec (remove-indexed (set inactive-holes) finger-holes-position))
+         ]  
+     (m/with-fn 60
      (m/union
-       (m/difference
-         (polygon-rotator outside-diameters lengths)
-         (polygon-rotator diameters inside-lengths)
-         (finger-holes finger-holes-diameter finger-holes-position))
-       (polygon-rotator cork-diameters cork-positions)))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn cut-view
+      (m/difference
+       (polygon-rotator outside-diameters lengths)
+       (polygon-rotator diameters inside-lengths)
+       (finger-holes filtered-finger-holes-diameter filtered-finger-holes-position))
+      (polygon-rotator cork-diameters cork-positions))
+     )    
+     )))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn cut-view
   [model]
   (m/rotate (/ 3.142 2) [0 1 0] (m/rotate 3.14 [0 0 1]
                                           (m/difference
