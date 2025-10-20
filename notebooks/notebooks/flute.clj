@@ -26,9 +26,9 @@
   [outside-diameters lengths diameters inside-lengths finger-holes-diameter finger-holes-position]
 
   (m/with-fn 60 (m/difference
-    (polygon-rotator outside-diameters lengths)
-    (polygon-rotator diameters inside-lengths)
-    (finger-holes finger-holes-diameter finger-holes-position))))
+                  (polygon-rotator outside-diameters lengths)
+                  (polygon-rotator diameters inside-lengths)
+                  (finger-holes finger-holes-diameter finger-holes-position))))
 
 ;; Render to SCAD file
 (defn render-code-model
@@ -60,20 +60,17 @@
          ;; TODO cork should be generated from the diameter of the bore
          cork-diameters [(:diameter cork) (:diameter cork)]
          cork-positions [(:start-from-soundhole cork) (:end-from-soundhole cork)]
-         ; filter out inactive holes
+         ;; filter out inactive holes
          remove-indexed (fn [s v] (vec (keep-indexed (fn [i x] (when (not (s i)) x)) v)))
          filtered-finger-holes-diameter (vec (remove-indexed (set inactive-holes) finger-holes-diameter))
-         filtered-finger-holes-position (vec (remove-indexed (set inactive-holes) finger-holes-position))
-         ]  
+         filtered-finger-holes-position (vec (remove-indexed (set inactive-holes) finger-holes-position))]
      (m/with-fn 60
-     (m/union
-      (m/difference
-       (polygon-rotator outside-diameters lengths)
-       (polygon-rotator diameters inside-lengths)
-       (finger-holes filtered-finger-holes-diameter filtered-finger-holes-position))
-      (polygon-rotator cork-diameters cork-positions))
-     )    
-     )))
+                (m/union
+                  (m/difference
+                    (polygon-rotator outside-diameters lengths)
+                    (polygon-rotator diameters inside-lengths)
+                    (finger-holes filtered-finger-holes-diameter filtered-finger-holes-position))
+                  (polygon-rotator cork-diameters cork-positions))))))
 
 (defn cut-view
   [model]

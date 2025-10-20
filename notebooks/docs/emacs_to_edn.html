@@ -47,69 +47,225 @@
 <link href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" rel="stylesheet" type="text/css" />
 <title>Flute Visualizer</title></head><body data-spy="scroll" data-target="#toc" style="border:;margin:auto;">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script><script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" type="text/javascript"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" type="text/javascript"></script>
-<div class="container"><div class="row"><div class="col-sm-12"><div><div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(ns flute
-  (:require [scad-clj.model :as m]
-            [scad-clj.scad :refer [write-scad] :as scad]
-            [clojure.java.shell :refer [sh]]))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn polygon-rotator
-  [points-diameter points-position]
-  (let [number-of-points (dec (count points-position))
-        profile-points (concat
-                         (for [i (range (inc number-of-points))]
-                           [(/ (nth points-diameter i) 2) (nth points-position i)])
-                         (for [i (reverse (range (inc number-of-points)))]
-                           [0 (nth points-position i)]))]
-    (m/extrude-rotate {:fn 64}
-                      (m/polygon profile-points))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn finger-holes
-  [finger-holes-diameter finger-holes-position]
-  (apply m/union
-         (for [i (range (count finger-holes-diameter))]
-           (-&gt;&gt; (m/cylinder (/ (nth finger-holes-diameter i) 2) 40 {:center false})
-                (m/rotate [0 90 0])
-                (m/translate [0 0 (nth finger-holes-position i)])))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn rudall-and-carte
-  [outside-diameters lengths diameters inside-lengths finger-holes-diameter finger-holes-position]
+<div class="container"><div class="row"><div class="col-sm-12"><div><div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(ns emacs_to_edn
+  (:require
+    [clojure.edn :as edn]
+    [clojure.java.io :as io]
+    [clojure.string :as str]
+    [scicloj.kindly.v4.kind :as kind]
+    [scicloj.tableplot.v1.plotly :as plotly]
+    [tablecloth.api :as tc]))</code></pre></div></div><div style="margin:15px;"><div><p>#reading a lot file</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def lot-dcm615-file-path &quot;../../flute-data/models/lot-dcm615.org&quot;)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def lot-dcm615-content (slurp lot-dcm615-file-path))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def initially-cleaned-content
+  (filter
+    ;; TODO for finding heading use a regex with pattern *** followed by a space
 
-  (m/with-fn 60 (m/difference
-                  (polygon-rotator outside-diameters lengths)
-                  (polygon-rotator diameters inside-lengths)
-                  (finger-holes finger-holes-diameter finger-holes-position))))</code></pre></div></div><div style="margin:15px;"><div><p>Render to SCAD file</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn render-code-model
-  [model filename]
-  (spit filename
-        (write-scad
-          model)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn export-stl-file
-  [stl-file filename]
-  (sh &quot;openscad&quot; &quot;-o&quot; stl-file filename))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn export-png-file
-  [picture filename]
-  (sh &quot;openscad&quot; &quot;--imgsize=800,600&quot; &quot;--render&quot; &quot;-o&quot; picture filename))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn lot-model
-  ([outside-specs bore-specs finger-holes-specs]
-   (lot-model outside-specs bore-specs finger-holes-specs {:start-from-soundhole -20 :end-from-soundhole -40 :diameter 20}))
-  ([outside-specs bore-specs finger-holes-specs cork]
-   (lot-model outside-specs bore-specs finger-holes-specs cork []))
-  ([outside-specs bore-specs finger-holes-specs cork inactive-holes]
-   (let [outside-diameters (map :diameter outside-specs)
-         lengths (map  :distance outside-specs)
-         diameters (map  :diameter bore-specs)
-         inside-lengths (map :distance bore-specs)
-         finger-holes-diameter (map  :diameter finger-holes-specs)
-         finger-holes-position (map :distance finger-holes-specs)
-         ;; TODO cork should be generated from the diameter of the bore
-         cork-diameters [(:diameter cork) (:diameter cork)]
-         cork-positions [(:start-from-soundhole cork) (:end-from-soundhole cork)]
-         ;; filter out inactive holes
-         remove-indexed (fn [s v] (vec (keep-indexed (fn [i x] (when (not (s i)) x)) v)))
-         filtered-finger-holes-diameter (vec (remove-indexed (set inactive-holes) finger-holes-diameter))
-         filtered-finger-holes-position (vec (remove-indexed (set inactive-holes) finger-holes-position))]
-     (m/with-fn 60
-                (m/union
-                  (m/difference
-                    (polygon-rotator outside-diameters lengths)
-                    (polygon-rotator diameters inside-lengths)
-                    (finger-holes filtered-finger-holes-diameter filtered-finger-holes-position))
-                  (polygon-rotator cork-diameters cork-positions))))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn cut-view
-  [model]
-  (m/rotate (/ 3.142 2) [0 1 0] (m/rotate 3.14 [0 0 1]
-                                          (m/difference
-                                            model
-                                            (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false}))))))</code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/flute.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
+    #(or
+       (str/starts-with? % &quot;|&quot;)
+       (str/starts-with? % &quot;*&quot;))
+
+    (str/split-lines lot-dcm615-content)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">initially-cleaned-content</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">(&quot;* Lot DCM615&quot;
+ &quot;** Bore Diameters&quot;
+ &quot;*** Head Joint&quot;
+ &quot;|---------------+-------------------|&quot;
+ &quot;| Bore Diameter | Distance from cap |&quot;
+ &quot;|---------------+-------------------|&quot;
+ &quot;|          20.0 |                 1 |&quot;
+ &quot;|          19.9 |                15 |&quot;
+ &quot;|          19.8 |               165 |&quot;
+ &quot;|          19.7 |               175 |&quot;
+ &quot;|          19.6 |               185 |&quot;
+ &quot;|          19.5 |               191 |&quot;
+ &quot;|---------------+-------------------|&quot;
+ &quot;*** Middle Joint&quot;
+ &quot;|---------------+--------------------------|&quot;
+ &quot;| Bore Diameter | Distance from left tenon |&quot;
+ &quot;|---------------+--------------------------|&quot;
+ &quot;|          19.1 |                        2 |&quot;
+ &quot;|          19.0 |                       34 |&quot;
+ &quot;|          18.9 |                       45 |&quot;
+ &quot;|          18.8 |                       52 |&quot;
+ &quot;|          18.7 |                       58 |&quot;
+ &quot;|          18.6 |                       63 |&quot;
+ &quot;|          18.5 |                       68 |&quot;
+ &quot;|          18.4 |                       72 |&quot;
+ &quot;|          18.3 |                       72 |&quot;
+ &quot;|          18.2 |                       80 |&quot;
+ &quot;|          18.1 |                       83 |&quot;
+ &quot;|          18.0 |                       86 |&quot;
+ &quot;|          17.9 |                       89 |&quot;
+ &quot;|          17.7 |                      101 |&quot;
+ &quot;|          17.6 |                      106 |&quot;
+ &quot;|          17.5 |                      110 |&quot;
+ &quot;|          17.4 |                      119 |&quot;
+ &quot;|          17.3 |                      125 |&quot;
+ &quot;|          17.1 |                      138 |&quot;
+ &quot;|          17.0 |                    142.5 |&quot;
+ &quot;|          16.9 |                      149 |&quot;
+ &quot;|          16.8 |                      156 |&quot;
+ &quot;|          16.7 |                      165 |&quot;
+ &quot;|          16.6 |                      170 |&quot;
+ &quot;|          16.5 |                      174 |&quot;
+ &quot;|          16.4 |                      180 |&quot;
+ &quot;|          16.3 |                      182 |&quot;
+ &quot;|          16.2 |                      186 |&quot;
+ &quot;|          16.1 |                      189 |&quot;
+ &quot;|          16.0 |                      191 |&quot;
+ &quot;|          15.9 |                      194 |&quot;
+ &quot;|          15.8 |                      208 |&quot;
+ &quot;|          15.9 |                      215 |&quot;
+ &quot;|---------------+--------------------------|&quot;
+ &quot;*** Right Hand Joint&quot;
+ &quot;|---------------+----------------------------|&quot;
+ &quot;| Bore Diameter | distance from left mortice |&quot;
+ &quot;|---------------+----------------------------|&quot;
+ &quot;|          15.4 |                         29 |&quot;
+ &quot;|          15.3 |                         34 |&quot;
+ &quot;|          15.2 |                         51 |&quot;
+ &quot;|          15.1 |                         53 |&quot;
+ &quot;|          15.0 |                         55 |&quot;
+ &quot;|          14.9 |                         61 |&quot;
+ &quot;|          14.8 |                         68 |&quot;
+ &quot;|          14.7 |                         75 |&quot;
+ &quot;|          14.6 |                         80 |&quot;
+ &quot;|          14.5 |                         88 |&quot;
+ &quot;|          14.4 |                         93 |&quot;
+ &quot;|          14.3 |                         96 |&quot;
+ &quot;|          14.2 |                         98 |&quot;
+ &quot;|          14.1 |                        106 |&quot;
+ &quot;|          14.0 |                        111 |&quot;
+ &quot;|          13.9 |                        119 |&quot;
+ &quot;|          13.8 |                        128 |&quot;
+ &quot;|          13.7 |                        137 |&quot;
+ &quot;|          13.6 |                      142.5 |&quot;
+ &quot;|          13.5 |                      145.5 |&quot;
+ &quot;|          13.4 |                        152 |&quot;
+ &quot;|          13.3 |                        161 |&quot;
+ &quot;|---------------+----------------------------|&quot;
+ &quot;*** Foot Joint&quot;
+ &quot;|---------------+-------------------|&quot;
+ &quot;| Bore Diameter | Distance from end |&quot;
+ &quot;|---------------+-------------------|&quot;
+ &quot;|          15.0 |                40 |&quot;
+ &quot;|          14.9 |                45 |&quot;
+ &quot;|          14.8 |                47 |&quot;
+ &quot;|          14.7 |                50 |&quot;
+ &quot;|          14.6 |                51 |&quot;
+ &quot;|          14.5 |                55 |&quot;
+ &quot;|          14.4 |                57 |&quot;
+ &quot;|          14.3 |                60 |&quot;
+ &quot;|          14.1 |                63 |&quot;
+ &quot;|          14.0 |                66 |&quot;
+ &quot;|          13.9 |                68 |&quot;
+ &quot;|          13.8 |                70 |&quot;
+ &quot;|          13.7 |                71 |&quot;
+ &quot;|          13.6 |                73 |&quot;
+ &quot;|          13.5 |                76 |&quot;
+ &quot;|         13.43 |                78 |&quot;
+ &quot;|---------------+-------------------|&quot;
+ &quot;** Outside Diameters&quot;
+ &quot;*** Head Joint&quot;
+ &quot;|-------------------+-------+-------+----------|&quot;
+ &quot;| Distance from LHJ |   Min |   Max | Diameter |&quot;
+ &quot;|-------------------+-------+-------+----------|&quot;
+ &quot;|             222.8 |  29.3 |  29.1 |     29.2 |&quot;
+ &quot;|               159 | 30.25 | 30.15 |     30.2 |&quot;
+ &quot;|              47.8 |  29.8 |  29.5 |    29.65 |&quot;
+ &quot;|             38.16 | 29.85 | 29.85 |    29.85 |&quot;
+ &quot;|             38.15 |  30.2 |  30.2 |     30.2 |&quot;
+ &quot;|              37.8 |  30.2 |  30.2 |     30.2 |&quot;
+ &quot;|              36.8 |  31.4 |  31.4 |     31.4 |&quot;
+ &quot;|             36.79 |    31 |    31 |       31 |&quot;
+ &quot;|             36.25 |    31 |    31 |       31 |&quot;
+ &quot;|             36.24 |  30.6 |  30.6 |     30.6 |&quot;
+ &quot;|              20.2 | 35.45 | 35.05 |    35.25 |&quot;
+ &quot;|              2.51 |  30.8 |  30.8 |     30.8 |&quot;
+ &quot;|               2.5 | 31.05 | 31.05 |    31.05 |&quot;
+ &quot;|                 2 | 31.05 | 31.05 |    31.05 |&quot;
+ &quot;|               1.9 | 31.85 | 31.85 |    31.85 |&quot;
+ &quot;|                 1 |    30 |    30 |       30 |&quot;
+ &quot;|                 0 |    30 |    30 |       30 |&quot;
+ &quot;|-------------------+-------+-------+----------|&quot;
+ &quot;*** Middle Joint&quot;
+ &quot;|-------------------------+----------|&quot;
+ &quot;| Distance from Soundhole | Diameter |&quot;
+ &quot;|-------------------------+----------|&quot;
+ &quot;|                  159.05 |     29.2 |&quot;
+ &quot;|                  317.49 |     26.0 |&quot;
+ &quot;|-------------------------+----------|&quot;
+ &quot;*** Right Hand Joint&quot;
+ &quot;|----------------------------+-------+-------+----------|&quot;
+ &quot;| Distance from Middle Joint |   Min |   Max | Diameter |&quot;
+ &quot;|----------------------------+-------+-------+----------|&quot;
+ &quot;|                          0 | 27.15 | 27.15 |    27.15 |&quot;
+ &quot;|                        0.5 | 27.15 | 27.15 |    27.15 |&quot;
+ &quot;|                        1.2 |  28.7 |  28.7 |     28.7 |&quot;
+ &quot;|                        1.7 |  27.9 |  27.9 |     27.9 |&quot;
+ &quot;|                          2 |  27.9 |  27.9 |     27.9 |&quot;
+ &quot;|                        2.1 |  27.2 |  27.2 |     27.2 |&quot;
+ &quot;|                       17.2 |  31.6 |  31.5 |    31.55 |&quot;
+ &quot;|                      29.79 |  27.0 |  27.0 |      27. |&quot;
+ &quot;|                       29.8 | 27.45 | 27.45 |    27.45 |&quot;
+ &quot;|                            |  28.3 |  28.3 |     28.3 |&quot;
+ &quot;|                       31.7 |    27 |    27 |       27 |&quot;
+ &quot;|                      31.71 | 26.68 | 26.68 |    26.68 |&quot;
+ &quot;|                      144.4 | 25.95 | 26.95 |    26.45 |&quot;
+ &quot;|----------------------------+-------+-------+----------|&quot;
+ &quot;*** TODO Foot Joint&quot;
+ &quot;|-------------------+----------|&quot;
+ &quot;| Distance from LHJ | Diameter |&quot;
+ &quot;|-------------------+----------|&quot;
+ &quot;|                 0 |     26.5 |&quot;
+ &quot;|                 1 |     26.8 |&quot;
+ &quot;|              1.01 |     28.4 |&quot;
+ &quot;|               2.2 |     28.4 |&quot;
+ &quot;|              2.21 |     28.0 |&quot;
+ &quot;|               3.0 |     27.7 |&quot;
+ &quot;|              3.01 |     27.3 |&quot;
+ &quot;|               3.5 |     27.3 |&quot;
+ &quot;|              3.51 |     26.8 |&quot;
+ &quot;|              15.8 |     26.9 |&quot;
+ &quot;|             15.81 |     27.5 |&quot;
+ &quot;|              17.0 |     27.5 |&quot;
+ &quot;|             17.01 |     28.6 |&quot;
+ &quot;|             17.75 |     28.6 |&quot;
+ &quot;|                21 |    34.25 |&quot;
+ &quot;|                25 |    34.25 |&quot;
+ &quot;|                27 |    29.45 |&quot;
+ &quot;|              27.5 |    29.45 |&quot;
+ &quot;|             27.51 |     27.5 |&quot;
+ &quot;|              28.6 |     27.5 |&quot;
+ &quot;|             28.61 |     25.6 |&quot;
+ &quot;|              97.6 |    24.75 |&quot;
+ &quot;|-------------------+----------|&quot;
+ &quot;** Holes&quot;
+ &quot;*** Head Joint&quot;
+ &quot;|--------------+---------+------------------------------+----------|&quot;
+ &quot;| Longitudinal | Lateral | distance from right hand end | Diameter |&quot;
+ &quot;|--------------+---------+------------------------------+----------|&quot;
+ &quot;|           12 |      12 |                          159 |       12 |&quot;
+ &quot;|--------------+---------+------------------------------+----------|&quot;
+ &quot;*** Middle Joint&quot;
+ &quot;|-------------------------+--------------+---------+----------|&quot;
+ &quot;| Distance from Headjoint | Longitudinal | Lateral | Diameter |&quot;
+ &quot;|-------------------------+--------------+---------+----------|&quot;
+ &quot;|                    64.6 |          6.9 |    6.45 |    6.675 |&quot;
+ &quot;|                     102 |         6.85 |     6.5 |    6.675 |&quot;
+ &quot;|                   141.7 |         5.75 |    5.55 |     5.65 |&quot;
+ &quot;|-------------------------+--------------+---------+----------|&quot;
+ &quot;*** Right Hand Joint&quot;
+ &quot;|------------------------+--------------+---------+----------|&quot;
+ &quot;| Distance from LH Joint | Longitudinal | Lateral | Diameter |&quot;
+ &quot;|------------------------+--------------+---------+----------|&quot;
+ &quot;|                  40.15 |          6.8 |     6.5 |     6.65 |&quot;
+ &quot;|                  78.65 |         6.35 |    6.15 |     6.25 |&quot;
+ &quot;|                  116.9 |         4.95 |     4.9 |    4.925 |&quot;
+ &quot;|------------------------+--------------+---------+----------|&quot;
+ &quot;*** Foot Joint&quot;
+ &quot;|------------------------+--------------+---------+----------|&quot;
+ &quot;| Distance from RH Joint | Longitudinal | Lateral | Diameter |&quot;
+ &quot;|------------------------+--------------+---------+----------|&quot;
+ &quot;|                   30.8 |          9.1 |     8.7 |      8.9 |&quot;
+ &quot;|------------------------+--------------+---------+----------|&quot;)
+</code></pre></div></div><div style="margin:15px;"><div><h1 id="processing-contents">processing contents</h1></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/emacs_to_edn.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors
   License: BSD-3-Clause
