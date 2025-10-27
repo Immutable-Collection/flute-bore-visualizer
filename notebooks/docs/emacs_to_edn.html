@@ -54,7 +54,8 @@
     [clojure.string :as str]
     [scicloj.kindly.v4.kind :as kind]
     [scicloj.tableplot.v1.plotly :as plotly]
-    [tablecloth.api :as tc]))</code></pre></div></div><div style="margin:15px;"><div><p>#reading a lot file</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def lot-dcm615-file-path &quot;../../flute-data/models/lot-dcm615.org&quot;)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def lot-dcm615-content (slurp lot-dcm615-file-path))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn valid-prefix? [s]
+    [tablecloth.api :as tc]))</code></pre></div></div><div style="margin:15px;"><div><p>#reading a lot file</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def lot-dcm615-file-path &quot;../../flute-data/models/lot-dcm615.org&quot;)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def lot-dcm615-content (slurp lot-dcm615-file-path))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn valid-prefix?
+  [s]
   (boolean (re-find #&quot;^(\|+ |\*+ )&quot; s)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def initially-cleaned-content
   (filter
     valid-prefix?
@@ -225,25 +226,49 @@
  &quot;*** Foot Joint&quot;
  &quot;| Distance from RH Joint | Longitudinal | Lateral | Diameter |&quot;
  &quot;|                   30.8 |          9.1 |     8.7 |      8.9 |&quot;)
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn count-* [s](get (frequencies s) \* 0))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn is-table-header? [s]
-  (boolean (re-find #&quot;^\|\s*([A-Za-z]+)&quot; s)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn is-table-content? [s]
-  (boolean (re-find #&quot;^\|\s*(\d+(?:\.\d+)?)&quot; s)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn is-org-header? [s]
-  (str/starts-with? s &quot;*&quot;))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn get-row-items [s] 
-(map str/trim (rest (str/split s #&quot;\|&quot;))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn process-headings [])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn process-table-header [s]
-(map str/lower-case (get-row-items s)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn process-table-row [s]
-(map Float/parseFloat (get-row-items s)))</code></pre></div></div><div style="margin:15px;"><div><h1 id="processing-contents">processing contents</h1></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def processed-content (map-indexed
- #(cond 
-    (is-table-content? %2) {:type :table-content :content %2 :row %1 :data (process-table-row %2)}
-    (is-table-header?  %2) {:type :table-heading :content %2 :row %1 :data (process-table-header %2)} 
-    (is-org-header?    %2) {:type :heading :level (count-* %2) :content %2 :row %1}
-    :else nil)
- initially-cleaned-content))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">processed-content</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">({:type :heading, :level 1, :content &quot;* Lot DCM615&quot;, :row 0}
- {:type :heading, :level 2, :content &quot;** Bore Diameters&quot;, :row 1}
- {:type :heading, :level 3, :content &quot;*** Head Joint&quot;, :row 2}
+</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn count-*
+  [s] (get (frequencies s) \* 0))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn is-table-header?
+  [s]
+  (boolean (re-find #&quot;^\|\s*([A-Za-z]+)&quot; s)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn is-table-content?
+  [s]
+  (boolean (re-find #&quot;^\|\s*(\d+(?:\.\d+)?)&quot; s)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn is-org-header?
+  [s]
+  (str/starts-with? s &quot;*&quot;))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn get-row-items
+  [s]
+  (map str/trim (rest (str/split s #&quot;\|&quot;))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn process-headings
+  [])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn convert-title-to-keyword [header]
+(-&gt; header
+ str/lower-case
+ (str/replace &quot; &quot; &quot;-&quot;)
+ keyword))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn process-table-header
+  [s]
+  (map convert-title-to-keyword (get-row-items s)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn process-table-row
+  [s]
+  (map Float/parseFloat (get-row-items s)))</code></pre></div></div><div style="margin:15px;"><div><h1 id="processing-contents">processing contents</h1></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def processed-content
+  (map-indexed
+   #(cond
+      (is-table-content? %2) {:type :table-content
+                              :content %2
+                              :row %1
+                              :data (process-table-row %2)}
+      (is-table-header?  %2) {:type :table-heading
+                              :content %2 :row %1
+                              :data (process-table-header %2)}
+      (is-org-header?    %2) {:type :heading
+                              :level (count-* %2)
+                              :content (convert-title-to-keyword
+                                        (-&gt; %2
+                                            (str/replace &quot;* &quot; &quot;&quot;)
+                                            (str/replace &quot;*&quot; &quot;&quot;)))
+                              :row %1}
+      :else nil)
+   initially-cleaned-content))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">processed-content</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">({:type :heading, :level 1, :content :lot-dcm615, :row 0}
+ {:type :heading, :level 2, :content :bore-diameters, :row 1}
+ {:type :heading, :level 3, :content :head-joint, :row 2}
  {:type :table-heading,
   :content &quot;| Bore Diameter | Distance from cap |&quot;,
   :row 3,
-  :data (&quot;bore diameter&quot; &quot;distance from cap&quot;)}
+  :data (:bore-diameter :distance-from-cap)}
  {:type :table-content,
   :content &quot;|          20.0 |                 1 |&quot;,
   :row 4,
@@ -268,11 +293,11 @@
   :content &quot;|          19.5 |               191 |&quot;,
   :row 9,
   :data (19.5 191.0)}
- {:type :heading, :level 3, :content &quot;*** Middle Joint&quot;, :row 10}
+ {:type :heading, :level 3, :content :middle-joint, :row 10}
  {:type :table-heading,
   :content &quot;| Bore Diameter | Distance from left tenon |&quot;,
   :row 11,
-  :data (&quot;bore diameter&quot; &quot;distance from left tenon&quot;)}
+  :data (:bore-diameter :distance-from-left-tenon)}
  {:type :table-content,
   :content &quot;|          19.1 |                        2 |&quot;,
   :row 12,
@@ -405,11 +430,11 @@
   :content &quot;|          15.9 |                      215 |&quot;,
   :row 44,
   :data (15.9 215.0)}
- {:type :heading, :level 3, :content &quot;*** Right Hand Joint&quot;, :row 45}
+ {:type :heading, :level 3, :content :right-hand-joint, :row 45}
  {:type :table-heading,
   :content &quot;| Bore Diameter | distance from left mortice |&quot;,
   :row 46,
-  :data (&quot;bore diameter&quot; &quot;distance from left mortice&quot;)}
+  :data (:bore-diameter :distance-from-left-mortice)}
  {:type :table-content,
   :content &quot;|          15.4 |                         29 |&quot;,
   :row 47,
@@ -498,11 +523,11 @@
   :content &quot;|          13.3 |                        161 |&quot;,
   :row 68,
   :data (13.3 161.0)}
- {:type :heading, :level 3, :content &quot;*** Foot Joint&quot;, :row 69}
+ {:type :heading, :level 3, :content :foot-joint, :row 69}
  {:type :table-heading,
   :content &quot;| Bore Diameter | Distance from end |&quot;,
   :row 70,
-  :data (&quot;bore diameter&quot; &quot;distance from end&quot;)}
+  :data (:bore-diameter :distance-from-end)}
  {:type :table-content,
   :content &quot;|          15.0 |                40 |&quot;,
   :row 71,
@@ -567,12 +592,12 @@
   :content &quot;|         13.43 |                78 |&quot;,
   :row 86,
   :data (13.43 78.0)}
- {:type :heading, :level 2, :content &quot;** Outside Diameters&quot;, :row 87}
- {:type :heading, :level 3, :content &quot;*** Head Joint&quot;, :row 88}
+ {:type :heading, :level 2, :content :outside-diameters, :row 87}
+ {:type :heading, :level 3, :content :head-joint, :row 88}
  {:type :table-heading,
   :content &quot;| Distance from LHJ |   Min |   Max | Diameter |&quot;,
   :row 89,
-  :data (&quot;distance from lhj&quot; &quot;min&quot; &quot;max&quot; &quot;diameter&quot;)}
+  :data (:distance-from-lhj :min :max :diameter)}
  {:type :table-content,
   :content &quot;|             222.8 |  29.3 |  29.1 |     29.2 |&quot;,
   :row 90,
@@ -641,11 +666,11 @@
   :content &quot;|                 0 |    30 |    30 |       30 |&quot;,
   :row 106,
   :data (0.0 30.0 30.0 30.0)}
- {:type :heading, :level 3, :content &quot;*** Middle Joint&quot;, :row 107}
+ {:type :heading, :level 3, :content :middle-joint, :row 107}
  {:type :table-heading,
   :content &quot;| Distance from Soundhole | Diameter |&quot;,
   :row 108,
-  :data (&quot;distance from soundhole&quot; &quot;diameter&quot;)}
+  :data (:distance-from-soundhole :diameter)}
  {:type :table-content,
   :content &quot;|                  159.05 |     29.2 |&quot;,
   :row 109,
@@ -654,11 +679,11 @@
   :content &quot;|                  317.49 |     26.0 |&quot;,
   :row 110,
   :data (317.49 26.0)}
- {:type :heading, :level 3, :content &quot;*** Right Hand Joint&quot;, :row 111}
+ {:type :heading, :level 3, :content :right-hand-joint, :row 111}
  {:type :table-heading,
   :content &quot;| Distance from Middle Joint |   Min |   Max | Diameter |&quot;,
   :row 112,
-  :data (&quot;distance from middle joint&quot; &quot;min&quot; &quot;max&quot; &quot;diameter&quot;)}
+  :data (:distance-from-middle-joint :min :max :diameter)}
  {:type :table-content,
   :content &quot;|                          0 | 27.15 | 27.15 |    27.15 |&quot;,
   :row 113,
@@ -711,11 +736,11 @@
   :content &quot;|                      144.4 | 25.95 | 26.95 |    26.45 |&quot;,
   :row 125,
   :data (144.4 25.95 26.95 26.45)}
- {:type :heading, :level 3, :content &quot;*** Foot Joint&quot;, :row 126}
+ {:type :heading, :level 3, :content :foot-joint, :row 126}
  {:type :table-heading,
   :content &quot;| Distance from LHJ | Diameter |&quot;,
   :row 127,
-  :data (&quot;distance from lhj&quot; &quot;diameter&quot;)}
+  :data (:distance-from-lhj :diameter)}
  {:type :table-content,
   :content &quot;|                 0 |     26.5 |&quot;,
   :row 128,
@@ -804,26 +829,25 @@
   :content &quot;|              97.6 |    24.75 |&quot;,
   :row 149,
   :data (97.6 24.75)}
- {:type :heading, :level 2, :content &quot;** Holes&quot;, :row 150}
- {:type :heading, :level 3, :content &quot;*** Head Joint&quot;, :row 151}
+ {:type :heading, :level 2, :content :holes, :row 150}
+ {:type :heading, :level 3, :content :head-joint, :row 151}
  {:type :table-heading,
   :content
   &quot;| Longitudinal | Lateral | distance from right hand end | Diameter |&quot;,
   :row 152,
   :data
-  (&quot;longitudinal&quot; &quot;lateral&quot; &quot;distance from right hand end&quot; &quot;diameter&quot;)}
+  (:longitudinal :lateral :distance-from-right-hand-end :diameter)}
  {:type :table-content,
   :content
   &quot;|           12 |      12 |                          159 |       12 |&quot;,
   :row 153,
   :data (12.0 12.0 159.0 12.0)}
- {:type :heading, :level 3, :content &quot;*** Middle Joint&quot;, :row 154}
+ {:type :heading, :level 3, :content :middle-joint, :row 154}
  {:type :table-heading,
   :content
   &quot;| Distance from Headjoint | Longitudinal | Lateral | Diameter |&quot;,
   :row 155,
-  :data
-  (&quot;distance from headjoint&quot; &quot;longitudinal&quot; &quot;lateral&quot; &quot;diameter&quot;)}
+  :data (:distance-from-headjoint :longitudinal :lateral :diameter)}
  {:type :table-content,
   :content
   &quot;|                    64.6 |          6.9 |    6.45 |    6.675 |&quot;,
@@ -839,12 +863,12 @@
   &quot;|                   141.7 |         5.75 |    5.55 |     5.65 |&quot;,
   :row 158,
   :data (141.7 5.75 5.55 5.65)}
- {:type :heading, :level 3, :content &quot;*** Right Hand Joint&quot;, :row 159}
+ {:type :heading, :level 3, :content :right-hand-joint, :row 159}
  {:type :table-heading,
   :content
   &quot;| Distance from LH Joint | Longitudinal | Lateral | Diameter |&quot;,
   :row 160,
-  :data (&quot;distance from lh joint&quot; &quot;longitudinal&quot; &quot;lateral&quot; &quot;diameter&quot;)}
+  :data (:distance-from-lh-joint :longitudinal :lateral :diameter)}
  {:type :table-content,
   :content
   &quot;|                  40.15 |          6.8 |     6.5 |     6.65 |&quot;,
@@ -860,71 +884,66 @@
   &quot;|                  116.9 |         4.95 |     4.9 |    4.925 |&quot;,
   :row 163,
   :data (116.9 4.95 4.9 4.925)}
- {:type :heading, :level 3, :content &quot;*** Foot Joint&quot;, :row 164}
+ {:type :heading, :level 3, :content :foot-joint, :row 164}
  {:type :table-heading,
   :content
   &quot;| Distance from RH Joint | Longitudinal | Lateral | Diameter |&quot;,
   :row 165,
-  :data (&quot;distance from rh joint&quot; &quot;longitudinal&quot; &quot;lateral&quot; &quot;diameter&quot;)}
+  :data (:distance-from-rh-joint :longitudinal :lateral :diameter)}
  {:type :table-content,
   :content
   &quot;|                   30.8 |          9.1 |     8.7 |      8.9 |&quot;,
   :row 166,
   :data (30.8 9.1 8.7 8.9)})
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(filter #(= :table-heading (:type %)) processed-content)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">({:type :table-heading,
-  :content &quot;| Bore Diameter | Distance from cap |&quot;,
-  :row 3,
-  :data (&quot;bore diameter&quot; &quot;distance from cap&quot;)}
- {:type :table-heading,
-  :content &quot;| Bore Diameter | Distance from left tenon |&quot;,
-  :row 11,
-  :data (&quot;bore diameter&quot; &quot;distance from left tenon&quot;)}
- {:type :table-heading,
-  :content &quot;| Bore Diameter | distance from left mortice |&quot;,
-  :row 46,
-  :data (&quot;bore diameter&quot; &quot;distance from left mortice&quot;)}
- {:type :table-heading,
-  :content &quot;| Bore Diameter | Distance from end |&quot;,
-  :row 70,
-  :data (&quot;bore diameter&quot; &quot;distance from end&quot;)}
- {:type :table-heading,
-  :content &quot;| Distance from LHJ |   Min |   Max | Diameter |&quot;,
-  :row 89,
-  :data (&quot;distance from lhj&quot; &quot;min&quot; &quot;max&quot; &quot;diameter&quot;)}
- {:type :table-heading,
-  :content &quot;| Distance from Soundhole | Diameter |&quot;,
-  :row 108,
-  :data (&quot;distance from soundhole&quot; &quot;diameter&quot;)}
- {:type :table-heading,
-  :content &quot;| Distance from Middle Joint |   Min |   Max | Diameter |&quot;,
-  :row 112,
-  :data (&quot;distance from middle joint&quot; &quot;min&quot; &quot;max&quot; &quot;diameter&quot;)}
- {:type :table-heading,
-  :content &quot;| Distance from LHJ | Diameter |&quot;,
-  :row 127,
-  :data (&quot;distance from lhj&quot; &quot;diameter&quot;)}
- {:type :table-heading,
-  :content
-  &quot;| Longitudinal | Lateral | distance from right hand end | Diameter |&quot;,
-  :row 152,
-  :data
-  (&quot;longitudinal&quot; &quot;lateral&quot; &quot;distance from right hand end&quot; &quot;diameter&quot;)}
- {:type :table-heading,
-  :content
-  &quot;| Distance from Headjoint | Longitudinal | Lateral | Diameter |&quot;,
-  :row 155,
-  :data
-  (&quot;distance from headjoint&quot; &quot;longitudinal&quot; &quot;lateral&quot; &quot;diameter&quot;)}
- {:type :table-heading,
-  :content
-  &quot;| Distance from LH Joint | Longitudinal | Lateral | Diameter |&quot;,
-  :row 160,
-  :data (&quot;distance from lh joint&quot; &quot;longitudinal&quot; &quot;lateral&quot; &quot;diameter&quot;)}
- {:type :table-heading,
-  :content
-  &quot;| Distance from RH Joint | Longitudinal | Lateral | Diameter |&quot;,
-  :row 165,
-  :data (&quot;distance from rh joint&quot; &quot;longitudinal&quot; &quot;lateral&quot; &quot;diameter&quot;)})
+</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(filter #(= :heading (:type %)) processed-content)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">({:type :heading, :level 1, :content :lot-dcm615, :row 0}
+ {:type :heading, :level 2, :content :bore-diameters, :row 1}
+ {:type :heading, :level 3, :content :head-joint, :row 2}
+ {:type :heading, :level 3, :content :middle-joint, :row 10}
+ {:type :heading, :level 3, :content :right-hand-joint, :row 45}
+ {:type :heading, :level 3, :content :foot-joint, :row 69}
+ {:type :heading, :level 2, :content :outside-diameters, :row 87}
+ {:type :heading, :level 3, :content :head-joint, :row 88}
+ {:type :heading, :level 3, :content :middle-joint, :row 107}
+ {:type :heading, :level 3, :content :right-hand-joint, :row 111}
+ {:type :heading, :level 3, :content :foot-joint, :row 126}
+ {:type :heading, :level 2, :content :holes, :row 150}
+ {:type :heading, :level 3, :content :head-joint, :row 151}
+ {:type :heading, :level 3, :content :middle-joint, :row 154}
+ {:type :heading, :level 3, :content :right-hand-joint, :row 159}
+ {:type :heading, :level 3, :content :foot-joint, :row 164})
+</code></pre></div></div><div style="margin:15px;"><div><p>TODO table structure & table content</p><h3 id="creating-map-structure-based-on-the-heading-levels">creating map structure based on the heading levels</h3></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn find-parent [input number]
+  (loop [input-list input
+         acc []]
+    (if ()
+      {}
+      (recur () ()))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn add-org-row-to-map [row result-map]
+  (if (= :heading (:type row))
+    (if (= 1 (:level row))
+      (assoc result-map 
+             (:content row) 
+             {:level (:level row) :number (:row row)})
+      ; should nest
+      (assoc-in result-map 
+                [(first (keys result-map)) (:content row)] 
+                {:level (:level row) :number (:row row)})
+      )
+
+    result-map))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-processed-list-to-edn 
+   [input-list]
+   (loop [processing input-list
+          acc {}]
+     (if (=  0 (count processing))
+       acc
+       (recur (rest processing) (add-org-row-to-map (first processing) acc)))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(org-processed-list-to-edn processed-content)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:lot-dcm615
+ {:right-hand-joint {:level 3, :number 159},
+  :number 0,
+  :bore-diameters {:level 2, :number 1},
+  :outside-diameters {:level 2, :number 87},
+  :holes {:level 2, :number 150},
+  :level 1,
+  :middle-joint {:level 3, :number 154},
+  :foot-joint {:level 3, :number 164},
+  :head-joint {:level 3, :number 151}}}
 </code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/emacs_to_edn.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors
