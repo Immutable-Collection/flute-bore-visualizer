@@ -96,27 +96,44 @@ processed-content
       {}
       (recur () ()))))
 
-
-(defn add-org-row-to-map [row result-map]
-  (if (= :heading (:type row))
-    (if (= 1 (:level row))
-      (assoc result-map 
-             (:content row) 
-             {:level (:level row) :number (:row row)})
-      ; should nest
-      (assoc-in result-map 
-                [(first (keys result-map)) (:content row)] 
-                {:level (:level row) :number (:row row)})
-      )
-
-    result-map))
+(defn add-org-row-to-map [row result-map path header]
+  (cond 
+    (= :heading (:type row))
+    (assoc-in result-map path {})
+    (= :table-content (:type row))
+    (assoc-in result-map (conj path :data) (zipmap header (:data row)))
+    :else result-map))
 
 (defn org-processed-list-to-edn 
    [input-list]
    (loop [processing input-list
-          acc {}]
+          acc {}
+          path []
+          level 0
+          data-heading nil]
      (if (=  0 (count processing))
        acc
-       (recur (rest processing) (add-org-row-to-map (first processing) acc)))))
+       (let [processing-item (first processing)
+             item-level (:level processing-item)
+
+             item-content (:content processing-item)
+             new-path (cond
+                        (nil? item-level) path
+                        (> level item-level) (conj (into [] (-> path butlast butlast)) item-content)
+                        (< level item-level) (conj path item-content)
+                        (= level item-level) (conj (into [] (butlast path)) item-content)
+                        :else path)
+             new-level (cond
+                         (nil? item-level) level
+                         (> level item-level) item-level
+                         (< level item-level) item-level
+                         (= level item-level) item-level
+                         :else level)
+
+             heading (cond
+                       (= :table-heading (:type processing-item)) (:data processing-item)
+                       (= :table-content (:type processing-item)) data-heading
+                       :else nil)]
+         (recur (rest processing) (add-org-row-to-map processing-item  acc new-path heading) new-path new-level heading)))))
 
 (org-processed-list-to-edn processed-content)

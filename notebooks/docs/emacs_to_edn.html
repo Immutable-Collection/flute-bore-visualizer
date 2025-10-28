@@ -916,34 +916,89 @@
          acc []]
     (if ()
       {}
-      (recur () ()))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn add-org-row-to-map [row result-map]
-  (if (= :heading (:type row))
-    (if (= 1 (:level row))
-      (assoc result-map 
-             (:content row) 
-             {:level (:level row) :number (:row row)})
-      ; should nest
-      (assoc-in result-map 
-                [(first (keys result-map)) (:content row)] 
-                {:level (:level row) :number (:row row)})
-      )
-
-    result-map))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-processed-list-to-edn 
+      (recur () ()))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn add-org-row-to-map [row result-map path header]
+  (cond 
+    (= :heading (:type row))
+    (assoc-in result-map path {})
+    (= :table-content (:type row))
+    (assoc-in result-map (conj path :data) (zipmap header (:data row)))
+    :else result-map))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-processed-list-to-edn 
    [input-list]
    (loop [processing input-list
-          acc {}]
+          acc {}
+          path []
+          level 0
+          data-heading nil]
      (if (=  0 (count processing))
        acc
-       (recur (rest processing) (add-org-row-to-map (first processing) acc)))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(org-processed-list-to-edn processed-content)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:lot-dcm615
- {:right-hand-joint {:level 3, :number 159},
-  :number 0,
-  :bore-diameters {:level 2, :number 1},
-  :outside-diameters {:level 2, :number 87},
-  :holes {:level 2, :number 150},
-  :level 1,
-  :middle-joint {:level 3, :number 154},
-  :foot-joint {:level 3, :number 164},
-  :head-joint {:level 3, :number 151}}}
+       (let [processing-item (first processing)
+             item-level (:level processing-item)
+
+             item-content (:content processing-item)
+             new-path (cond
+                        (nil? item-level) path
+                        (&gt; level item-level) (conj (into [] (-&gt; path butlast butlast)) item-content)
+                        (&lt; level item-level) (conj path item-content)
+                        (= level item-level) (conj (into [] (butlast path)) item-content)
+                        :else path)
+             new-level (cond
+                         (nil? item-level) level
+                         (&gt; level item-level) item-level
+                         (&lt; level item-level) item-level
+                         (= level item-level) item-level
+                         :else level)
+
+             heading (cond
+                       (= :table-heading (:type processing-item)) (:data processing-item)
+                       (= :table-content (:type processing-item)) data-heading
+                       :else nil)]
+         (recur (rest processing) (add-org-row-to-map processing-item  acc new-path heading) new-path new-level heading)))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(org-processed-list-to-edn processed-content)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:lot-dcm615
+ {:bore-diameters
+  {:head-joint {:data {:bore-diameter 19.5, :distance-from-cap 191.0}},
+   :middle-joint
+   {:data {:bore-diameter 15.9, :distance-from-left-tenon 215.0}},
+   :right-hand-joint
+   {:data {:bore-diameter 13.3, :distance-from-left-mortice 161.0}},
+   :foot-joint
+   {:data {:bore-diameter 13.43, :distance-from-end 78.0}}},
+  :outside-diameters
+  {:head-joint
+   {:data
+    {:distance-from-lhj 0.0, :min 30.0, :max 30.0, :diameter 30.0}},
+   :middle-joint
+   {:data {:distance-from-soundhole 317.49, :diameter 26.0}},
+   :right-hand-joint
+   {:data
+    {:distance-from-middle-joint 144.4,
+     :min 25.95,
+     :max 26.95,
+     :diameter 26.45}},
+   :foot-joint {:data {:distance-from-lhj 97.6, :diameter 24.75}}},
+  :holes
+  {:head-joint
+   {:data
+    {:longitudinal 12.0,
+     :lateral 12.0,
+     :distance-from-right-hand-end 159.0,
+     :diameter 12.0}},
+   :middle-joint
+   {:data
+    {:distance-from-headjoint 141.7,
+     :longitudinal 5.75,
+     :lateral 5.55,
+     :diameter 5.65}},
+   :right-hand-joint
+   {:data
+    {:distance-from-lh-joint 116.9,
+     :longitudinal 4.95,
+     :lateral 4.9,
+     :diameter 4.925}},
+   :foot-joint
+   {:data
+    {:distance-from-rh-joint 30.8,
+     :longitudinal 9.1,
+     :lateral 8.7,
+     :diameter 8.9}}}}}
 </code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/emacs_to_edn.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors
