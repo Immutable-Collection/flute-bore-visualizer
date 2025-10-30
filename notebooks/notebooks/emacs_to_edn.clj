@@ -5,7 +5,8 @@
     [clojure.string :as str]
     [scicloj.kindly.v4.kind :as kind]
     [scicloj.tableplot.v1.plotly :as plotly]
-    [tablecloth.api :as tc]))
+    [tablecloth.api :as tc]
+    [malli.core :as m]))
 
 ;; #reading a lot file
 
@@ -25,7 +26,8 @@
 initially-cleaned-content
 
 (defn count-*
-  [s] (get (frequencies s) \* 0))
+  [s]
+  (get (frequencies s) \* 0))
 
 (defn is-table-header?
   [s]
@@ -46,11 +48,12 @@ initially-cleaned-content
 (defn process-headings
   [])
 
-(defn convert-title-to-keyword [header]
-(-> header
- str/lower-case
- (str/replace " " "-")
- keyword))
+(defn convert-title-to-keyword
+  [header]
+  (-> header
+      str/lower-case
+      (str/replace " " "-")
+      keyword))
 
 (defn process-table-header
   [s]
@@ -63,23 +66,23 @@ initially-cleaned-content
 ;; # processing contents
 (def processed-content
   (map-indexed
-   #(cond
-      (is-table-content? %2) {:type :table-content
-                              :content %2
-                              :row %1
-                              :data (process-table-row %2)}
-      (is-table-header?  %2) {:type :table-heading
-                              :content %2 :row %1
-                              :data (process-table-header %2)}
-      (is-org-header?    %2) {:type :heading
-                              :level (count-* %2)
-                              :content (convert-title-to-keyword
-                                        (-> %2
-                                            (str/replace "* " "")
-                                            (str/replace "*" "")))
-                              :row %1}
-      :else nil)
-   initially-cleaned-content))
+    #(cond
+       (is-table-content? %2) {:type :table-content
+                               :content %2
+                               :row %1
+                               :data (process-table-row %2)}
+       (is-table-header?  %2) {:type :table-heading
+                               :content %2 :row %1
+                               :data (process-table-header %2)}
+       (is-org-header?    %2) {:type :heading
+                               :level (count-* %2)
+                               :content (convert-title-to-keyword
+                                          (-> %2
+                                              (str/replace "* " "")
+                                              (str/replace "*" "")))
+                               :row %1}
+       :else nil)
+    initially-cleaned-content))
 
 processed-content
 
@@ -89,51 +92,74 @@ processed-content
 
 ;; ### creating map structure based on the heading levels
 
-(defn find-parent [input number]
-  (loop [input-list input
-         acc []]
-    (if ()
-      {}
-      (recur () ()))))
-
-(defn add-org-row-to-map [row result-map path header]
-  (cond 
+(defn add-org-row-to-map
+  [row result-map path header]
+  (cond
     (= :heading (:type row))
     (assoc-in result-map path {})
     (= :table-content (:type row))
-    (assoc-in result-map (conj path :data) (zipmap header (:data row)))
+    ;; TODO re-write with specter!
+    (assoc-in result-map (conj path :data) (conj (into [] (get-in result-map (conj path :data))) (zipmap header (:data row))))
     :else result-map))
 
-(defn org-processed-list-to-edn 
-   [input-list]
-   (loop [processing input-list
-          acc {}
-          path []
-          level 0
-          data-heading nil]
-     (if (=  0 (count processing))
-       acc
-       (let [processing-item (first processing)
-             item-level (:level processing-item)
+(defn org-processed-list-to-edn
+  [input-list]
+  (loop [processing input-list
+         acc {}
+         path []
+         level 0
+         data-heading nil]
+    (if (=  0 (count processing))
+      acc
+      (let [processing-item (first processing)
+            item-level (:level processing-item)
 
-             item-content (:content processing-item)
-             new-path (cond
-                        (nil? item-level) path
-                        (> level item-level) (conj (into [] (-> path butlast butlast)) item-content)
-                        (< level item-level) (conj path item-content)
-                        (= level item-level) (conj (into [] (butlast path)) item-content)
-                        :else path)
-             new-level (cond
-                         (nil? item-level) level
-                         (> level item-level) item-level
-                         (< level item-level) item-level
-                         (= level item-level) item-level
-                         :else level)
+            item-content (:content processing-item)
+            new-path (cond
+                       (nil? item-level) path
+                       (> level item-level) (conj (into [] (-> path butlast butlast)) item-content)
+                       (< level item-level) (conj path item-content)
+                       (= level item-level) (conj (into [] (butlast path)) item-content)
+                       :else path)
+            new-level (cond
+                        (nil? item-level) level
+                        (> level item-level) item-level
+                        (< level item-level) item-level
+                        (= level item-level) item-level
+                        :else level)
 
-             heading (cond
-                       (= :table-heading (:type processing-item)) (:data processing-item)
-                       (= :table-content (:type processing-item)) data-heading
-                       :else nil)]
-         (recur (rest processing) (add-org-row-to-map processing-item  acc new-path heading) new-path new-level heading)))))
+            heading (cond
+                      (= :table-heading (:type processing-item)) (:data processing-item)
+                      (= :table-content (:type processing-item)) data-heading
+                      :else nil)]
+        (recur (rest processing) (add-org-row-to-map processing-item  acc new-path heading) new-path new-level heading)))))
 
 (org-processed-list-to-edn processed-content)
+
+(def joint
+  [:map
+   [:bore ]])
+
+(def flute
+  [:map
+   [:model "flutename"]
+   [:data [:head-joint {:bore []
+                        :outside-diameter []
+                        :holes {:position []
+                                :diameter []
+                                ;; :diameter-lateral []
+                                ;; :diameter-transverse []
+                                ;; other details about hole, ie undercuts
+                                }}]
+    [{:middle-joint {:bore []
+                     :outside-diameter []
+                     :holes {:position []
+                             :diameter []}}}]
+    [{:right-hand-joint {:bore []
+                         :outside-diameter []
+                         :holes {:position []
+                                 :diameter []}}}]
+    [{:footjoint {:bore []
+                  :outside-diameter []
+                  :holes {:position []
+                          :diameter []}}}]]])
