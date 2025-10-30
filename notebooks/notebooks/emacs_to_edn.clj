@@ -138,28 +138,19 @@ processed-content
 
 (def joint
   [:map
-   [:bore ]])
+   [:bore             :vector]
+   [:outside-diameter :vector]
+   [:holes            [:map
+                       [:position :number]
+                       [:diameter :number]
+                       ;; other data, lateral diameter, longtitudonal diameter, undercut etc
+                       ]]])
 
 (def flute
   [:map
    [:model "flutename"]
-   [:data [:head-joint {:bore []
-                        :outside-diameter []
-                        :holes {:position []
-                                :diameter []
-                                ;; :diameter-lateral []
-                                ;; :diameter-transverse []
-                                ;; other details about hole, ie undercuts
-                                }}]
-    [{:middle-joint {:bore []
-                     :outside-diameter []
-                     :holes {:position []
-                             :diameter []}}}]
-    [{:right-hand-joint {:bore []
-                         :outside-diameter []
-                         :holes {:position []
-                                 :diameter []}}}]
-    [{:footjoint {:bore []
-                  :outside-diameter []
-                  :holes {:position []
-                          :diameter []}}}]]])
+   [:data
+    [:head-joint       #'joint]
+    [:middle-joint     #'joint]
+    [:right-hand-joint #'joint]
+    [:footjoint        #'joint]]])

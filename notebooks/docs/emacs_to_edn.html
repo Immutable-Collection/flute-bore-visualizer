@@ -1187,29 +1187,20 @@
       :diameter 8.9}]}}}}
 </code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def joint
   [:map
-   [:bore ]])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def flute
+   [:bore             :vector]
+   [:outside-diameter :vector]
+   [:holes            [:map
+                       [:position :number]
+                       [:diameter :number]
+                       ;; other data, lateral diameter, longtitudonal diameter, undercut etc
+                       ]]])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def flute
   [:map
    [:model &quot;flutename&quot;]
-   [:data [:head-joint {:bore []
-                        :outside-diameter []
-                        :holes {:position []
-                                :diameter []
-                                ;; :diameter-lateral []
-                                ;; :diameter-transverse []
-                                ;; other details about hole, ie undercuts
-                                }}]
-    [{:middle-joint {:bore []
-                     :outside-diameter []
-                     :holes {:position []
-                             :diameter []}}}]
-    [{:right-hand-joint {:bore []
-                         :outside-diameter []
-                         :holes {:position []
-                                 :diameter []}}}]
-    [{:footjoint {:bore []
-                  :outside-diameter []
-                  :holes {:position []
-                          :diameter []}}}]]])</code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/emacs_to_edn.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
+   [:data
+    [:head-joint       #&apos;joint]
+    [:middle-joint     #&apos;joint]
+    [:right-hand-joint #&apos;joint]
+    [:footjoint        #&apos;joint]]])</code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/emacs_to_edn.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors
   License: BSD-3-Clause
