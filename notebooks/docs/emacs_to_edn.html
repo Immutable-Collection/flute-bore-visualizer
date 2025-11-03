@@ -61,8 +61,8 @@
   (filter
     valid-prefix?
     (str/split-lines lot-dcm615-content)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">initially-cleaned-content</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">(&quot;* Lot DCM615&quot;
- &quot;** Bore Diameters&quot;
- &quot;*** Head Joint&quot;
+ &quot;** Head Joint&quot;
+ &quot;*** Bore Diameters&quot;
  &quot;| Bore Diameter | Distance from cap |&quot;
  &quot;|          20.0 |                 1 |&quot;
  &quot;|          19.9 |                15 |&quot;
@@ -70,7 +70,30 @@
  &quot;|          19.7 |               175 |&quot;
  &quot;|          19.6 |               185 |&quot;
  &quot;|          19.5 |               191 |&quot;
- &quot;*** Middle Joint&quot;
+ &quot;*** Outside Diameters&quot;
+ &quot;| Distance from LHJ |   Min |   Max | Diameter |&quot;
+ &quot;|             222.8 |  29.3 |  29.1 |     29.2 |&quot;
+ &quot;|               159 | 30.25 | 30.15 |     30.2 |&quot;
+ &quot;|              47.8 |  29.8 |  29.5 |    29.65 |&quot;
+ &quot;|             38.16 | 29.85 | 29.85 |    29.85 |&quot;
+ &quot;|             38.15 |  30.2 |  30.2 |     30.2 |&quot;
+ &quot;|              37.8 |  30.2 |  30.2 |     30.2 |&quot;
+ &quot;|              36.8 |  31.4 |  31.4 |     31.4 |&quot;
+ &quot;|             36.79 |    31 |    31 |       31 |&quot;
+ &quot;|             36.25 |    31 |    31 |       31 |&quot;
+ &quot;|             36.24 |  30.6 |  30.6 |     30.6 |&quot;
+ &quot;|              20.2 | 35.45 | 35.05 |    35.25 |&quot;
+ &quot;|              2.51 |  30.8 |  30.8 |     30.8 |&quot;
+ &quot;|               2.5 | 31.05 | 31.05 |    31.05 |&quot;
+ &quot;|                 2 | 31.05 | 31.05 |    31.05 |&quot;
+ &quot;|               1.9 | 31.85 | 31.85 |    31.85 |&quot;
+ &quot;|                 1 |    30 |    30 |       30 |&quot;
+ &quot;|                 0 |    30 |    30 |       30 |&quot;
+ &quot;*** Holes&quot;
+ &quot;| Longitudinal | Lateral | distance from right hand end | Diameter |&quot;
+ &quot;|           12 |      12 |                          159 |       12 |&quot;
+ &quot;** Middle Joint &quot;
+ &quot;*** Bore Diameters&quot;
  &quot;| Bore Diameter | Distance from left tenon |&quot;
  &quot;|          19.1 |                        2 |&quot;
  &quot;|          19.0 |                       34 |&quot;
@@ -105,7 +128,17 @@
  &quot;|          15.9 |                      194 |&quot;
  &quot;|          15.8 |                      208 |&quot;
  &quot;|          15.9 |                      215 |&quot;
- &quot;*** Right Hand Joint&quot;
+ &quot;*** Outside Diameters&quot;
+ &quot;| Distance from Soundhole | Diameter |&quot;
+ &quot;|                  159.05 |     29.2 |&quot;
+ &quot;|                  317.49 |     26.0 |&quot;
+ &quot;*** Holes&quot;
+ &quot;| Distance from Headjoint | Longitudinal | Lateral | Diameter |&quot;
+ &quot;|                    64.6 |          6.9 |    6.45 |    6.675 |&quot;
+ &quot;|                     102 |         6.85 |     6.5 |    6.675 |&quot;
+ &quot;|                   141.7 |         5.75 |    5.55 |     5.65 |&quot;
+ &quot;** Right Hand Joint&quot;
+ &quot;*** Bore Diameters&quot;
  &quot;| Bore Diameter | distance from left mortice |&quot;
  &quot;|          15.4 |                         29 |&quot;
  &quot;|          15.3 |                         34 |&quot;
@@ -129,7 +162,28 @@
  &quot;|          13.5 |                      145.5 |&quot;
  &quot;|          13.4 |                        152 |&quot;
  &quot;|          13.3 |                        161 |&quot;
- &quot;*** Foot Joint&quot;
+ &quot;*** Outside Diameters&quot;
+ &quot;| Distance from Middle Joint |   Min |   Max | Diameter |&quot;
+ &quot;|                          0 | 27.15 | 27.15 |    27.15 |&quot;
+ &quot;|                        0.5 | 27.15 | 27.15 |    27.15 |&quot;
+ &quot;|                        1.2 |  28.7 |  28.7 |     28.7 |&quot;
+ &quot;|                        1.7 |  27.9 |  27.9 |     27.9 |&quot;
+ &quot;|                          2 |  27.9 |  27.9 |     27.9 |&quot;
+ &quot;|                        2.1 |  27.2 |  27.2 |     27.2 |&quot;
+ &quot;|                       17.2 |  31.6 |  31.5 |    31.55 |&quot;
+ &quot;|                      29.79 |  27.0 |  27.0 |      27. |&quot;
+ &quot;|                       29.8 | 27.45 | 27.45 |    27.45 |&quot;
+ &quot;|                        30  |  28.3 |  28.3 |     28.3 |&quot;
+ &quot;|                       31.7 |    27 |    27 |       27 |&quot;
+ &quot;|                      31.71 | 26.68 | 26.68 |    26.68 |&quot;
+ &quot;|                      144.4 | 25.95 | 26.95 |    26.45 |&quot;
+ &quot;*** Holes&quot;
+ &quot;| Distance from LH Joint | Longitudinal | Lateral | Diameter |&quot;
+ &quot;|                  40.15 |          6.8 |     6.5 |     6.65 |&quot;
+ &quot;|                  78.65 |         6.35 |    6.15 |     6.25 |&quot;
+ &quot;|                  116.9 |         4.95 |     4.9 |    4.925 |&quot;
+ &quot;** Foot Joint&quot;
+ &quot;*** Bore Diameters&quot;
  &quot;| Bore Diameter | Distance from end |&quot;
  &quot;|          15.0 |                40 |&quot;
  &quot;|          14.9 |                45 |&quot;
@@ -147,46 +201,7 @@
  &quot;|          13.6 |                73 |&quot;
  &quot;|          13.5 |                76 |&quot;
  &quot;|         13.43 |                78 |&quot;
- &quot;** Outside Diameters&quot;
- &quot;*** Head Joint&quot;
- &quot;| Distance from LHJ |   Min |   Max | Diameter |&quot;
- &quot;|             222.8 |  29.3 |  29.1 |     29.2 |&quot;
- &quot;|               159 | 30.25 | 30.15 |     30.2 |&quot;
- &quot;|              47.8 |  29.8 |  29.5 |    29.65 |&quot;
- &quot;|             38.16 | 29.85 | 29.85 |    29.85 |&quot;
- &quot;|             38.15 |  30.2 |  30.2 |     30.2 |&quot;
- &quot;|              37.8 |  30.2 |  30.2 |     30.2 |&quot;
- &quot;|              36.8 |  31.4 |  31.4 |     31.4 |&quot;
- &quot;|             36.79 |    31 |    31 |       31 |&quot;
- &quot;|             36.25 |    31 |    31 |       31 |&quot;
- &quot;|             36.24 |  30.6 |  30.6 |     30.6 |&quot;
- &quot;|              20.2 | 35.45 | 35.05 |    35.25 |&quot;
- &quot;|              2.51 |  30.8 |  30.8 |     30.8 |&quot;
- &quot;|               2.5 | 31.05 | 31.05 |    31.05 |&quot;
- &quot;|                 2 | 31.05 | 31.05 |    31.05 |&quot;
- &quot;|               1.9 | 31.85 | 31.85 |    31.85 |&quot;
- &quot;|                 1 |    30 |    30 |       30 |&quot;
- &quot;|                 0 |    30 |    30 |       30 |&quot;
- &quot;*** Middle Joint&quot;
- &quot;| Distance from Soundhole | Diameter |&quot;
- &quot;|                  159.05 |     29.2 |&quot;
- &quot;|                  317.49 |     26.0 |&quot;
- &quot;*** Right Hand Joint&quot;
- &quot;| Distance from Middle Joint |   Min |   Max | Diameter |&quot;
- &quot;|                          0 | 27.15 | 27.15 |    27.15 |&quot;
- &quot;|                        0.5 | 27.15 | 27.15 |    27.15 |&quot;
- &quot;|                        1.2 |  28.7 |  28.7 |     28.7 |&quot;
- &quot;|                        1.7 |  27.9 |  27.9 |     27.9 |&quot;
- &quot;|                          2 |  27.9 |  27.9 |     27.9 |&quot;
- &quot;|                        2.1 |  27.2 |  27.2 |     27.2 |&quot;
- &quot;|                       17.2 |  31.6 |  31.5 |    31.55 |&quot;
- &quot;|                      29.79 |  27.0 |  27.0 |      27. |&quot;
- &quot;|                       29.8 | 27.45 | 27.45 |    27.45 |&quot;
- &quot;|                        30  |  28.3 |  28.3 |     28.3 |&quot;
- &quot;|                       31.7 |    27 |    27 |       27 |&quot;
- &quot;|                      31.71 | 26.68 | 26.68 |    26.68 |&quot;
- &quot;|                      144.4 | 25.95 | 26.95 |    26.45 |&quot;
- &quot;*** Foot Joint&quot;
+ &quot;*** Outside Diameters&quot;
  &quot;| Distance from LHJ | Diameter |&quot;
  &quot;|                 0 |     26.5 |&quot;
  &quot;|                 1 |     26.8 |&quot;
@@ -210,21 +225,7 @@
  &quot;|              28.6 |     27.5 |&quot;
  &quot;|             28.61 |     25.6 |&quot;
  &quot;|              97.6 |    24.75 |&quot;
- &quot;** Holes&quot;
- &quot;*** Head Joint&quot;
- &quot;| Longitudinal | Lateral | distance from right hand end | Diameter |&quot;
- &quot;|           12 |      12 |                          159 |       12 |&quot;
- &quot;*** Middle Joint&quot;
- &quot;| Distance from Headjoint | Longitudinal | Lateral | Diameter |&quot;
- &quot;|                    64.6 |          6.9 |    6.45 |    6.675 |&quot;
- &quot;|                     102 |         6.85 |     6.5 |    6.675 |&quot;
- &quot;|                   141.7 |         5.75 |    5.55 |     5.65 |&quot;
- &quot;*** Right Hand Joint&quot;
- &quot;| Distance from LH Joint | Longitudinal | Lateral | Diameter |&quot;
- &quot;|                  40.15 |          6.8 |     6.5 |     6.65 |&quot;
- &quot;|                  78.65 |         6.35 |    6.15 |     6.25 |&quot;
- &quot;|                  116.9 |         4.95 |     4.9 |    4.925 |&quot;
- &quot;*** Foot Joint&quot;
+ &quot;*** Holes&quot;
  &quot;| Distance from RH Joint | Longitudinal | Lateral | Diameter |&quot;
  &quot;|                   30.8 |          9.1 |     8.7 |      8.9 |&quot;)
 </code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn count-*
@@ -266,8 +267,8 @@
                                :row %1}
        :else nil)
     initially-cleaned-content))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">processed-content</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">({:type :heading, :level 1, :content :lot-dcm615, :row 0}
- {:type :heading, :level 2, :content :bore-diameters, :row 1}
- {:type :heading, :level 3, :content :head-joint, :row 2}
+ {:type :heading, :level 2, :content :head-joint, :row 1}
+ {:type :heading, :level 3, :content :bore-diameters, :row 2}
  {:type :table-heading,
   :content &quot;| Bore Diameter | Distance from cap |&quot;,
   :row 3,
@@ -296,624 +297,626 @@
   :content &quot;|          19.5 |               191 |&quot;,
   :row 9,
   :data (19.5 191.0)}
- {:type :heading, :level 3, :content :middle-joint, :row 10}
- {:type :table-heading,
-  :content &quot;| Bore Diameter | Distance from left tenon |&quot;,
-  :row 11,
-  :data (:bore-diameter :distance-from-left-tenon)}
- {:type :table-content,
-  :content &quot;|          19.1 |                        2 |&quot;,
-  :row 12,
-  :data (19.1 2.0)}
- {:type :table-content,
-  :content &quot;|          19.0 |                       34 |&quot;,
-  :row 13,
-  :data (19.0 34.0)}
- {:type :table-content,
-  :content &quot;|          18.9 |                       45 |&quot;,
-  :row 14,
-  :data (18.9 45.0)}
- {:type :table-content,
-  :content &quot;|          18.8 |                       52 |&quot;,
-  :row 15,
-  :data (18.8 52.0)}
- {:type :table-content,
-  :content &quot;|          18.7 |                       58 |&quot;,
-  :row 16,
-  :data (18.7 58.0)}
- {:type :table-content,
-  :content &quot;|          18.6 |                       63 |&quot;,
-  :row 17,
-  :data (18.6 63.0)}
- {:type :table-content,
-  :content &quot;|          18.5 |                       68 |&quot;,
-  :row 18,
-  :data (18.5 68.0)}
- {:type :table-content,
-  :content &quot;|          18.4 |                       72 |&quot;,
-  :row 19,
-  :data (18.4 72.0)}
- {:type :table-content,
-  :content &quot;|          18.3 |                       72 |&quot;,
-  :row 20,
-  :data (18.3 72.0)}
- {:type :table-content,
-  :content &quot;|          18.2 |                       80 |&quot;,
-  :row 21,
-  :data (18.2 80.0)}
- {:type :table-content,
-  :content &quot;|          18.1 |                       83 |&quot;,
-  :row 22,
-  :data (18.1 83.0)}
- {:type :table-content,
-  :content &quot;|          18.0 |                       86 |&quot;,
-  :row 23,
-  :data (18.0 86.0)}
- {:type :table-content,
-  :content &quot;|          17.9 |                       89 |&quot;,
-  :row 24,
-  :data (17.9 89.0)}
- {:type :table-content,
-  :content &quot;|          17.7 |                      101 |&quot;,
-  :row 25,
-  :data (17.7 101.0)}
- {:type :table-content,
-  :content &quot;|          17.6 |                      106 |&quot;,
-  :row 26,
-  :data (17.6 106.0)}
- {:type :table-content,
-  :content &quot;|          17.5 |                      110 |&quot;,
-  :row 27,
-  :data (17.5 110.0)}
- {:type :table-content,
-  :content &quot;|          17.4 |                      119 |&quot;,
-  :row 28,
-  :data (17.4 119.0)}
- {:type :table-content,
-  :content &quot;|          17.3 |                      125 |&quot;,
-  :row 29,
-  :data (17.3 125.0)}
- {:type :table-content,
-  :content &quot;|          17.1 |                      138 |&quot;,
-  :row 30,
-  :data (17.1 138.0)}
- {:type :table-content,
-  :content &quot;|          17.0 |                    142.5 |&quot;,
-  :row 31,
-  :data (17.0 142.5)}
- {:type :table-content,
-  :content &quot;|          16.9 |                      149 |&quot;,
-  :row 32,
-  :data (16.9 149.0)}
- {:type :table-content,
-  :content &quot;|          16.8 |                      156 |&quot;,
-  :row 33,
-  :data (16.8 156.0)}
- {:type :table-content,
-  :content &quot;|          16.7 |                      165 |&quot;,
-  :row 34,
-  :data (16.7 165.0)}
- {:type :table-content,
-  :content &quot;|          16.6 |                      170 |&quot;,
-  :row 35,
-  :data (16.6 170.0)}
- {:type :table-content,
-  :content &quot;|          16.5 |                      174 |&quot;,
-  :row 36,
-  :data (16.5 174.0)}
- {:type :table-content,
-  :content &quot;|          16.4 |                      180 |&quot;,
-  :row 37,
-  :data (16.4 180.0)}
- {:type :table-content,
-  :content &quot;|          16.3 |                      182 |&quot;,
-  :row 38,
-  :data (16.3 182.0)}
- {:type :table-content,
-  :content &quot;|          16.2 |                      186 |&quot;,
-  :row 39,
-  :data (16.2 186.0)}
- {:type :table-content,
-  :content &quot;|          16.1 |                      189 |&quot;,
-  :row 40,
-  :data (16.1 189.0)}
- {:type :table-content,
-  :content &quot;|          16.0 |                      191 |&quot;,
-  :row 41,
-  :data (16.0 191.0)}
- {:type :table-content,
-  :content &quot;|          15.9 |                      194 |&quot;,
-  :row 42,
-  :data (15.9 194.0)}
- {:type :table-content,
-  :content &quot;|          15.8 |                      208 |&quot;,
-  :row 43,
-  :data (15.8 208.0)}
- {:type :table-content,
-  :content &quot;|          15.9 |                      215 |&quot;,
-  :row 44,
-  :data (15.9 215.0)}
- {:type :heading, :level 3, :content :right-hand-joint, :row 45}
- {:type :table-heading,
-  :content &quot;| Bore Diameter | distance from left mortice |&quot;,
-  :row 46,
-  :data (:bore-diameter :distance-from-left-mortice)}
- {:type :table-content,
-  :content &quot;|          15.4 |                         29 |&quot;,
-  :row 47,
-  :data (15.4 29.0)}
- {:type :table-content,
-  :content &quot;|          15.3 |                         34 |&quot;,
-  :row 48,
-  :data (15.3 34.0)}
- {:type :table-content,
-  :content &quot;|          15.2 |                         51 |&quot;,
-  :row 49,
-  :data (15.2 51.0)}
- {:type :table-content,
-  :content &quot;|          15.1 |                         53 |&quot;,
-  :row 50,
-  :data (15.1 53.0)}
- {:type :table-content,
-  :content &quot;|          15.0 |                         55 |&quot;,
-  :row 51,
-  :data (15.0 55.0)}
- {:type :table-content,
-  :content &quot;|          14.9 |                         61 |&quot;,
-  :row 52,
-  :data (14.9 61.0)}
- {:type :table-content,
-  :content &quot;|          14.8 |                         68 |&quot;,
-  :row 53,
-  :data (14.8 68.0)}
- {:type :table-content,
-  :content &quot;|          14.7 |                         75 |&quot;,
-  :row 54,
-  :data (14.7 75.0)}
- {:type :table-content,
-  :content &quot;|          14.6 |                         80 |&quot;,
-  :row 55,
-  :data (14.6 80.0)}
- {:type :table-content,
-  :content &quot;|          14.5 |                         88 |&quot;,
-  :row 56,
-  :data (14.5 88.0)}
- {:type :table-content,
-  :content &quot;|          14.4 |                         93 |&quot;,
-  :row 57,
-  :data (14.4 93.0)}
- {:type :table-content,
-  :content &quot;|          14.3 |                         96 |&quot;,
-  :row 58,
-  :data (14.3 96.0)}
- {:type :table-content,
-  :content &quot;|          14.2 |                         98 |&quot;,
-  :row 59,
-  :data (14.2 98.0)}
- {:type :table-content,
-  :content &quot;|          14.1 |                        106 |&quot;,
-  :row 60,
-  :data (14.1 106.0)}
- {:type :table-content,
-  :content &quot;|          14.0 |                        111 |&quot;,
-  :row 61,
-  :data (14.0 111.0)}
- {:type :table-content,
-  :content &quot;|          13.9 |                        119 |&quot;,
-  :row 62,
-  :data (13.9 119.0)}
- {:type :table-content,
-  :content &quot;|          13.8 |                        128 |&quot;,
-  :row 63,
-  :data (13.8 128.0)}
- {:type :table-content,
-  :content &quot;|          13.7 |                        137 |&quot;,
-  :row 64,
-  :data (13.7 137.0)}
- {:type :table-content,
-  :content &quot;|          13.6 |                      142.5 |&quot;,
-  :row 65,
-  :data (13.6 142.5)}
- {:type :table-content,
-  :content &quot;|          13.5 |                      145.5 |&quot;,
-  :row 66,
-  :data (13.5 145.5)}
- {:type :table-content,
-  :content &quot;|          13.4 |                        152 |&quot;,
-  :row 67,
-  :data (13.4 152.0)}
- {:type :table-content,
-  :content &quot;|          13.3 |                        161 |&quot;,
-  :row 68,
-  :data (13.3 161.0)}
- {:type :heading, :level 3, :content :foot-joint, :row 69}
- {:type :table-heading,
-  :content &quot;| Bore Diameter | Distance from end |&quot;,
-  :row 70,
-  :data (:bore-diameter :distance-from-end)}
- {:type :table-content,
-  :content &quot;|          15.0 |                40 |&quot;,
-  :row 71,
-  :data (15.0 40.0)}
- {:type :table-content,
-  :content &quot;|          14.9 |                45 |&quot;,
-  :row 72,
-  :data (14.9 45.0)}
- {:type :table-content,
-  :content &quot;|          14.8 |                47 |&quot;,
-  :row 73,
-  :data (14.8 47.0)}
- {:type :table-content,
-  :content &quot;|          14.7 |                50 |&quot;,
-  :row 74,
-  :data (14.7 50.0)}
- {:type :table-content,
-  :content &quot;|          14.6 |                51 |&quot;,
-  :row 75,
-  :data (14.6 51.0)}
- {:type :table-content,
-  :content &quot;|          14.5 |                55 |&quot;,
-  :row 76,
-  :data (14.5 55.0)}
- {:type :table-content,
-  :content &quot;|          14.4 |                57 |&quot;,
-  :row 77,
-  :data (14.4 57.0)}
- {:type :table-content,
-  :content &quot;|          14.3 |                60 |&quot;,
-  :row 78,
-  :data (14.3 60.0)}
- {:type :table-content,
-  :content &quot;|          14.1 |                63 |&quot;,
-  :row 79,
-  :data (14.1 63.0)}
- {:type :table-content,
-  :content &quot;|          14.0 |                66 |&quot;,
-  :row 80,
-  :data (14.0 66.0)}
- {:type :table-content,
-  :content &quot;|          13.9 |                68 |&quot;,
-  :row 81,
-  :data (13.9 68.0)}
- {:type :table-content,
-  :content &quot;|          13.8 |                70 |&quot;,
-  :row 82,
-  :data (13.8 70.0)}
- {:type :table-content,
-  :content &quot;|          13.7 |                71 |&quot;,
-  :row 83,
-  :data (13.7 71.0)}
- {:type :table-content,
-  :content &quot;|          13.6 |                73 |&quot;,
-  :row 84,
-  :data (13.6 73.0)}
- {:type :table-content,
-  :content &quot;|          13.5 |                76 |&quot;,
-  :row 85,
-  :data (13.5 76.0)}
- {:type :table-content,
-  :content &quot;|         13.43 |                78 |&quot;,
-  :row 86,
-  :data (13.43 78.0)}
- {:type :heading, :level 2, :content :outside-diameters, :row 87}
- {:type :heading, :level 3, :content :head-joint, :row 88}
+ {:type :heading, :level 3, :content :outside-diameters, :row 10}
  {:type :table-heading,
   :content &quot;| Distance from LHJ |   Min |   Max | Diameter |&quot;,
-  :row 89,
+  :row 11,
   :data (:distance-from-lhj :min :max :diameter)}
  {:type :table-content,
   :content &quot;|             222.8 |  29.3 |  29.1 |     29.2 |&quot;,
-  :row 90,
+  :row 12,
   :data (222.8 29.3 29.1 29.2)}
  {:type :table-content,
   :content &quot;|               159 | 30.25 | 30.15 |     30.2 |&quot;,
-  :row 91,
+  :row 13,
   :data (159.0 30.25 30.15 30.2)}
  {:type :table-content,
   :content &quot;|              47.8 |  29.8 |  29.5 |    29.65 |&quot;,
-  :row 92,
+  :row 14,
   :data (47.8 29.8 29.5 29.65)}
  {:type :table-content,
   :content &quot;|             38.16 | 29.85 | 29.85 |    29.85 |&quot;,
-  :row 93,
+  :row 15,
   :data (38.16 29.85 29.85 29.85)}
  {:type :table-content,
   :content &quot;|             38.15 |  30.2 |  30.2 |     30.2 |&quot;,
-  :row 94,
+  :row 16,
   :data (38.15 30.2 30.2 30.2)}
  {:type :table-content,
   :content &quot;|              37.8 |  30.2 |  30.2 |     30.2 |&quot;,
-  :row 95,
+  :row 17,
   :data (37.8 30.2 30.2 30.2)}
  {:type :table-content,
   :content &quot;|              36.8 |  31.4 |  31.4 |     31.4 |&quot;,
-  :row 96,
+  :row 18,
   :data (36.8 31.4 31.4 31.4)}
  {:type :table-content,
   :content &quot;|             36.79 |    31 |    31 |       31 |&quot;,
-  :row 97,
+  :row 19,
   :data (36.79 31.0 31.0 31.0)}
  {:type :table-content,
   :content &quot;|             36.25 |    31 |    31 |       31 |&quot;,
-  :row 98,
+  :row 20,
   :data (36.25 31.0 31.0 31.0)}
  {:type :table-content,
   :content &quot;|             36.24 |  30.6 |  30.6 |     30.6 |&quot;,
-  :row 99,
+  :row 21,
   :data (36.24 30.6 30.6 30.6)}
  {:type :table-content,
   :content &quot;|              20.2 | 35.45 | 35.05 |    35.25 |&quot;,
-  :row 100,
+  :row 22,
   :data (20.2 35.45 35.05 35.25)}
  {:type :table-content,
   :content &quot;|              2.51 |  30.8 |  30.8 |     30.8 |&quot;,
-  :row 101,
+  :row 23,
   :data (2.51 30.8 30.8 30.8)}
  {:type :table-content,
   :content &quot;|               2.5 | 31.05 | 31.05 |    31.05 |&quot;,
-  :row 102,
+  :row 24,
   :data (2.5 31.05 31.05 31.05)}
  {:type :table-content,
   :content &quot;|                 2 | 31.05 | 31.05 |    31.05 |&quot;,
-  :row 103,
+  :row 25,
   :data (2.0 31.05 31.05 31.05)}
  {:type :table-content,
   :content &quot;|               1.9 | 31.85 | 31.85 |    31.85 |&quot;,
-  :row 104,
+  :row 26,
   :data (1.9 31.85 31.85 31.85)}
  {:type :table-content,
   :content &quot;|                 1 |    30 |    30 |       30 |&quot;,
-  :row 105,
+  :row 27,
   :data (1.0 30.0 30.0 30.0)}
  {:type :table-content,
   :content &quot;|                 0 |    30 |    30 |       30 |&quot;,
-  :row 106,
+  :row 28,
   :data (0.0 30.0 30.0 30.0)}
- {:type :heading, :level 3, :content :middle-joint, :row 107}
- {:type :table-heading,
-  :content &quot;| Distance from Soundhole | Diameter |&quot;,
-  :row 108,
-  :data (:distance-from-soundhole :diameter)}
- {:type :table-content,
-  :content &quot;|                  159.05 |     29.2 |&quot;,
-  :row 109,
-  :data (159.05 29.2)}
- {:type :table-content,
-  :content &quot;|                  317.49 |     26.0 |&quot;,
-  :row 110,
-  :data (317.49 26.0)}
- {:type :heading, :level 3, :content :right-hand-joint, :row 111}
- {:type :table-heading,
-  :content &quot;| Distance from Middle Joint |   Min |   Max | Diameter |&quot;,
-  :row 112,
-  :data (:distance-from-middle-joint :min :max :diameter)}
- {:type :table-content,
-  :content &quot;|                          0 | 27.15 | 27.15 |    27.15 |&quot;,
-  :row 113,
-  :data (0.0 27.15 27.15 27.15)}
- {:type :table-content,
-  :content &quot;|                        0.5 | 27.15 | 27.15 |    27.15 |&quot;,
-  :row 114,
-  :data (0.5 27.15 27.15 27.15)}
- {:type :table-content,
-  :content &quot;|                        1.2 |  28.7 |  28.7 |     28.7 |&quot;,
-  :row 115,
-  :data (1.2 28.7 28.7 28.7)}
- {:type :table-content,
-  :content &quot;|                        1.7 |  27.9 |  27.9 |     27.9 |&quot;,
-  :row 116,
-  :data (1.7 27.9 27.9 27.9)}
- {:type :table-content,
-  :content &quot;|                          2 |  27.9 |  27.9 |     27.9 |&quot;,
-  :row 117,
-  :data (2.0 27.9 27.9 27.9)}
- {:type :table-content,
-  :content &quot;|                        2.1 |  27.2 |  27.2 |     27.2 |&quot;,
-  :row 118,
-  :data (2.1 27.2 27.2 27.2)}
- {:type :table-content,
-  :content &quot;|                       17.2 |  31.6 |  31.5 |    31.55 |&quot;,
-  :row 119,
-  :data (17.2 31.6 31.5 31.55)}
- {:type :table-content,
-  :content &quot;|                      29.79 |  27.0 |  27.0 |      27. |&quot;,
-  :row 120,
-  :data (29.79 27.0 27.0 27.0)}
- {:type :table-content,
-  :content &quot;|                       29.8 | 27.45 | 27.45 |    27.45 |&quot;,
-  :row 121,
-  :data (29.8 27.45 27.45 27.45)}
- {:type :table-content,
-  :content &quot;|                        30  |  28.3 |  28.3 |     28.3 |&quot;,
-  :row 122,
-  :data (30.0 28.3 28.3 28.3)}
- {:type :table-content,
-  :content &quot;|                       31.7 |    27 |    27 |       27 |&quot;,
-  :row 123,
-  :data (31.7 27.0 27.0 27.0)}
- {:type :table-content,
-  :content &quot;|                      31.71 | 26.68 | 26.68 |    26.68 |&quot;,
-  :row 124,
-  :data (31.71 26.68 26.68 26.68)}
- {:type :table-content,
-  :content &quot;|                      144.4 | 25.95 | 26.95 |    26.45 |&quot;,
-  :row 125,
-  :data (144.4 25.95 26.95 26.45)}
- {:type :heading, :level 3, :content :foot-joint, :row 126}
- {:type :table-heading,
-  :content &quot;| Distance from LHJ | Diameter |&quot;,
-  :row 127,
-  :data (:distance-from-lhj :diameter)}
- {:type :table-content,
-  :content &quot;|                 0 |     26.5 |&quot;,
-  :row 128,
-  :data (0.0 26.5)}
- {:type :table-content,
-  :content &quot;|                 1 |     26.8 |&quot;,
-  :row 129,
-  :data (1.0 26.8)}
- {:type :table-content,
-  :content &quot;|              1.01 |     28.4 |&quot;,
-  :row 130,
-  :data (1.01 28.4)}
- {:type :table-content,
-  :content &quot;|               2.2 |     28.4 |&quot;,
-  :row 131,
-  :data (2.2 28.4)}
- {:type :table-content,
-  :content &quot;|              2.21 |     28.0 |&quot;,
-  :row 132,
-  :data (2.21 28.0)}
- {:type :table-content,
-  :content &quot;|               3.0 |     27.7 |&quot;,
-  :row 133,
-  :data (3.0 27.7)}
- {:type :table-content,
-  :content &quot;|              3.01 |     27.3 |&quot;,
-  :row 134,
-  :data (3.01 27.3)}
- {:type :table-content,
-  :content &quot;|               3.5 |     27.3 |&quot;,
-  :row 135,
-  :data (3.5 27.3)}
- {:type :table-content,
-  :content &quot;|              3.51 |     26.8 |&quot;,
-  :row 136,
-  :data (3.51 26.8)}
- {:type :table-content,
-  :content &quot;|              15.8 |     26.9 |&quot;,
-  :row 137,
-  :data (15.8 26.9)}
- {:type :table-content,
-  :content &quot;|             15.81 |     27.5 |&quot;,
-  :row 138,
-  :data (15.81 27.5)}
- {:type :table-content,
-  :content &quot;|              17.0 |     27.5 |&quot;,
-  :row 139,
-  :data (17.0 27.5)}
- {:type :table-content,
-  :content &quot;|             17.01 |     28.6 |&quot;,
-  :row 140,
-  :data (17.01 28.6)}
- {:type :table-content,
-  :content &quot;|             17.75 |     28.6 |&quot;,
-  :row 141,
-  :data (17.75 28.6)}
- {:type :table-content,
-  :content &quot;|                21 |    34.25 |&quot;,
-  :row 142,
-  :data (21.0 34.25)}
- {:type :table-content,
-  :content &quot;|                25 |    34.25 |&quot;,
-  :row 143,
-  :data (25.0 34.25)}
- {:type :table-content,
-  :content &quot;|                27 |    29.45 |&quot;,
-  :row 144,
-  :data (27.0 29.45)}
- {:type :table-content,
-  :content &quot;|              27.5 |    29.45 |&quot;,
-  :row 145,
-  :data (27.5 29.45)}
- {:type :table-content,
-  :content &quot;|             27.51 |     27.5 |&quot;,
-  :row 146,
-  :data (27.51 27.5)}
- {:type :table-content,
-  :content &quot;|              28.6 |     27.5 |&quot;,
-  :row 147,
-  :data (28.6 27.5)}
- {:type :table-content,
-  :content &quot;|             28.61 |     25.6 |&quot;,
-  :row 148,
-  :data (28.61 25.6)}
- {:type :table-content,
-  :content &quot;|              97.6 |    24.75 |&quot;,
-  :row 149,
-  :data (97.6 24.75)}
- {:type :heading, :level 2, :content :holes, :row 150}
- {:type :heading, :level 3, :content :head-joint, :row 151}
+ {:type :heading, :level 3, :content :holes, :row 29}
  {:type :table-heading,
   :content
   &quot;| Longitudinal | Lateral | distance from right hand end | Diameter |&quot;,
-  :row 152,
+  :row 30,
   :data
   (:longitudinal :lateral :distance-from-right-hand-end :diameter)}
  {:type :table-content,
   :content
   &quot;|           12 |      12 |                          159 |       12 |&quot;,
-  :row 153,
+  :row 31,
   :data (12.0 12.0 159.0 12.0)}
- {:type :heading, :level 3, :content :middle-joint, :row 154}
+ {:type :heading, :level 2, :content :middle-joint-, :row 32}
+ {:type :heading, :level 3, :content :bore-diameters, :row 33}
+ {:type :table-heading,
+  :content &quot;| Bore Diameter | Distance from left tenon |&quot;,
+  :row 34,
+  :data (:bore-diameter :distance-from-left-tenon)}
+ {:type :table-content,
+  :content &quot;|          19.1 |                        2 |&quot;,
+  :row 35,
+  :data (19.1 2.0)}
+ {:type :table-content,
+  :content &quot;|          19.0 |                       34 |&quot;,
+  :row 36,
+  :data (19.0 34.0)}
+ {:type :table-content,
+  :content &quot;|          18.9 |                       45 |&quot;,
+  :row 37,
+  :data (18.9 45.0)}
+ {:type :table-content,
+  :content &quot;|          18.8 |                       52 |&quot;,
+  :row 38,
+  :data (18.8 52.0)}
+ {:type :table-content,
+  :content &quot;|          18.7 |                       58 |&quot;,
+  :row 39,
+  :data (18.7 58.0)}
+ {:type :table-content,
+  :content &quot;|          18.6 |                       63 |&quot;,
+  :row 40,
+  :data (18.6 63.0)}
+ {:type :table-content,
+  :content &quot;|          18.5 |                       68 |&quot;,
+  :row 41,
+  :data (18.5 68.0)}
+ {:type :table-content,
+  :content &quot;|          18.4 |                       72 |&quot;,
+  :row 42,
+  :data (18.4 72.0)}
+ {:type :table-content,
+  :content &quot;|          18.3 |                       72 |&quot;,
+  :row 43,
+  :data (18.3 72.0)}
+ {:type :table-content,
+  :content &quot;|          18.2 |                       80 |&quot;,
+  :row 44,
+  :data (18.2 80.0)}
+ {:type :table-content,
+  :content &quot;|          18.1 |                       83 |&quot;,
+  :row 45,
+  :data (18.1 83.0)}
+ {:type :table-content,
+  :content &quot;|          18.0 |                       86 |&quot;,
+  :row 46,
+  :data (18.0 86.0)}
+ {:type :table-content,
+  :content &quot;|          17.9 |                       89 |&quot;,
+  :row 47,
+  :data (17.9 89.0)}
+ {:type :table-content,
+  :content &quot;|          17.7 |                      101 |&quot;,
+  :row 48,
+  :data (17.7 101.0)}
+ {:type :table-content,
+  :content &quot;|          17.6 |                      106 |&quot;,
+  :row 49,
+  :data (17.6 106.0)}
+ {:type :table-content,
+  :content &quot;|          17.5 |                      110 |&quot;,
+  :row 50,
+  :data (17.5 110.0)}
+ {:type :table-content,
+  :content &quot;|          17.4 |                      119 |&quot;,
+  :row 51,
+  :data (17.4 119.0)}
+ {:type :table-content,
+  :content &quot;|          17.3 |                      125 |&quot;,
+  :row 52,
+  :data (17.3 125.0)}
+ {:type :table-content,
+  :content &quot;|          17.1 |                      138 |&quot;,
+  :row 53,
+  :data (17.1 138.0)}
+ {:type :table-content,
+  :content &quot;|          17.0 |                    142.5 |&quot;,
+  :row 54,
+  :data (17.0 142.5)}
+ {:type :table-content,
+  :content &quot;|          16.9 |                      149 |&quot;,
+  :row 55,
+  :data (16.9 149.0)}
+ {:type :table-content,
+  :content &quot;|          16.8 |                      156 |&quot;,
+  :row 56,
+  :data (16.8 156.0)}
+ {:type :table-content,
+  :content &quot;|          16.7 |                      165 |&quot;,
+  :row 57,
+  :data (16.7 165.0)}
+ {:type :table-content,
+  :content &quot;|          16.6 |                      170 |&quot;,
+  :row 58,
+  :data (16.6 170.0)}
+ {:type :table-content,
+  :content &quot;|          16.5 |                      174 |&quot;,
+  :row 59,
+  :data (16.5 174.0)}
+ {:type :table-content,
+  :content &quot;|          16.4 |                      180 |&quot;,
+  :row 60,
+  :data (16.4 180.0)}
+ {:type :table-content,
+  :content &quot;|          16.3 |                      182 |&quot;,
+  :row 61,
+  :data (16.3 182.0)}
+ {:type :table-content,
+  :content &quot;|          16.2 |                      186 |&quot;,
+  :row 62,
+  :data (16.2 186.0)}
+ {:type :table-content,
+  :content &quot;|          16.1 |                      189 |&quot;,
+  :row 63,
+  :data (16.1 189.0)}
+ {:type :table-content,
+  :content &quot;|          16.0 |                      191 |&quot;,
+  :row 64,
+  :data (16.0 191.0)}
+ {:type :table-content,
+  :content &quot;|          15.9 |                      194 |&quot;,
+  :row 65,
+  :data (15.9 194.0)}
+ {:type :table-content,
+  :content &quot;|          15.8 |                      208 |&quot;,
+  :row 66,
+  :data (15.8 208.0)}
+ {:type :table-content,
+  :content &quot;|          15.9 |                      215 |&quot;,
+  :row 67,
+  :data (15.9 215.0)}
+ {:type :heading, :level 3, :content :outside-diameters, :row 68}
+ {:type :table-heading,
+  :content &quot;| Distance from Soundhole | Diameter |&quot;,
+  :row 69,
+  :data (:distance-from-soundhole :diameter)}
+ {:type :table-content,
+  :content &quot;|                  159.05 |     29.2 |&quot;,
+  :row 70,
+  :data (159.05 29.2)}
+ {:type :table-content,
+  :content &quot;|                  317.49 |     26.0 |&quot;,
+  :row 71,
+  :data (317.49 26.0)}
+ {:type :heading, :level 3, :content :holes, :row 72}
  {:type :table-heading,
   :content
   &quot;| Distance from Headjoint | Longitudinal | Lateral | Diameter |&quot;,
-  :row 155,
+  :row 73,
   :data (:distance-from-headjoint :longitudinal :lateral :diameter)}
  {:type :table-content,
   :content
   &quot;|                    64.6 |          6.9 |    6.45 |    6.675 |&quot;,
-  :row 156,
+  :row 74,
   :data (64.6 6.9 6.45 6.675)}
  {:type :table-content,
   :content
   &quot;|                     102 |         6.85 |     6.5 |    6.675 |&quot;,
-  :row 157,
+  :row 75,
   :data (102.0 6.85 6.5 6.675)}
  {:type :table-content,
   :content
   &quot;|                   141.7 |         5.75 |    5.55 |     5.65 |&quot;,
-  :row 158,
+  :row 76,
   :data (141.7 5.75 5.55 5.65)}
- {:type :heading, :level 3, :content :right-hand-joint, :row 159}
+ {:type :heading, :level 2, :content :right-hand-joint, :row 77}
+ {:type :heading, :level 3, :content :bore-diameters, :row 78}
+ {:type :table-heading,
+  :content &quot;| Bore Diameter | distance from left mortice |&quot;,
+  :row 79,
+  :data (:bore-diameter :distance-from-left-mortice)}
+ {:type :table-content,
+  :content &quot;|          15.4 |                         29 |&quot;,
+  :row 80,
+  :data (15.4 29.0)}
+ {:type :table-content,
+  :content &quot;|          15.3 |                         34 |&quot;,
+  :row 81,
+  :data (15.3 34.0)}
+ {:type :table-content,
+  :content &quot;|          15.2 |                         51 |&quot;,
+  :row 82,
+  :data (15.2 51.0)}
+ {:type :table-content,
+  :content &quot;|          15.1 |                         53 |&quot;,
+  :row 83,
+  :data (15.1 53.0)}
+ {:type :table-content,
+  :content &quot;|          15.0 |                         55 |&quot;,
+  :row 84,
+  :data (15.0 55.0)}
+ {:type :table-content,
+  :content &quot;|          14.9 |                         61 |&quot;,
+  :row 85,
+  :data (14.9 61.0)}
+ {:type :table-content,
+  :content &quot;|          14.8 |                         68 |&quot;,
+  :row 86,
+  :data (14.8 68.0)}
+ {:type :table-content,
+  :content &quot;|          14.7 |                         75 |&quot;,
+  :row 87,
+  :data (14.7 75.0)}
+ {:type :table-content,
+  :content &quot;|          14.6 |                         80 |&quot;,
+  :row 88,
+  :data (14.6 80.0)}
+ {:type :table-content,
+  :content &quot;|          14.5 |                         88 |&quot;,
+  :row 89,
+  :data (14.5 88.0)}
+ {:type :table-content,
+  :content &quot;|          14.4 |                         93 |&quot;,
+  :row 90,
+  :data (14.4 93.0)}
+ {:type :table-content,
+  :content &quot;|          14.3 |                         96 |&quot;,
+  :row 91,
+  :data (14.3 96.0)}
+ {:type :table-content,
+  :content &quot;|          14.2 |                         98 |&quot;,
+  :row 92,
+  :data (14.2 98.0)}
+ {:type :table-content,
+  :content &quot;|          14.1 |                        106 |&quot;,
+  :row 93,
+  :data (14.1 106.0)}
+ {:type :table-content,
+  :content &quot;|          14.0 |                        111 |&quot;,
+  :row 94,
+  :data (14.0 111.0)}
+ {:type :table-content,
+  :content &quot;|          13.9 |                        119 |&quot;,
+  :row 95,
+  :data (13.9 119.0)}
+ {:type :table-content,
+  :content &quot;|          13.8 |                        128 |&quot;,
+  :row 96,
+  :data (13.8 128.0)}
+ {:type :table-content,
+  :content &quot;|          13.7 |                        137 |&quot;,
+  :row 97,
+  :data (13.7 137.0)}
+ {:type :table-content,
+  :content &quot;|          13.6 |                      142.5 |&quot;,
+  :row 98,
+  :data (13.6 142.5)}
+ {:type :table-content,
+  :content &quot;|          13.5 |                      145.5 |&quot;,
+  :row 99,
+  :data (13.5 145.5)}
+ {:type :table-content,
+  :content &quot;|          13.4 |                        152 |&quot;,
+  :row 100,
+  :data (13.4 152.0)}
+ {:type :table-content,
+  :content &quot;|          13.3 |                        161 |&quot;,
+  :row 101,
+  :data (13.3 161.0)}
+ {:type :heading, :level 3, :content :outside-diameters, :row 102}
+ {:type :table-heading,
+  :content &quot;| Distance from Middle Joint |   Min |   Max | Diameter |&quot;,
+  :row 103,
+  :data (:distance-from-middle-joint :min :max :diameter)}
+ {:type :table-content,
+  :content &quot;|                          0 | 27.15 | 27.15 |    27.15 |&quot;,
+  :row 104,
+  :data (0.0 27.15 27.15 27.15)}
+ {:type :table-content,
+  :content &quot;|                        0.5 | 27.15 | 27.15 |    27.15 |&quot;,
+  :row 105,
+  :data (0.5 27.15 27.15 27.15)}
+ {:type :table-content,
+  :content &quot;|                        1.2 |  28.7 |  28.7 |     28.7 |&quot;,
+  :row 106,
+  :data (1.2 28.7 28.7 28.7)}
+ {:type :table-content,
+  :content &quot;|                        1.7 |  27.9 |  27.9 |     27.9 |&quot;,
+  :row 107,
+  :data (1.7 27.9 27.9 27.9)}
+ {:type :table-content,
+  :content &quot;|                          2 |  27.9 |  27.9 |     27.9 |&quot;,
+  :row 108,
+  :data (2.0 27.9 27.9 27.9)}
+ {:type :table-content,
+  :content &quot;|                        2.1 |  27.2 |  27.2 |     27.2 |&quot;,
+  :row 109,
+  :data (2.1 27.2 27.2 27.2)}
+ {:type :table-content,
+  :content &quot;|                       17.2 |  31.6 |  31.5 |    31.55 |&quot;,
+  :row 110,
+  :data (17.2 31.6 31.5 31.55)}
+ {:type :table-content,
+  :content &quot;|                      29.79 |  27.0 |  27.0 |      27. |&quot;,
+  :row 111,
+  :data (29.79 27.0 27.0 27.0)}
+ {:type :table-content,
+  :content &quot;|                       29.8 | 27.45 | 27.45 |    27.45 |&quot;,
+  :row 112,
+  :data (29.8 27.45 27.45 27.45)}
+ {:type :table-content,
+  :content &quot;|                        30  |  28.3 |  28.3 |     28.3 |&quot;,
+  :row 113,
+  :data (30.0 28.3 28.3 28.3)}
+ {:type :table-content,
+  :content &quot;|                       31.7 |    27 |    27 |       27 |&quot;,
+  :row 114,
+  :data (31.7 27.0 27.0 27.0)}
+ {:type :table-content,
+  :content &quot;|                      31.71 | 26.68 | 26.68 |    26.68 |&quot;,
+  :row 115,
+  :data (31.71 26.68 26.68 26.68)}
+ {:type :table-content,
+  :content &quot;|                      144.4 | 25.95 | 26.95 |    26.45 |&quot;,
+  :row 116,
+  :data (144.4 25.95 26.95 26.45)}
+ {:type :heading, :level 3, :content :holes, :row 117}
  {:type :table-heading,
   :content
   &quot;| Distance from LH Joint | Longitudinal | Lateral | Diameter |&quot;,
-  :row 160,
+  :row 118,
   :data (:distance-from-lh-joint :longitudinal :lateral :diameter)}
  {:type :table-content,
   :content
   &quot;|                  40.15 |          6.8 |     6.5 |     6.65 |&quot;,
-  :row 161,
+  :row 119,
   :data (40.15 6.8 6.5 6.65)}
  {:type :table-content,
   :content
   &quot;|                  78.65 |         6.35 |    6.15 |     6.25 |&quot;,
-  :row 162,
+  :row 120,
   :data (78.65 6.35 6.15 6.25)}
  {:type :table-content,
   :content
   &quot;|                  116.9 |         4.95 |     4.9 |    4.925 |&quot;,
-  :row 163,
+  :row 121,
   :data (116.9 4.95 4.9 4.925)}
- {:type :heading, :level 3, :content :foot-joint, :row 164}
+ {:type :heading, :level 2, :content :foot-joint, :row 122}
+ {:type :heading, :level 3, :content :bore-diameters, :row 123}
+ {:type :table-heading,
+  :content &quot;| Bore Diameter | Distance from end |&quot;,
+  :row 124,
+  :data (:bore-diameter :distance-from-end)}
+ {:type :table-content,
+  :content &quot;|          15.0 |                40 |&quot;,
+  :row 125,
+  :data (15.0 40.0)}
+ {:type :table-content,
+  :content &quot;|          14.9 |                45 |&quot;,
+  :row 126,
+  :data (14.9 45.0)}
+ {:type :table-content,
+  :content &quot;|          14.8 |                47 |&quot;,
+  :row 127,
+  :data (14.8 47.0)}
+ {:type :table-content,
+  :content &quot;|          14.7 |                50 |&quot;,
+  :row 128,
+  :data (14.7 50.0)}
+ {:type :table-content,
+  :content &quot;|          14.6 |                51 |&quot;,
+  :row 129,
+  :data (14.6 51.0)}
+ {:type :table-content,
+  :content &quot;|          14.5 |                55 |&quot;,
+  :row 130,
+  :data (14.5 55.0)}
+ {:type :table-content,
+  :content &quot;|          14.4 |                57 |&quot;,
+  :row 131,
+  :data (14.4 57.0)}
+ {:type :table-content,
+  :content &quot;|          14.3 |                60 |&quot;,
+  :row 132,
+  :data (14.3 60.0)}
+ {:type :table-content,
+  :content &quot;|          14.1 |                63 |&quot;,
+  :row 133,
+  :data (14.1 63.0)}
+ {:type :table-content,
+  :content &quot;|          14.0 |                66 |&quot;,
+  :row 134,
+  :data (14.0 66.0)}
+ {:type :table-content,
+  :content &quot;|          13.9 |                68 |&quot;,
+  :row 135,
+  :data (13.9 68.0)}
+ {:type :table-content,
+  :content &quot;|          13.8 |                70 |&quot;,
+  :row 136,
+  :data (13.8 70.0)}
+ {:type :table-content,
+  :content &quot;|          13.7 |                71 |&quot;,
+  :row 137,
+  :data (13.7 71.0)}
+ {:type :table-content,
+  :content &quot;|          13.6 |                73 |&quot;,
+  :row 138,
+  :data (13.6 73.0)}
+ {:type :table-content,
+  :content &quot;|          13.5 |                76 |&quot;,
+  :row 139,
+  :data (13.5 76.0)}
+ {:type :table-content,
+  :content &quot;|         13.43 |                78 |&quot;,
+  :row 140,
+  :data (13.43 78.0)}
+ {:type :heading, :level 3, :content :outside-diameters, :row 141}
+ {:type :table-heading,
+  :content &quot;| Distance from LHJ | Diameter |&quot;,
+  :row 142,
+  :data (:distance-from-lhj :diameter)}
+ {:type :table-content,
+  :content &quot;|                 0 |     26.5 |&quot;,
+  :row 143,
+  :data (0.0 26.5)}
+ {:type :table-content,
+  :content &quot;|                 1 |     26.8 |&quot;,
+  :row 144,
+  :data (1.0 26.8)}
+ {:type :table-content,
+  :content &quot;|              1.01 |     28.4 |&quot;,
+  :row 145,
+  :data (1.01 28.4)}
+ {:type :table-content,
+  :content &quot;|               2.2 |     28.4 |&quot;,
+  :row 146,
+  :data (2.2 28.4)}
+ {:type :table-content,
+  :content &quot;|              2.21 |     28.0 |&quot;,
+  :row 147,
+  :data (2.21 28.0)}
+ {:type :table-content,
+  :content &quot;|               3.0 |     27.7 |&quot;,
+  :row 148,
+  :data (3.0 27.7)}
+ {:type :table-content,
+  :content &quot;|              3.01 |     27.3 |&quot;,
+  :row 149,
+  :data (3.01 27.3)}
+ {:type :table-content,
+  :content &quot;|               3.5 |     27.3 |&quot;,
+  :row 150,
+  :data (3.5 27.3)}
+ {:type :table-content,
+  :content &quot;|              3.51 |     26.8 |&quot;,
+  :row 151,
+  :data (3.51 26.8)}
+ {:type :table-content,
+  :content &quot;|              15.8 |     26.9 |&quot;,
+  :row 152,
+  :data (15.8 26.9)}
+ {:type :table-content,
+  :content &quot;|             15.81 |     27.5 |&quot;,
+  :row 153,
+  :data (15.81 27.5)}
+ {:type :table-content,
+  :content &quot;|              17.0 |     27.5 |&quot;,
+  :row 154,
+  :data (17.0 27.5)}
+ {:type :table-content,
+  :content &quot;|             17.01 |     28.6 |&quot;,
+  :row 155,
+  :data (17.01 28.6)}
+ {:type :table-content,
+  :content &quot;|             17.75 |     28.6 |&quot;,
+  :row 156,
+  :data (17.75 28.6)}
+ {:type :table-content,
+  :content &quot;|                21 |    34.25 |&quot;,
+  :row 157,
+  :data (21.0 34.25)}
+ {:type :table-content,
+  :content &quot;|                25 |    34.25 |&quot;,
+  :row 158,
+  :data (25.0 34.25)}
+ {:type :table-content,
+  :content &quot;|                27 |    29.45 |&quot;,
+  :row 159,
+  :data (27.0 29.45)}
+ {:type :table-content,
+  :content &quot;|              27.5 |    29.45 |&quot;,
+  :row 160,
+  :data (27.5 29.45)}
+ {:type :table-content,
+  :content &quot;|             27.51 |     27.5 |&quot;,
+  :row 161,
+  :data (27.51 27.5)}
+ {:type :table-content,
+  :content &quot;|              28.6 |     27.5 |&quot;,
+  :row 162,
+  :data (28.6 27.5)}
+ {:type :table-content,
+  :content &quot;|             28.61 |     25.6 |&quot;,
+  :row 163,
+  :data (28.61 25.6)}
+ {:type :table-content,
+  :content &quot;|              97.6 |    24.75 |&quot;,
+  :row 164,
+  :data (97.6 24.75)}
+ {:type :heading, :level 3, :content :holes, :row 165}
  {:type :table-heading,
   :content
   &quot;| Distance from RH Joint | Longitudinal | Lateral | Diameter |&quot;,
-  :row 165,
+  :row 166,
   :data (:distance-from-rh-joint :longitudinal :lateral :diameter)}
  {:type :table-content,
   :content
   &quot;|                   30.8 |          9.1 |     8.7 |      8.9 |&quot;,
-  :row 166,
+  :row 167,
   :data (30.8 9.1 8.7 8.9)})
 </code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(filter #(= :heading (:type %)) processed-content)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">({:type :heading, :level 1, :content :lot-dcm615, :row 0}
- {:type :heading, :level 2, :content :bore-diameters, :row 1}
- {:type :heading, :level 3, :content :head-joint, :row 2}
- {:type :heading, :level 3, :content :middle-joint, :row 10}
- {:type :heading, :level 3, :content :right-hand-joint, :row 45}
- {:type :heading, :level 3, :content :foot-joint, :row 69}
- {:type :heading, :level 2, :content :outside-diameters, :row 87}
- {:type :heading, :level 3, :content :head-joint, :row 88}
- {:type :heading, :level 3, :content :middle-joint, :row 107}
- {:type :heading, :level 3, :content :right-hand-joint, :row 111}
- {:type :heading, :level 3, :content :foot-joint, :row 126}
- {:type :heading, :level 2, :content :holes, :row 150}
- {:type :heading, :level 3, :content :head-joint, :row 151}
- {:type :heading, :level 3, :content :middle-joint, :row 154}
- {:type :heading, :level 3, :content :right-hand-joint, :row 159}
- {:type :heading, :level 3, :content :foot-joint, :row 164})
+ {:type :heading, :level 2, :content :head-joint, :row 1}
+ {:type :heading, :level 3, :content :bore-diameters, :row 2}
+ {:type :heading, :level 3, :content :outside-diameters, :row 10}
+ {:type :heading, :level 3, :content :holes, :row 29}
+ {:type :heading, :level 2, :content :middle-joint-, :row 32}
+ {:type :heading, :level 3, :content :bore-diameters, :row 33}
+ {:type :heading, :level 3, :content :outside-diameters, :row 68}
+ {:type :heading, :level 3, :content :holes, :row 72}
+ {:type :heading, :level 2, :content :right-hand-joint, :row 77}
+ {:type :heading, :level 3, :content :bore-diameters, :row 78}
+ {:type :heading, :level 3, :content :outside-diameters, :row 102}
+ {:type :heading, :level 3, :content :holes, :row 117}
+ {:type :heading, :level 2, :content :foot-joint, :row 122}
+ {:type :heading, :level 3, :content :bore-diameters, :row 123}
+ {:type :heading, :level 3, :content :outside-diameters, :row 141}
+ {:type :heading, :level 3, :content :holes, :row 165})
 </code></pre></div></div><div style="margin:15px;"><div><p>TODO table structure & table content</p><h3 id="creating-map-structure-based-on-the-heading-levels">creating map structure based on the heading levels</h3></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn add-org-row-to-map
   [row result-map path header]
   (cond
@@ -952,9 +955,16 @@
                       (= :table-heading (:type processing-item)) (:data processing-item)
                       (= :table-content (:type processing-item)) data-heading
                       :else nil)]
-        (recur (rest processing) (add-org-row-to-map processing-item  acc new-path heading) new-path new-level heading)))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(org-processed-list-to-edn processed-content)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:lot-dcm615
- {:bore-diameters
-  {:head-joint
+        (recur (rest processing) (add-org-row-to-map processing-item  acc new-path heading) new-path new-level heading)))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn post-proccess-edn [input]
+   (let [
+      main-key (first (keys input))
+      data (first (vals input))
+   ]
+     (dissoc (assoc (assoc input :data data) :model (name main-key)) main-key)
+)
+)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def example-flute-data (org-processed-list-to-edn processed-content))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">example-flute-data</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:lot-dcm615
+ {:head-joint
+  {:bore-diameters
    {:data
     [{:bore-diameter 20.0, :distance-from-cap 1.0}
      {:bore-diameter 19.9, :distance-from-cap 15.0}
@@ -962,7 +972,36 @@
      {:bore-diameter 19.7, :distance-from-cap 175.0}
      {:bore-diameter 19.6, :distance-from-cap 185.0}
      {:bore-diameter 19.5, :distance-from-cap 191.0}]},
-   :middle-joint
+   :outside-diameters
+   {:data
+    [{:distance-from-lhj 222.8, :min 29.3, :max 29.1, :diameter 29.2}
+     {:distance-from-lhj 159.0, :min 30.25, :max 30.15, :diameter 30.2}
+     {:distance-from-lhj 47.8, :min 29.8, :max 29.5, :diameter 29.65}
+     {:distance-from-lhj 38.16,
+      :min 29.85,
+      :max 29.85,
+      :diameter 29.85}
+     {:distance-from-lhj 38.15, :min 30.2, :max 30.2, :diameter 30.2}
+     {:distance-from-lhj 37.8, :min 30.2, :max 30.2, :diameter 30.2}
+     {:distance-from-lhj 36.8, :min 31.4, :max 31.4, :diameter 31.4}
+     {:distance-from-lhj 36.79, :min 31.0, :max 31.0, :diameter 31.0}
+     {:distance-from-lhj 36.25, :min 31.0, :max 31.0, :diameter 31.0}
+     {:distance-from-lhj 36.24, :min 30.6, :max 30.6, :diameter 30.6}
+     {:distance-from-lhj 20.2, :min 35.45, :max 35.05, :diameter 35.25}
+     {:distance-from-lhj 2.51, :min 30.8, :max 30.8, :diameter 30.8}
+     {:distance-from-lhj 2.5, :min 31.05, :max 31.05, :diameter 31.05}
+     {:distance-from-lhj 2.0, :min 31.05, :max 31.05, :diameter 31.05}
+     {:distance-from-lhj 1.9, :min 31.85, :max 31.85, :diameter 31.85}
+     {:distance-from-lhj 1.0, :min 30.0, :max 30.0, :diameter 30.0}
+     {:distance-from-lhj 0.0, :min 30.0, :max 30.0, :diameter 30.0}]},
+   :holes
+   {:data
+    [{:longitudinal 12.0,
+      :lateral 12.0,
+      :distance-from-right-hand-end 159.0,
+      :diameter 12.0}]}},
+  :middle-joint-
+  {:bore-diameters
    {:data
     [{:bore-diameter 19.1, :distance-from-left-tenon 2.0}
      {:bore-diameter 19.0, :distance-from-left-tenon 34.0}
@@ -997,7 +1036,26 @@
      {:bore-diameter 15.9, :distance-from-left-tenon 194.0}
      {:bore-diameter 15.8, :distance-from-left-tenon 208.0}
      {:bore-diameter 15.9, :distance-from-left-tenon 215.0}]},
-   :right-hand-joint
+   :outside-diameters
+   {:data
+    [{:distance-from-soundhole 159.05, :diameter 29.2}
+     {:distance-from-soundhole 317.49, :diameter 26.0}]},
+   :holes
+   {:data
+    [{:distance-from-headjoint 64.6,
+      :longitudinal 6.9,
+      :lateral 6.45,
+      :diameter 6.675}
+     {:distance-from-headjoint 102.0,
+      :longitudinal 6.85,
+      :lateral 6.5,
+      :diameter 6.675}
+     {:distance-from-headjoint 141.7,
+      :longitudinal 5.75,
+      :lateral 5.55,
+      :diameter 5.65}]}},
+  :right-hand-joint
+  {:bore-diameters
    {:data
     [{:bore-diameter 15.4, :distance-from-left-mortice 29.0}
      {:bore-diameter 15.3, :distance-from-left-mortice 34.0}
@@ -1021,52 +1079,7 @@
      {:bore-diameter 13.5, :distance-from-left-mortice 145.5}
      {:bore-diameter 13.4, :distance-from-left-mortice 152.0}
      {:bore-diameter 13.3, :distance-from-left-mortice 161.0}]},
-   :foot-joint
-   {:data
-    [{:bore-diameter 15.0, :distance-from-end 40.0}
-     {:bore-diameter 14.9, :distance-from-end 45.0}
-     {:bore-diameter 14.8, :distance-from-end 47.0}
-     {:bore-diameter 14.7, :distance-from-end 50.0}
-     {:bore-diameter 14.6, :distance-from-end 51.0}
-     {:bore-diameter 14.5, :distance-from-end 55.0}
-     {:bore-diameter 14.4, :distance-from-end 57.0}
-     {:bore-diameter 14.3, :distance-from-end 60.0}
-     {:bore-diameter 14.1, :distance-from-end 63.0}
-     {:bore-diameter 14.0, :distance-from-end 66.0}
-     {:bore-diameter 13.9, :distance-from-end 68.0}
-     {:bore-diameter 13.8, :distance-from-end 70.0}
-     {:bore-diameter 13.7, :distance-from-end 71.0}
-     {:bore-diameter 13.6, :distance-from-end 73.0}
-     {:bore-diameter 13.5, :distance-from-end 76.0}
-     {:bore-diameter 13.43, :distance-from-end 78.0}]}},
-  :outside-diameters
-  {:head-joint
-   {:data
-    [{:distance-from-lhj 222.8, :min 29.3, :max 29.1, :diameter 29.2}
-     {:distance-from-lhj 159.0, :min 30.25, :max 30.15, :diameter 30.2}
-     {:distance-from-lhj 47.8, :min 29.8, :max 29.5, :diameter 29.65}
-     {:distance-from-lhj 38.16,
-      :min 29.85,
-      :max 29.85,
-      :diameter 29.85}
-     {:distance-from-lhj 38.15, :min 30.2, :max 30.2, :diameter 30.2}
-     {:distance-from-lhj 37.8, :min 30.2, :max 30.2, :diameter 30.2}
-     {:distance-from-lhj 36.8, :min 31.4, :max 31.4, :diameter 31.4}
-     {:distance-from-lhj 36.79, :min 31.0, :max 31.0, :diameter 31.0}
-     {:distance-from-lhj 36.25, :min 31.0, :max 31.0, :diameter 31.0}
-     {:distance-from-lhj 36.24, :min 30.6, :max 30.6, :diameter 30.6}
-     {:distance-from-lhj 20.2, :min 35.45, :max 35.05, :diameter 35.25}
-     {:distance-from-lhj 2.51, :min 30.8, :max 30.8, :diameter 30.8}
-     {:distance-from-lhj 2.5, :min 31.05, :max 31.05, :diameter 31.05}
-     {:distance-from-lhj 2.0, :min 31.05, :max 31.05, :diameter 31.05}
-     {:distance-from-lhj 1.9, :min 31.85, :max 31.85, :diameter 31.85}
-     {:distance-from-lhj 1.0, :min 30.0, :max 30.0, :diameter 30.0}
-     {:distance-from-lhj 0.0, :min 30.0, :max 30.0, :diameter 30.0}]},
-   :middle-joint
-   {:data
-    [{:distance-from-soundhole 159.05, :diameter 29.2}
-     {:distance-from-soundhole 317.49, :diameter 26.0}]},
-   :right-hand-joint
+   :outside-diameters
    {:data
     [{:distance-from-middle-joint 0.0,
       :min 27.15,
@@ -1120,7 +1133,40 @@
       :min 25.95,
       :max 26.95,
       :diameter 26.45}]},
-   :foot-joint
+   :holes
+   {:data
+    [{:distance-from-lh-joint 40.15,
+      :longitudinal 6.8,
+      :lateral 6.5,
+      :diameter 6.65}
+     {:distance-from-lh-joint 78.65,
+      :longitudinal 6.35,
+      :lateral 6.15,
+      :diameter 6.25}
+     {:distance-from-lh-joint 116.9,
+      :longitudinal 4.95,
+      :lateral 4.9,
+      :diameter 4.925}]}},
+  :foot-joint
+  {:bore-diameters
+   {:data
+    [{:bore-diameter 15.0, :distance-from-end 40.0}
+     {:bore-diameter 14.9, :distance-from-end 45.0}
+     {:bore-diameter 14.8, :distance-from-end 47.0}
+     {:bore-diameter 14.7, :distance-from-end 50.0}
+     {:bore-diameter 14.6, :distance-from-end 51.0}
+     {:bore-diameter 14.5, :distance-from-end 55.0}
+     {:bore-diameter 14.4, :distance-from-end 57.0}
+     {:bore-diameter 14.3, :distance-from-end 60.0}
+     {:bore-diameter 14.1, :distance-from-end 63.0}
+     {:bore-diameter 14.0, :distance-from-end 66.0}
+     {:bore-diameter 13.9, :distance-from-end 68.0}
+     {:bore-diameter 13.8, :distance-from-end 70.0}
+     {:bore-diameter 13.7, :distance-from-end 71.0}
+     {:bore-diameter 13.6, :distance-from-end 73.0}
+     {:bore-diameter 13.5, :distance-from-end 76.0}
+     {:bore-diameter 13.43, :distance-from-end 78.0}]},
+   :outside-diameters
    {:data
     [{:distance-from-lhj 0.0, :diameter 26.5}
      {:distance-from-lhj 1.0, :diameter 26.8}
@@ -1143,29 +1189,319 @@
      {:distance-from-lhj 27.51, :diameter 27.5}
      {:distance-from-lhj 28.6, :diameter 27.5}
      {:distance-from-lhj 28.61, :diameter 25.6}
-     {:distance-from-lhj 97.6, :diameter 24.75}]}},
-  :holes
+     {:distance-from-lhj 97.6, :diameter 24.75}]},
+   :holes
+   {:data
+    [{:distance-from-rh-joint 30.8,
+      :longitudinal 9.1,
+      :lateral 8.7,
+      :diameter 8.9}]}}}}
+</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def hole
+  [:map
+   [:position :float]
+   [:diameter :float]
+   ;; other data, lateral diameter, longtitudonal diameter, undercut etc
+   ])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def joint
+  [:map
+   [:bore             [:vector :map]]
+   [:outside-diameter [:vector :map]] 
+   [:holes            [:vector #&apos;hole]]])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def flute
+  [:map
+   [:model :string]
+   [:data
+    [:map
+    [:head-joint       #&apos;joint]
+    [:middle-joint     #&apos;joint]
+    [:right-hand-joint #&apos;joint]]]])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(m/validate flute example-flute-data)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">false
+</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(m/explain flute (post-proccess-edn example-flute-data))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:schema
+ [:map [:model :string] [:data [:map [:head-joint #&apos;emacs_to_edn/joint] [:middle-joint #&apos;emacs_to_edn/joint] [:right-hand-joint #&apos;emacs_to_edn/joint]]]],
+ :value
+ {:data
   {:head-joint
+   {:bore-diameters
+    {:data
+     [{:bore-diameter 20.0, :distance-from-cap 1.0}
+      {:bore-diameter 19.9, :distance-from-cap 15.0}
+      {:bore-diameter 19.8, :distance-from-cap 165.0}
+      {:bore-diameter 19.7, :distance-from-cap 175.0}
+      {:bore-diameter 19.6, :distance-from-cap 185.0}
+      {:bore-diameter 19.5, :distance-from-cap 191.0}]},
+    :outside-diameters
+    {:data
+     [{:distance-from-lhj 222.8, :min 29.3, :max 29.1, :diameter 29.2}
+      {:distance-from-lhj 159.0,
+       :min 30.25,
+       :max 30.15,
+       :diameter 30.2}
+      {:distance-from-lhj 47.8, :min 29.8, :max 29.5, :diameter 29.65}
+      {:distance-from-lhj 38.16,
+       :min 29.85,
+       :max 29.85,
+       :diameter 29.85}
+      {:distance-from-lhj 38.15, :min 30.2, :max 30.2, :diameter 30.2}
+      {:distance-from-lhj 37.8, :min 30.2, :max 30.2, :diameter 30.2}
+      {:distance-from-lhj 36.8, :min 31.4, :max 31.4, :diameter 31.4}
+      {:distance-from-lhj 36.79, :min 31.0, :max 31.0, :diameter 31.0}
+      {:distance-from-lhj 36.25, :min 31.0, :max 31.0, :diameter 31.0}
+      {:distance-from-lhj 36.24, :min 30.6, :max 30.6, :diameter 30.6}
+      {:distance-from-lhj 20.2,
+       :min 35.45,
+       :max 35.05,
+       :diameter 35.25}
+      {:distance-from-lhj 2.51, :min 30.8, :max 30.8, :diameter 30.8}
+      {:distance-from-lhj 2.5, :min 31.05, :max 31.05, :diameter 31.05}
+      {:distance-from-lhj 2.0, :min 31.05, :max 31.05, :diameter 31.05}
+      {:distance-from-lhj 1.9, :min 31.85, :max 31.85, :diameter 31.85}
+      {:distance-from-lhj 1.0, :min 30.0, :max 30.0, :diameter 30.0}
+      {:distance-from-lhj 0.0, :min 30.0, :max 30.0, :diameter 30.0}]},
+    :holes
+    {:data
+     [{:longitudinal 12.0,
+       :lateral 12.0,
+       :distance-from-right-hand-end 159.0,
+       :diameter 12.0}]}},
+   :middle-joint-
+   {:bore-diameters
+    {:data
+     [{:bore-diameter 19.1, :distance-from-left-tenon 2.0}
+      {:bore-diameter 19.0, :distance-from-left-tenon 34.0}
+      {:bore-diameter 18.9, :distance-from-left-tenon 45.0}
+      {:bore-diameter 18.8, :distance-from-left-tenon 52.0}
+      {:bore-diameter 18.7, :distance-from-left-tenon 58.0}
+      {:bore-diameter 18.6, :distance-from-left-tenon 63.0}
+      {:bore-diameter 18.5, :distance-from-left-tenon 68.0}
+      {:bore-diameter 18.4, :distance-from-left-tenon 72.0}
+      {:bore-diameter 18.3, :distance-from-left-tenon 72.0}
+      {:bore-diameter 18.2, :distance-from-left-tenon 80.0}
+      {:bore-diameter 18.1, :distance-from-left-tenon 83.0}
+      {:bore-diameter 18.0, :distance-from-left-tenon 86.0}
+      {:bore-diameter 17.9, :distance-from-left-tenon 89.0}
+      {:bore-diameter 17.7, :distance-from-left-tenon 101.0}
+      {:bore-diameter 17.6, :distance-from-left-tenon 106.0}
+      {:bore-diameter 17.5, :distance-from-left-tenon 110.0}
+      {:bore-diameter 17.4, :distance-from-left-tenon 119.0}
+      {:bore-diameter 17.3, :distance-from-left-tenon 125.0}
+      {:bore-diameter 17.1, :distance-from-left-tenon 138.0}
+      {:bore-diameter 17.0, :distance-from-left-tenon 142.5}
+      {:bore-diameter 16.9, :distance-from-left-tenon 149.0}
+      {:bore-diameter 16.8, :distance-from-left-tenon 156.0}
+      {:bore-diameter 16.7, :distance-from-left-tenon 165.0}
+      {:bore-diameter 16.6, :distance-from-left-tenon 170.0}
+      {:bore-diameter 16.5, :distance-from-left-tenon 174.0}
+      {:bore-diameter 16.4, :distance-from-left-tenon 180.0}
+      {:bore-diameter 16.3, :distance-from-left-tenon 182.0}
+      {:bore-diameter 16.2, :distance-from-left-tenon 186.0}
+      {:bore-diameter 16.1, :distance-from-left-tenon 189.0}
+      {:bore-diameter 16.0, :distance-from-left-tenon 191.0}
+      {:bore-diameter 15.9, :distance-from-left-tenon 194.0}
+      {:bore-diameter 15.8, :distance-from-left-tenon 208.0}
+      {:bore-diameter 15.9, :distance-from-left-tenon 215.0}]},
+    :outside-diameters
+    {:data
+     [{:distance-from-soundhole 159.05, :diameter 29.2}
+      {:distance-from-soundhole 317.49, :diameter 26.0}]},
+    :holes
+    {:data
+     [{:distance-from-headjoint 64.6,
+       :longitudinal 6.9,
+       :lateral 6.45,
+       :diameter 6.675}
+      {:distance-from-headjoint 102.0,
+       :longitudinal 6.85,
+       :lateral 6.5,
+       :diameter 6.675}
+      {:distance-from-headjoint 141.7,
+       :longitudinal 5.75,
+       :lateral 5.55,
+       :diameter 5.65}]}},
+   :right-hand-joint
+   {:bore-diameters
+    {:data
+     [{:bore-diameter 15.4, :distance-from-left-mortice 29.0}
+      {:bore-diameter 15.3, :distance-from-left-mortice 34.0}
+      {:bore-diameter 15.2, :distance-from-left-mortice 51.0}
+      {:bore-diameter 15.1, :distance-from-left-mortice 53.0}
+      {:bore-diameter 15.0, :distance-from-left-mortice 55.0}
+      {:bore-diameter 14.9, :distance-from-left-mortice 61.0}
+      {:bore-diameter 14.8, :distance-from-left-mortice 68.0}
+      {:bore-diameter 14.7, :distance-from-left-mortice 75.0}
+      {:bore-diameter 14.6, :distance-from-left-mortice 80.0}
+      {:bore-diameter 14.5, :distance-from-left-mortice 88.0}
+      {:bore-diameter 14.4, :distance-from-left-mortice 93.0}
+      {:bore-diameter 14.3, :distance-from-left-mortice 96.0}
+      {:bore-diameter 14.2, :distance-from-left-mortice 98.0}
+      {:bore-diameter 14.1, :distance-from-left-mortice 106.0}
+      {:bore-diameter 14.0, :distance-from-left-mortice 111.0}
+      {:bore-diameter 13.9, :distance-from-left-mortice 119.0}
+      {:bore-diameter 13.8, :distance-from-left-mortice 128.0}
+      {:bore-diameter 13.7, :distance-from-left-mortice 137.0}
+      {:bore-diameter 13.6, :distance-from-left-mortice 142.5}
+      {:bore-diameter 13.5, :distance-from-left-mortice 145.5}
+      {:bore-diameter 13.4, :distance-from-left-mortice 152.0}
+      {:bore-diameter 13.3, :distance-from-left-mortice 161.0}]},
+    :outside-diameters
+    {:data
+     [{:distance-from-middle-joint 0.0,
+       :min 27.15,
+       :max 27.15,
+       :diameter 27.15}
+      {:distance-from-middle-joint 0.5,
+       :min 27.15,
+       :max 27.15,
+       :diameter 27.15}
+      {:distance-from-middle-joint 1.2,
+       :min 28.7,
+       :max 28.7,
+       :diameter 28.7}
+      {:distance-from-middle-joint 1.7,
+       :min 27.9,
+       :max 27.9,
+       :diameter 27.9}
+      {:distance-from-middle-joint 2.0,
+       :min 27.9,
+       :max 27.9,
+       :diameter 27.9}
+      {:distance-from-middle-joint 2.1,
+       :min 27.2,
+       :max 27.2,
+       :diameter 27.2}
+      {:distance-from-middle-joint 17.2,
+       :min 31.6,
+       :max 31.5,
+       :diameter 31.55}
+      {:distance-from-middle-joint 29.79,
+       :min 27.0,
+       :max 27.0,
+       :diameter 27.0}
+      {:distance-from-middle-joint 29.8,
+       :min 27.45,
+       :max 27.45,
+       :diameter 27.45}
+      {:distance-from-middle-joint 30.0,
+       :min 28.3,
+       :max 28.3,
+       :diameter 28.3}
+      {:distance-from-middle-joint 31.7,
+       :min 27.0,
+       :max 27.0,
+       :diameter 27.0}
+      {:distance-from-middle-joint 31.71,
+       :min 26.68,
+       :max 26.68,
+       :diameter 26.68}
+      {:distance-from-middle-joint 144.4,
+       :min 25.95,
+       :max 26.95,
+       :diameter 26.45}]},
+    :holes
+    {:data
+     [{:distance-from-lh-joint 40.15,
+       :longitudinal 6.8,
+       :lateral 6.5,
+       :diameter 6.65}
+      {:distance-from-lh-joint 78.65,
+       :longitudinal 6.35,
+       :lateral 6.15,
+       :diameter 6.25}
+      {:distance-from-lh-joint 116.9,
+       :longitudinal 4.95,
+       :lateral 4.9,
+       :diameter 4.925}]}},
+   :foot-joint
+   {:bore-diameters
+    {:data
+     [{:bore-diameter 15.0, :distance-from-end 40.0}
+      {:bore-diameter 14.9, :distance-from-end 45.0}
+      {:bore-diameter 14.8, :distance-from-end 47.0}
+      {:bore-diameter 14.7, :distance-from-end 50.0}
+      {:bore-diameter 14.6, :distance-from-end 51.0}
+      {:bore-diameter 14.5, :distance-from-end 55.0}
+      {:bore-diameter 14.4, :distance-from-end 57.0}
+      {:bore-diameter 14.3, :distance-from-end 60.0}
+      {:bore-diameter 14.1, :distance-from-end 63.0}
+      {:bore-diameter 14.0, :distance-from-end 66.0}
+      {:bore-diameter 13.9, :distance-from-end 68.0}
+      {:bore-diameter 13.8, :distance-from-end 70.0}
+      {:bore-diameter 13.7, :distance-from-end 71.0}
+      {:bore-diameter 13.6, :distance-from-end 73.0}
+      {:bore-diameter 13.5, :distance-from-end 76.0}
+      {:bore-diameter 13.43, :distance-from-end 78.0}]},
+    :outside-diameters
+    {:data
+     [{:distance-from-lhj 0.0, :diameter 26.5}
+      {:distance-from-lhj 1.0, :diameter 26.8}
+      {:distance-from-lhj 1.01, :diameter 28.4}
+      {:distance-from-lhj 2.2, :diameter 28.4}
+      {:distance-from-lhj 2.21, :diameter 28.0}
+      {:distance-from-lhj 3.0, :diameter 27.7}
+      {:distance-from-lhj 3.01, :diameter 27.3}
+      {:distance-from-lhj 3.5, :diameter 27.3}
+      {:distance-from-lhj 3.51, :diameter 26.8}
+      {:distance-from-lhj 15.8, :diameter 26.9}
+      {:distance-from-lhj 15.81, :diameter 27.5}
+      {:distance-from-lhj 17.0, :diameter 27.5}
+      {:distance-from-lhj 17.01, :diameter 28.6}
+      {:distance-from-lhj 17.75, :diameter 28.6}
+      {:distance-from-lhj 21.0, :diameter 34.25}
+      {:distance-from-lhj 25.0, :diameter 34.25}
+      {:distance-from-lhj 27.0, :diameter 29.45}
+      {:distance-from-lhj 27.5, :diameter 29.45}
+      {:distance-from-lhj 27.51, :diameter 27.5}
+      {:distance-from-lhj 28.6, :diameter 27.5}
+      {:distance-from-lhj 28.61, :diameter 25.6}
+      {:distance-from-lhj 97.6, :diameter 24.75}]},
+    :holes
+    {:data
+     [{:distance-from-rh-joint 30.8,
+       :longitudinal 9.1,
+       :lateral 8.7,
+       :diameter 8.9}]}}},
+  :model &quot;lot-dcm615&quot;},
+ :errors
+ ({:path [:data :head-joint 0 :bore],
+   :in [:data :head-joint :bore],
+   :schema
+   [:map [:bore [:vector :map]] [:outside-diameter [:vector :map]] [:holes [:vector #&apos;emacs_to_edn/hole]]],
+   :value nil,
+   :type :malli.core/missing-key}
+  {:path [:data :head-joint 0 :outside-diameter],
+   :in [:data :head-joint :outside-diameter],
+   :schema
+   [:map [:bore [:vector :map]] [:outside-diameter [:vector :map]] [:holes [:vector #&apos;emacs_to_edn/hole]]],
+   :value nil,
+   :type :malli.core/missing-key}
+  {:path [:data :head-joint 0 :holes],
+   :in [:data :head-joint :holes],
+   :schema [:vector #&apos;emacs_to_edn/hole],
+   :value
    {:data
     [{:longitudinal 12.0,
       :lateral 12.0,
       :distance-from-right-hand-end 159.0,
       :diameter 12.0}]},
-   :middle-joint
-   {:data
-    [{:distance-from-headjoint 64.6,
-      :longitudinal 6.9,
-      :lateral 6.45,
-      :diameter 6.675}
-     {:distance-from-headjoint 102.0,
-      :longitudinal 6.85,
-      :lateral 6.5,
-      :diameter 6.675}
-     {:distance-from-headjoint 141.7,
-      :longitudinal 5.75,
-      :lateral 5.55,
-      :diameter 5.65}]},
-   :right-hand-joint
+   :type :malli.core/invalid-type}
+  {:path [:data :middle-joint],
+   :in [:data :middle-joint],
+   :schema
+   [:map [:head-joint #&apos;emacs_to_edn/joint] [:middle-joint #&apos;emacs_to_edn/joint] [:right-hand-joint #&apos;emacs_to_edn/joint]],
+   :value nil,
+   :type :malli.core/missing-key}
+  {:path [:data :right-hand-joint 0 :bore],
+   :in [:data :right-hand-joint :bore],
+   :schema
+   [:map [:bore [:vector :map]] [:outside-diameter [:vector :map]] [:holes [:vector #&apos;emacs_to_edn/hole]]],
+   :value nil,
+   :type :malli.core/missing-key}
+  {:path [:data :right-hand-joint 0 :outside-diameter],
+   :in [:data :right-hand-joint :outside-diameter],
+   :schema
+   [:map [:bore [:vector :map]] [:outside-diameter [:vector :map]] [:holes [:vector #&apos;emacs_to_edn/hole]]],
+   :value nil,
+   :type :malli.core/missing-key}
+  {:path [:data :right-hand-joint 0 :holes],
+   :in [:data :right-hand-joint :holes],
+   :schema [:vector #&apos;emacs_to_edn/hole],
+   :value
    {:data
     [{:distance-from-lh-joint 40.15,
       :longitudinal 6.8,
@@ -1179,28 +1515,8 @@
       :longitudinal 4.95,
       :lateral 4.9,
       :diameter 4.925}]},
-   :foot-joint
-   {:data
-    [{:distance-from-rh-joint 30.8,
-      :longitudinal 9.1,
-      :lateral 8.7,
-      :diameter 8.9}]}}}}
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def joint
-  [:map
-   [:bore             :vector]
-   [:outside-diameter :vector]
-   [:holes            [:map
-                       [:position :number]
-                       [:diameter :number]
-                       ;; other data, lateral diameter, longtitudonal diameter, undercut etc
-                       ]]])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def flute
-  [:map
-   [:model &quot;flutename&quot;]
-   [:data
-    [:head-joint       #&apos;joint]
-    [:middle-joint     #&apos;joint]
-    [:right-hand-joint #&apos;joint]
-    [:footjoint        #&apos;joint]]])</code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/emacs_to_edn.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
+   :type :malli.core/invalid-type})}
+</code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/emacs_to_edn.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors
   License: BSD-3-Clause

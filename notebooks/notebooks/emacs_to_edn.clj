@@ -134,23 +134,42 @@ processed-content
                       :else nil)]
         (recur (rest processing) (add-org-row-to-map processing-item  acc new-path heading) new-path new-level heading)))))
 
-(org-processed-list-to-edn processed-content)
+(defn post-proccess-edn [input]
+   (let [
+      main-key (first (keys input))
+      data (first (vals input))
+   ]
+     (dissoc (assoc (assoc input :data data) :model (name main-key)) main-key)
+)
+)
+
+(def example-flute-data (org-processed-list-to-edn processed-content))
+
+example-flute-data
+
+(def hole
+  [:map
+   [:position :float]
+   [:diameter :float]
+   ;; other data, lateral diameter, longtitudonal diameter, undercut etc
+   ])
 
 (def joint
   [:map
-   [:bore             :vector]
-   [:outside-diameter :vector]
-   [:holes            [:map
-                       [:position :number]
-                       [:diameter :number]
-                       ;; other data, lateral diameter, longtitudonal diameter, undercut etc
-                       ]]])
+   [:bore             [:vector :map]]
+   [:outside-diameter [:vector :map]] 
+   [:holes            [:vector #'hole]]])
 
 (def flute
   [:map
-   [:model "flutename"]
+   [:model :string]
    [:data
+    [:map
     [:head-joint       #'joint]
     [:middle-joint     #'joint]
-    [:right-hand-joint #'joint]
-    [:footjoint        #'joint]]])
+    [:right-hand-joint #'joint]]]])
+
+
+(m/validate flute example-flute-data)
+
+(m/explain flute (post-proccess-edn example-flute-data))
