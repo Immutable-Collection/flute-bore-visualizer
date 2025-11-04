@@ -47,7 +47,7 @@
 <link href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" rel="stylesheet" type="text/css" />
 <title>Flute Visualizer</title></head><body data-spy="scroll" data-target="#toc" style="border:;margin:auto;">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script><script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" type="text/javascript"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" type="text/javascript"></script>
-<div class="container"><div class="row"><div class="col-sm-12"><div><div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(ns emacs_to_edn
+<div class="container"><div class="row"><div class="col-sm-12"><div><div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(ns emacs-to-edn
   (:require
     [clojure.edn :as edn]
     [clojure.java.io :as io]
@@ -55,7 +55,7 @@
     [scicloj.kindly.v4.kind :as kind]
     [scicloj.tableplot.v1.plotly :as plotly]
     [tablecloth.api :as tc]
-    [malli.core :as m]))</code></pre></div></div><div style="margin:15px;"><div><p>#reading a lot file</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def lot-dcm615-file-path &quot;../../flute-data/models/lot-dcm615.org&quot;)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def lot-dcm615-content (slurp lot-dcm615-file-path))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn valid-prefix?
+    [malli.core :as m]))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def lot-dcm615-file-path &quot;../../flute-data/models/lot-dcm615.org&quot;)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def lot-dcm615-content (slurp lot-dcm615-file-path))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn valid-prefix?
   [s]
   (boolean (re-find #&quot;^(\|+ |\*+ )&quot; s)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def initially-cleaned-content
   (filter
@@ -924,7 +924,8 @@
     (assoc-in result-map path {})
     (= :table-content (:type row))
     ;; TODO re-write with specter!
-    (assoc-in result-map (conj path :data) (conj (into [] (get-in result-map (conj path :data))) (zipmap header (:data row))))
+    ;; :data should be removed
+    (assoc-in result-map path (conj (into [] (let [current-data (get-in result-map path)](if (map? current-data) [] current-data ))) (zipmap header (:data row))))
     :else result-map))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-processed-list-to-edn
   [input-list]
   (loop [processing input-list
@@ -960,242 +961,227 @@
       main-key (first (keys input))
       data (first (vals input))
    ]
-     (dissoc (assoc (assoc input :data data) :model (name main-key)) main-key)
+     (dissoc (assoc data :model (name main-key)) main-key)
 )
 )</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def example-flute-data (org-processed-list-to-edn processed-content))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">example-flute-data</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:lot-dcm615
  {:head-joint
   {:bore-diameters
-   {:data
-    [{:bore-diameter 20.0, :distance-from-cap 1.0}
-     {:bore-diameter 19.9, :distance-from-cap 15.0}
-     {:bore-diameter 19.8, :distance-from-cap 165.0}
-     {:bore-diameter 19.7, :distance-from-cap 175.0}
-     {:bore-diameter 19.6, :distance-from-cap 185.0}
-     {:bore-diameter 19.5, :distance-from-cap 191.0}]},
+   [{:bore-diameter 20.0, :distance-from-cap 1.0}
+    {:bore-diameter 19.9, :distance-from-cap 15.0}
+    {:bore-diameter 19.8, :distance-from-cap 165.0}
+    {:bore-diameter 19.7, :distance-from-cap 175.0}
+    {:bore-diameter 19.6, :distance-from-cap 185.0}
+    {:bore-diameter 19.5, :distance-from-cap 191.0}],
    :outside-diameters
-   {:data
-    [{:distance-from-lhj 222.8, :min 29.3, :max 29.1, :diameter 29.2}
-     {:distance-from-lhj 159.0, :min 30.25, :max 30.15, :diameter 30.2}
-     {:distance-from-lhj 47.8, :min 29.8, :max 29.5, :diameter 29.65}
-     {:distance-from-lhj 38.16,
-      :min 29.85,
-      :max 29.85,
-      :diameter 29.85}
-     {:distance-from-lhj 38.15, :min 30.2, :max 30.2, :diameter 30.2}
-     {:distance-from-lhj 37.8, :min 30.2, :max 30.2, :diameter 30.2}
-     {:distance-from-lhj 36.8, :min 31.4, :max 31.4, :diameter 31.4}
-     {:distance-from-lhj 36.79, :min 31.0, :max 31.0, :diameter 31.0}
-     {:distance-from-lhj 36.25, :min 31.0, :max 31.0, :diameter 31.0}
-     {:distance-from-lhj 36.24, :min 30.6, :max 30.6, :diameter 30.6}
-     {:distance-from-lhj 20.2, :min 35.45, :max 35.05, :diameter 35.25}
-     {:distance-from-lhj 2.51, :min 30.8, :max 30.8, :diameter 30.8}
-     {:distance-from-lhj 2.5, :min 31.05, :max 31.05, :diameter 31.05}
-     {:distance-from-lhj 2.0, :min 31.05, :max 31.05, :diameter 31.05}
-     {:distance-from-lhj 1.9, :min 31.85, :max 31.85, :diameter 31.85}
-     {:distance-from-lhj 1.0, :min 30.0, :max 30.0, :diameter 30.0}
-     {:distance-from-lhj 0.0, :min 30.0, :max 30.0, :diameter 30.0}]},
+   [{:distance-from-lhj 222.8, :min 29.3, :max 29.1, :diameter 29.2}
+    {:distance-from-lhj 159.0, :min 30.25, :max 30.15, :diameter 30.2}
+    {:distance-from-lhj 47.8, :min 29.8, :max 29.5, :diameter 29.65}
+    {:distance-from-lhj 38.16, :min 29.85, :max 29.85, :diameter 29.85}
+    {:distance-from-lhj 38.15, :min 30.2, :max 30.2, :diameter 30.2}
+    {:distance-from-lhj 37.8, :min 30.2, :max 30.2, :diameter 30.2}
+    {:distance-from-lhj 36.8, :min 31.4, :max 31.4, :diameter 31.4}
+    {:distance-from-lhj 36.79, :min 31.0, :max 31.0, :diameter 31.0}
+    {:distance-from-lhj 36.25, :min 31.0, :max 31.0, :diameter 31.0}
+    {:distance-from-lhj 36.24, :min 30.6, :max 30.6, :diameter 30.6}
+    {:distance-from-lhj 20.2, :min 35.45, :max 35.05, :diameter 35.25}
+    {:distance-from-lhj 2.51, :min 30.8, :max 30.8, :diameter 30.8}
+    {:distance-from-lhj 2.5, :min 31.05, :max 31.05, :diameter 31.05}
+    {:distance-from-lhj 2.0, :min 31.05, :max 31.05, :diameter 31.05}
+    {:distance-from-lhj 1.9, :min 31.85, :max 31.85, :diameter 31.85}
+    {:distance-from-lhj 1.0, :min 30.0, :max 30.0, :diameter 30.0}
+    {:distance-from-lhj 0.0, :min 30.0, :max 30.0, :diameter 30.0}],
    :holes
-   {:data
-    [{:longitudinal 12.0,
-      :lateral 12.0,
-      :distance-from-right-hand-end 159.0,
-      :diameter 12.0}]}},
+   [{:longitudinal 12.0,
+     :lateral 12.0,
+     :distance-from-right-hand-end 159.0,
+     :diameter 12.0}]},
   :middle-joint-
   {:bore-diameters
-   {:data
-    [{:bore-diameter 19.1, :distance-from-left-tenon 2.0}
-     {:bore-diameter 19.0, :distance-from-left-tenon 34.0}
-     {:bore-diameter 18.9, :distance-from-left-tenon 45.0}
-     {:bore-diameter 18.8, :distance-from-left-tenon 52.0}
-     {:bore-diameter 18.7, :distance-from-left-tenon 58.0}
-     {:bore-diameter 18.6, :distance-from-left-tenon 63.0}
-     {:bore-diameter 18.5, :distance-from-left-tenon 68.0}
-     {:bore-diameter 18.4, :distance-from-left-tenon 72.0}
-     {:bore-diameter 18.3, :distance-from-left-tenon 72.0}
-     {:bore-diameter 18.2, :distance-from-left-tenon 80.0}
-     {:bore-diameter 18.1, :distance-from-left-tenon 83.0}
-     {:bore-diameter 18.0, :distance-from-left-tenon 86.0}
-     {:bore-diameter 17.9, :distance-from-left-tenon 89.0}
-     {:bore-diameter 17.7, :distance-from-left-tenon 101.0}
-     {:bore-diameter 17.6, :distance-from-left-tenon 106.0}
-     {:bore-diameter 17.5, :distance-from-left-tenon 110.0}
-     {:bore-diameter 17.4, :distance-from-left-tenon 119.0}
-     {:bore-diameter 17.3, :distance-from-left-tenon 125.0}
-     {:bore-diameter 17.1, :distance-from-left-tenon 138.0}
-     {:bore-diameter 17.0, :distance-from-left-tenon 142.5}
-     {:bore-diameter 16.9, :distance-from-left-tenon 149.0}
-     {:bore-diameter 16.8, :distance-from-left-tenon 156.0}
-     {:bore-diameter 16.7, :distance-from-left-tenon 165.0}
-     {:bore-diameter 16.6, :distance-from-left-tenon 170.0}
-     {:bore-diameter 16.5, :distance-from-left-tenon 174.0}
-     {:bore-diameter 16.4, :distance-from-left-tenon 180.0}
-     {:bore-diameter 16.3, :distance-from-left-tenon 182.0}
-     {:bore-diameter 16.2, :distance-from-left-tenon 186.0}
-     {:bore-diameter 16.1, :distance-from-left-tenon 189.0}
-     {:bore-diameter 16.0, :distance-from-left-tenon 191.0}
-     {:bore-diameter 15.9, :distance-from-left-tenon 194.0}
-     {:bore-diameter 15.8, :distance-from-left-tenon 208.0}
-     {:bore-diameter 15.9, :distance-from-left-tenon 215.0}]},
+   [{:bore-diameter 19.1, :distance-from-left-tenon 2.0}
+    {:bore-diameter 19.0, :distance-from-left-tenon 34.0}
+    {:bore-diameter 18.9, :distance-from-left-tenon 45.0}
+    {:bore-diameter 18.8, :distance-from-left-tenon 52.0}
+    {:bore-diameter 18.7, :distance-from-left-tenon 58.0}
+    {:bore-diameter 18.6, :distance-from-left-tenon 63.0}
+    {:bore-diameter 18.5, :distance-from-left-tenon 68.0}
+    {:bore-diameter 18.4, :distance-from-left-tenon 72.0}
+    {:bore-diameter 18.3, :distance-from-left-tenon 72.0}
+    {:bore-diameter 18.2, :distance-from-left-tenon 80.0}
+    {:bore-diameter 18.1, :distance-from-left-tenon 83.0}
+    {:bore-diameter 18.0, :distance-from-left-tenon 86.0}
+    {:bore-diameter 17.9, :distance-from-left-tenon 89.0}
+    {:bore-diameter 17.7, :distance-from-left-tenon 101.0}
+    {:bore-diameter 17.6, :distance-from-left-tenon 106.0}
+    {:bore-diameter 17.5, :distance-from-left-tenon 110.0}
+    {:bore-diameter 17.4, :distance-from-left-tenon 119.0}
+    {:bore-diameter 17.3, :distance-from-left-tenon 125.0}
+    {:bore-diameter 17.1, :distance-from-left-tenon 138.0}
+    {:bore-diameter 17.0, :distance-from-left-tenon 142.5}
+    {:bore-diameter 16.9, :distance-from-left-tenon 149.0}
+    {:bore-diameter 16.8, :distance-from-left-tenon 156.0}
+    {:bore-diameter 16.7, :distance-from-left-tenon 165.0}
+    {:bore-diameter 16.6, :distance-from-left-tenon 170.0}
+    {:bore-diameter 16.5, :distance-from-left-tenon 174.0}
+    {:bore-diameter 16.4, :distance-from-left-tenon 180.0}
+    {:bore-diameter 16.3, :distance-from-left-tenon 182.0}
+    {:bore-diameter 16.2, :distance-from-left-tenon 186.0}
+    {:bore-diameter 16.1, :distance-from-left-tenon 189.0}
+    {:bore-diameter 16.0, :distance-from-left-tenon 191.0}
+    {:bore-diameter 15.9, :distance-from-left-tenon 194.0}
+    {:bore-diameter 15.8, :distance-from-left-tenon 208.0}
+    {:bore-diameter 15.9, :distance-from-left-tenon 215.0}],
    :outside-diameters
-   {:data
-    [{:distance-from-soundhole 159.05, :diameter 29.2}
-     {:distance-from-soundhole 317.49, :diameter 26.0}]},
+   [{:distance-from-soundhole 159.05, :diameter 29.2}
+    {:distance-from-soundhole 317.49, :diameter 26.0}],
    :holes
-   {:data
-    [{:distance-from-headjoint 64.6,
-      :longitudinal 6.9,
-      :lateral 6.45,
-      :diameter 6.675}
-     {:distance-from-headjoint 102.0,
-      :longitudinal 6.85,
-      :lateral 6.5,
-      :diameter 6.675}
-     {:distance-from-headjoint 141.7,
-      :longitudinal 5.75,
-      :lateral 5.55,
-      :diameter 5.65}]}},
+   [{:distance-from-headjoint 64.6,
+     :longitudinal 6.9,
+     :lateral 6.45,
+     :diameter 6.675}
+    {:distance-from-headjoint 102.0,
+     :longitudinal 6.85,
+     :lateral 6.5,
+     :diameter 6.675}
+    {:distance-from-headjoint 141.7,
+     :longitudinal 5.75,
+     :lateral 5.55,
+     :diameter 5.65}]},
   :right-hand-joint
   {:bore-diameters
-   {:data
-    [{:bore-diameter 15.4, :distance-from-left-mortice 29.0}
-     {:bore-diameter 15.3, :distance-from-left-mortice 34.0}
-     {:bore-diameter 15.2, :distance-from-left-mortice 51.0}
-     {:bore-diameter 15.1, :distance-from-left-mortice 53.0}
-     {:bore-diameter 15.0, :distance-from-left-mortice 55.0}
-     {:bore-diameter 14.9, :distance-from-left-mortice 61.0}
-     {:bore-diameter 14.8, :distance-from-left-mortice 68.0}
-     {:bore-diameter 14.7, :distance-from-left-mortice 75.0}
-     {:bore-diameter 14.6, :distance-from-left-mortice 80.0}
-     {:bore-diameter 14.5, :distance-from-left-mortice 88.0}
-     {:bore-diameter 14.4, :distance-from-left-mortice 93.0}
-     {:bore-diameter 14.3, :distance-from-left-mortice 96.0}
-     {:bore-diameter 14.2, :distance-from-left-mortice 98.0}
-     {:bore-diameter 14.1, :distance-from-left-mortice 106.0}
-     {:bore-diameter 14.0, :distance-from-left-mortice 111.0}
-     {:bore-diameter 13.9, :distance-from-left-mortice 119.0}
-     {:bore-diameter 13.8, :distance-from-left-mortice 128.0}
-     {:bore-diameter 13.7, :distance-from-left-mortice 137.0}
-     {:bore-diameter 13.6, :distance-from-left-mortice 142.5}
-     {:bore-diameter 13.5, :distance-from-left-mortice 145.5}
-     {:bore-diameter 13.4, :distance-from-left-mortice 152.0}
-     {:bore-diameter 13.3, :distance-from-left-mortice 161.0}]},
+   [{:bore-diameter 15.4, :distance-from-left-mortice 29.0}
+    {:bore-diameter 15.3, :distance-from-left-mortice 34.0}
+    {:bore-diameter 15.2, :distance-from-left-mortice 51.0}
+    {:bore-diameter 15.1, :distance-from-left-mortice 53.0}
+    {:bore-diameter 15.0, :distance-from-left-mortice 55.0}
+    {:bore-diameter 14.9, :distance-from-left-mortice 61.0}
+    {:bore-diameter 14.8, :distance-from-left-mortice 68.0}
+    {:bore-diameter 14.7, :distance-from-left-mortice 75.0}
+    {:bore-diameter 14.6, :distance-from-left-mortice 80.0}
+    {:bore-diameter 14.5, :distance-from-left-mortice 88.0}
+    {:bore-diameter 14.4, :distance-from-left-mortice 93.0}
+    {:bore-diameter 14.3, :distance-from-left-mortice 96.0}
+    {:bore-diameter 14.2, :distance-from-left-mortice 98.0}
+    {:bore-diameter 14.1, :distance-from-left-mortice 106.0}
+    {:bore-diameter 14.0, :distance-from-left-mortice 111.0}
+    {:bore-diameter 13.9, :distance-from-left-mortice 119.0}
+    {:bore-diameter 13.8, :distance-from-left-mortice 128.0}
+    {:bore-diameter 13.7, :distance-from-left-mortice 137.0}
+    {:bore-diameter 13.6, :distance-from-left-mortice 142.5}
+    {:bore-diameter 13.5, :distance-from-left-mortice 145.5}
+    {:bore-diameter 13.4, :distance-from-left-mortice 152.0}
+    {:bore-diameter 13.3, :distance-from-left-mortice 161.0}],
    :outside-diameters
-   {:data
-    [{:distance-from-middle-joint 0.0,
-      :min 27.15,
-      :max 27.15,
-      :diameter 27.15}
-     {:distance-from-middle-joint 0.5,
-      :min 27.15,
-      :max 27.15,
-      :diameter 27.15}
-     {:distance-from-middle-joint 1.2,
-      :min 28.7,
-      :max 28.7,
-      :diameter 28.7}
-     {:distance-from-middle-joint 1.7,
-      :min 27.9,
-      :max 27.9,
-      :diameter 27.9}
-     {:distance-from-middle-joint 2.0,
-      :min 27.9,
-      :max 27.9,
-      :diameter 27.9}
-     {:distance-from-middle-joint 2.1,
-      :min 27.2,
-      :max 27.2,
-      :diameter 27.2}
-     {:distance-from-middle-joint 17.2,
-      :min 31.6,
-      :max 31.5,
-      :diameter 31.55}
-     {:distance-from-middle-joint 29.79,
-      :min 27.0,
-      :max 27.0,
-      :diameter 27.0}
-     {:distance-from-middle-joint 29.8,
-      :min 27.45,
-      :max 27.45,
-      :diameter 27.45}
-     {:distance-from-middle-joint 30.0,
-      :min 28.3,
-      :max 28.3,
-      :diameter 28.3}
-     {:distance-from-middle-joint 31.7,
-      :min 27.0,
-      :max 27.0,
-      :diameter 27.0}
-     {:distance-from-middle-joint 31.71,
-      :min 26.68,
-      :max 26.68,
-      :diameter 26.68}
-     {:distance-from-middle-joint 144.4,
-      :min 25.95,
-      :max 26.95,
-      :diameter 26.45}]},
+   [{:distance-from-middle-joint 0.0,
+     :min 27.15,
+     :max 27.15,
+     :diameter 27.15}
+    {:distance-from-middle-joint 0.5,
+     :min 27.15,
+     :max 27.15,
+     :diameter 27.15}
+    {:distance-from-middle-joint 1.2,
+     :min 28.7,
+     :max 28.7,
+     :diameter 28.7}
+    {:distance-from-middle-joint 1.7,
+     :min 27.9,
+     :max 27.9,
+     :diameter 27.9}
+    {:distance-from-middle-joint 2.0,
+     :min 27.9,
+     :max 27.9,
+     :diameter 27.9}
+    {:distance-from-middle-joint 2.1,
+     :min 27.2,
+     :max 27.2,
+     :diameter 27.2}
+    {:distance-from-middle-joint 17.2,
+     :min 31.6,
+     :max 31.5,
+     :diameter 31.55}
+    {:distance-from-middle-joint 29.79,
+     :min 27.0,
+     :max 27.0,
+     :diameter 27.0}
+    {:distance-from-middle-joint 29.8,
+     :min 27.45,
+     :max 27.45,
+     :diameter 27.45}
+    {:distance-from-middle-joint 30.0,
+     :min 28.3,
+     :max 28.3,
+     :diameter 28.3}
+    {:distance-from-middle-joint 31.7,
+     :min 27.0,
+     :max 27.0,
+     :diameter 27.0}
+    {:distance-from-middle-joint 31.71,
+     :min 26.68,
+     :max 26.68,
+     :diameter 26.68}
+    {:distance-from-middle-joint 144.4,
+     :min 25.95,
+     :max 26.95,
+     :diameter 26.45}],
    :holes
-   {:data
-    [{:distance-from-lh-joint 40.15,
-      :longitudinal 6.8,
-      :lateral 6.5,
-      :diameter 6.65}
-     {:distance-from-lh-joint 78.65,
-      :longitudinal 6.35,
-      :lateral 6.15,
-      :diameter 6.25}
-     {:distance-from-lh-joint 116.9,
-      :longitudinal 4.95,
-      :lateral 4.9,
-      :diameter 4.925}]}},
+   [{:distance-from-lh-joint 40.15,
+     :longitudinal 6.8,
+     :lateral 6.5,
+     :diameter 6.65}
+    {:distance-from-lh-joint 78.65,
+     :longitudinal 6.35,
+     :lateral 6.15,
+     :diameter 6.25}
+    {:distance-from-lh-joint 116.9,
+     :longitudinal 4.95,
+     :lateral 4.9,
+     :diameter 4.925}]},
   :foot-joint
   {:bore-diameters
-   {:data
-    [{:bore-diameter 15.0, :distance-from-end 40.0}
-     {:bore-diameter 14.9, :distance-from-end 45.0}
-     {:bore-diameter 14.8, :distance-from-end 47.0}
-     {:bore-diameter 14.7, :distance-from-end 50.0}
-     {:bore-diameter 14.6, :distance-from-end 51.0}
-     {:bore-diameter 14.5, :distance-from-end 55.0}
-     {:bore-diameter 14.4, :distance-from-end 57.0}
-     {:bore-diameter 14.3, :distance-from-end 60.0}
-     {:bore-diameter 14.1, :distance-from-end 63.0}
-     {:bore-diameter 14.0, :distance-from-end 66.0}
-     {:bore-diameter 13.9, :distance-from-end 68.0}
-     {:bore-diameter 13.8, :distance-from-end 70.0}
-     {:bore-diameter 13.7, :distance-from-end 71.0}
-     {:bore-diameter 13.6, :distance-from-end 73.0}
-     {:bore-diameter 13.5, :distance-from-end 76.0}
-     {:bore-diameter 13.43, :distance-from-end 78.0}]},
+   [{:bore-diameter 15.0, :distance-from-end 40.0}
+    {:bore-diameter 14.9, :distance-from-end 45.0}
+    {:bore-diameter 14.8, :distance-from-end 47.0}
+    {:bore-diameter 14.7, :distance-from-end 50.0}
+    {:bore-diameter 14.6, :distance-from-end 51.0}
+    {:bore-diameter 14.5, :distance-from-end 55.0}
+    {:bore-diameter 14.4, :distance-from-end 57.0}
+    {:bore-diameter 14.3, :distance-from-end 60.0}
+    {:bore-diameter 14.1, :distance-from-end 63.0}
+    {:bore-diameter 14.0, :distance-from-end 66.0}
+    {:bore-diameter 13.9, :distance-from-end 68.0}
+    {:bore-diameter 13.8, :distance-from-end 70.0}
+    {:bore-diameter 13.7, :distance-from-end 71.0}
+    {:bore-diameter 13.6, :distance-from-end 73.0}
+    {:bore-diameter 13.5, :distance-from-end 76.0}
+    {:bore-diameter 13.43, :distance-from-end 78.0}],
    :outside-diameters
-   {:data
-    [{:distance-from-lhj 0.0, :diameter 26.5}
-     {:distance-from-lhj 1.0, :diameter 26.8}
-     {:distance-from-lhj 1.01, :diameter 28.4}
-     {:distance-from-lhj 2.2, :diameter 28.4}
-     {:distance-from-lhj 2.21, :diameter 28.0}
-     {:distance-from-lhj 3.0, :diameter 27.7}
-     {:distance-from-lhj 3.01, :diameter 27.3}
-     {:distance-from-lhj 3.5, :diameter 27.3}
-     {:distance-from-lhj 3.51, :diameter 26.8}
-     {:distance-from-lhj 15.8, :diameter 26.9}
-     {:distance-from-lhj 15.81, :diameter 27.5}
-     {:distance-from-lhj 17.0, :diameter 27.5}
-     {:distance-from-lhj 17.01, :diameter 28.6}
-     {:distance-from-lhj 17.75, :diameter 28.6}
-     {:distance-from-lhj 21.0, :diameter 34.25}
-     {:distance-from-lhj 25.0, :diameter 34.25}
-     {:distance-from-lhj 27.0, :diameter 29.45}
-     {:distance-from-lhj 27.5, :diameter 29.45}
-     {:distance-from-lhj 27.51, :diameter 27.5}
-     {:distance-from-lhj 28.6, :diameter 27.5}
-     {:distance-from-lhj 28.61, :diameter 25.6}
-     {:distance-from-lhj 97.6, :diameter 24.75}]},
+   [{:distance-from-lhj 0.0, :diameter 26.5}
+    {:distance-from-lhj 1.0, :diameter 26.8}
+    {:distance-from-lhj 1.01, :diameter 28.4}
+    {:distance-from-lhj 2.2, :diameter 28.4}
+    {:distance-from-lhj 2.21, :diameter 28.0}
+    {:distance-from-lhj 3.0, :diameter 27.7}
+    {:distance-from-lhj 3.01, :diameter 27.3}
+    {:distance-from-lhj 3.5, :diameter 27.3}
+    {:distance-from-lhj 3.51, :diameter 26.8}
+    {:distance-from-lhj 15.8, :diameter 26.9}
+    {:distance-from-lhj 15.81, :diameter 27.5}
+    {:distance-from-lhj 17.0, :diameter 27.5}
+    {:distance-from-lhj 17.01, :diameter 28.6}
+    {:distance-from-lhj 17.75, :diameter 28.6}
+    {:distance-from-lhj 21.0, :diameter 34.25}
+    {:distance-from-lhj 25.0, :diameter 34.25}
+    {:distance-from-lhj 27.0, :diameter 29.45}
+    {:distance-from-lhj 27.5, :diameter 29.45}
+    {:distance-from-lhj 27.51, :diameter 27.5}
+    {:distance-from-lhj 28.6, :diameter 27.5}
+    {:distance-from-lhj 28.61, :diameter 25.6}
+    {:distance-from-lhj 97.6, :diameter 24.75}],
    :holes
-   {:data
-    [{:distance-from-rh-joint 30.8,
-      :longitudinal 9.1,
-      :lateral 8.7,
-      :diameter 8.9}]}}}}
+   [{:distance-from-rh-joint 30.8,
+     :longitudinal 9.1,
+     :lateral 8.7,
+     :diameter 8.9}]}}}
 </code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def hole
   [:map
    [:position :float]
@@ -1203,319 +1189,265 @@
    ;; other data, lateral diameter, longtitudonal diameter, undercut etc
    ])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def joint
   [:map
-   [:bore             [:vector :map]]
-   [:outside-diameter [:vector :map]] 
-   [:holes            [:vector #&apos;hole]]])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def flute
+   [:bore-diameters    [:vector :map]]
+   [:outside-diameters [:vector :map]] 
+   [:holes             [:vector #&apos;hole]]])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def flute
   [:map
    [:model :string]
-   [:data
-    [:map
-    [:head-joint       #&apos;joint]
-    [:middle-joint     #&apos;joint]
-    [:right-hand-joint #&apos;joint]]]])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(m/validate flute example-flute-data)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">false
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(m/explain flute (post-proccess-edn example-flute-data))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:schema
- [:map [:model :string] [:data [:map [:head-joint #&apos;emacs_to_edn/joint] [:middle-joint #&apos;emacs_to_edn/joint] [:right-hand-joint #&apos;emacs_to_edn/joint]]]],
- :value
- {:data
-  {:head-joint
-   {:bore-diameters
-    {:data
-     [{:bore-diameter 20.0, :distance-from-cap 1.0}
-      {:bore-diameter 19.9, :distance-from-cap 15.0}
-      {:bore-diameter 19.8, :distance-from-cap 165.0}
-      {:bore-diameter 19.7, :distance-from-cap 175.0}
-      {:bore-diameter 19.6, :distance-from-cap 185.0}
-      {:bore-diameter 19.5, :distance-from-cap 191.0}]},
-    :outside-diameters
-    {:data
-     [{:distance-from-lhj 222.8, :min 29.3, :max 29.1, :diameter 29.2}
-      {:distance-from-lhj 159.0,
-       :min 30.25,
-       :max 30.15,
-       :diameter 30.2}
-      {:distance-from-lhj 47.8, :min 29.8, :max 29.5, :diameter 29.65}
-      {:distance-from-lhj 38.16,
-       :min 29.85,
-       :max 29.85,
-       :diameter 29.85}
-      {:distance-from-lhj 38.15, :min 30.2, :max 30.2, :diameter 30.2}
-      {:distance-from-lhj 37.8, :min 30.2, :max 30.2, :diameter 30.2}
-      {:distance-from-lhj 36.8, :min 31.4, :max 31.4, :diameter 31.4}
-      {:distance-from-lhj 36.79, :min 31.0, :max 31.0, :diameter 31.0}
-      {:distance-from-lhj 36.25, :min 31.0, :max 31.0, :diameter 31.0}
-      {:distance-from-lhj 36.24, :min 30.6, :max 30.6, :diameter 30.6}
-      {:distance-from-lhj 20.2,
-       :min 35.45,
-       :max 35.05,
-       :diameter 35.25}
-      {:distance-from-lhj 2.51, :min 30.8, :max 30.8, :diameter 30.8}
-      {:distance-from-lhj 2.5, :min 31.05, :max 31.05, :diameter 31.05}
-      {:distance-from-lhj 2.0, :min 31.05, :max 31.05, :diameter 31.05}
-      {:distance-from-lhj 1.9, :min 31.85, :max 31.85, :diameter 31.85}
-      {:distance-from-lhj 1.0, :min 30.0, :max 30.0, :diameter 30.0}
-      {:distance-from-lhj 0.0, :min 30.0, :max 30.0, :diameter 30.0}]},
-    :holes
-    {:data
-     [{:longitudinal 12.0,
-       :lateral 12.0,
-       :distance-from-right-hand-end 159.0,
-       :diameter 12.0}]}},
-   :middle-joint-
-   {:bore-diameters
-    {:data
-     [{:bore-diameter 19.1, :distance-from-left-tenon 2.0}
-      {:bore-diameter 19.0, :distance-from-left-tenon 34.0}
-      {:bore-diameter 18.9, :distance-from-left-tenon 45.0}
-      {:bore-diameter 18.8, :distance-from-left-tenon 52.0}
-      {:bore-diameter 18.7, :distance-from-left-tenon 58.0}
-      {:bore-diameter 18.6, :distance-from-left-tenon 63.0}
-      {:bore-diameter 18.5, :distance-from-left-tenon 68.0}
-      {:bore-diameter 18.4, :distance-from-left-tenon 72.0}
-      {:bore-diameter 18.3, :distance-from-left-tenon 72.0}
-      {:bore-diameter 18.2, :distance-from-left-tenon 80.0}
-      {:bore-diameter 18.1, :distance-from-left-tenon 83.0}
-      {:bore-diameter 18.0, :distance-from-left-tenon 86.0}
-      {:bore-diameter 17.9, :distance-from-left-tenon 89.0}
-      {:bore-diameter 17.7, :distance-from-left-tenon 101.0}
-      {:bore-diameter 17.6, :distance-from-left-tenon 106.0}
-      {:bore-diameter 17.5, :distance-from-left-tenon 110.0}
-      {:bore-diameter 17.4, :distance-from-left-tenon 119.0}
-      {:bore-diameter 17.3, :distance-from-left-tenon 125.0}
-      {:bore-diameter 17.1, :distance-from-left-tenon 138.0}
-      {:bore-diameter 17.0, :distance-from-left-tenon 142.5}
-      {:bore-diameter 16.9, :distance-from-left-tenon 149.0}
-      {:bore-diameter 16.8, :distance-from-left-tenon 156.0}
-      {:bore-diameter 16.7, :distance-from-left-tenon 165.0}
-      {:bore-diameter 16.6, :distance-from-left-tenon 170.0}
-      {:bore-diameter 16.5, :distance-from-left-tenon 174.0}
-      {:bore-diameter 16.4, :distance-from-left-tenon 180.0}
-      {:bore-diameter 16.3, :distance-from-left-tenon 182.0}
-      {:bore-diameter 16.2, :distance-from-left-tenon 186.0}
-      {:bore-diameter 16.1, :distance-from-left-tenon 189.0}
-      {:bore-diameter 16.0, :distance-from-left-tenon 191.0}
-      {:bore-diameter 15.9, :distance-from-left-tenon 194.0}
-      {:bore-diameter 15.8, :distance-from-left-tenon 208.0}
-      {:bore-diameter 15.9, :distance-from-left-tenon 215.0}]},
-    :outside-diameters
-    {:data
-     [{:distance-from-soundhole 159.05, :diameter 29.2}
-      {:distance-from-soundhole 317.49, :diameter 26.0}]},
-    :holes
-    {:data
-     [{:distance-from-headjoint 64.6,
-       :longitudinal 6.9,
-       :lateral 6.45,
-       :diameter 6.675}
-      {:distance-from-headjoint 102.0,
-       :longitudinal 6.85,
-       :lateral 6.5,
-       :diameter 6.675}
-      {:distance-from-headjoint 141.7,
-       :longitudinal 5.75,
-       :lateral 5.55,
-       :diameter 5.65}]}},
-   :right-hand-joint
-   {:bore-diameters
-    {:data
-     [{:bore-diameter 15.4, :distance-from-left-mortice 29.0}
-      {:bore-diameter 15.3, :distance-from-left-mortice 34.0}
-      {:bore-diameter 15.2, :distance-from-left-mortice 51.0}
-      {:bore-diameter 15.1, :distance-from-left-mortice 53.0}
-      {:bore-diameter 15.0, :distance-from-left-mortice 55.0}
-      {:bore-diameter 14.9, :distance-from-left-mortice 61.0}
-      {:bore-diameter 14.8, :distance-from-left-mortice 68.0}
-      {:bore-diameter 14.7, :distance-from-left-mortice 75.0}
-      {:bore-diameter 14.6, :distance-from-left-mortice 80.0}
-      {:bore-diameter 14.5, :distance-from-left-mortice 88.0}
-      {:bore-diameter 14.4, :distance-from-left-mortice 93.0}
-      {:bore-diameter 14.3, :distance-from-left-mortice 96.0}
-      {:bore-diameter 14.2, :distance-from-left-mortice 98.0}
-      {:bore-diameter 14.1, :distance-from-left-mortice 106.0}
-      {:bore-diameter 14.0, :distance-from-left-mortice 111.0}
-      {:bore-diameter 13.9, :distance-from-left-mortice 119.0}
-      {:bore-diameter 13.8, :distance-from-left-mortice 128.0}
-      {:bore-diameter 13.7, :distance-from-left-mortice 137.0}
-      {:bore-diameter 13.6, :distance-from-left-mortice 142.5}
-      {:bore-diameter 13.5, :distance-from-left-mortice 145.5}
-      {:bore-diameter 13.4, :distance-from-left-mortice 152.0}
-      {:bore-diameter 13.3, :distance-from-left-mortice 161.0}]},
-    :outside-diameters
-    {:data
-     [{:distance-from-middle-joint 0.0,
-       :min 27.15,
-       :max 27.15,
-       :diameter 27.15}
-      {:distance-from-middle-joint 0.5,
-       :min 27.15,
-       :max 27.15,
-       :diameter 27.15}
-      {:distance-from-middle-joint 1.2,
-       :min 28.7,
-       :max 28.7,
-       :diameter 28.7}
-      {:distance-from-middle-joint 1.7,
-       :min 27.9,
-       :max 27.9,
-       :diameter 27.9}
-      {:distance-from-middle-joint 2.0,
-       :min 27.9,
-       :max 27.9,
-       :diameter 27.9}
-      {:distance-from-middle-joint 2.1,
-       :min 27.2,
-       :max 27.2,
-       :diameter 27.2}
-      {:distance-from-middle-joint 17.2,
-       :min 31.6,
-       :max 31.5,
-       :diameter 31.55}
-      {:distance-from-middle-joint 29.79,
-       :min 27.0,
-       :max 27.0,
-       :diameter 27.0}
-      {:distance-from-middle-joint 29.8,
-       :min 27.45,
-       :max 27.45,
-       :diameter 27.45}
-      {:distance-from-middle-joint 30.0,
-       :min 28.3,
-       :max 28.3,
-       :diameter 28.3}
-      {:distance-from-middle-joint 31.7,
-       :min 27.0,
-       :max 27.0,
-       :diameter 27.0}
-      {:distance-from-middle-joint 31.71,
-       :min 26.68,
-       :max 26.68,
-       :diameter 26.68}
-      {:distance-from-middle-joint 144.4,
-       :min 25.95,
-       :max 26.95,
-       :diameter 26.45}]},
-    :holes
-    {:data
-     [{:distance-from-lh-joint 40.15,
-       :longitudinal 6.8,
-       :lateral 6.5,
-       :diameter 6.65}
-      {:distance-from-lh-joint 78.65,
-       :longitudinal 6.35,
-       :lateral 6.15,
-       :diameter 6.25}
-      {:distance-from-lh-joint 116.9,
-       :longitudinal 4.95,
-       :lateral 4.9,
-       :diameter 4.925}]}},
-   :foot-joint
-   {:bore-diameters
-    {:data
-     [{:bore-diameter 15.0, :distance-from-end 40.0}
-      {:bore-diameter 14.9, :distance-from-end 45.0}
-      {:bore-diameter 14.8, :distance-from-end 47.0}
-      {:bore-diameter 14.7, :distance-from-end 50.0}
-      {:bore-diameter 14.6, :distance-from-end 51.0}
-      {:bore-diameter 14.5, :distance-from-end 55.0}
-      {:bore-diameter 14.4, :distance-from-end 57.0}
-      {:bore-diameter 14.3, :distance-from-end 60.0}
-      {:bore-diameter 14.1, :distance-from-end 63.0}
-      {:bore-diameter 14.0, :distance-from-end 66.0}
-      {:bore-diameter 13.9, :distance-from-end 68.0}
-      {:bore-diameter 13.8, :distance-from-end 70.0}
-      {:bore-diameter 13.7, :distance-from-end 71.0}
-      {:bore-diameter 13.6, :distance-from-end 73.0}
-      {:bore-diameter 13.5, :distance-from-end 76.0}
-      {:bore-diameter 13.43, :distance-from-end 78.0}]},
-    :outside-diameters
-    {:data
-     [{:distance-from-lhj 0.0, :diameter 26.5}
-      {:distance-from-lhj 1.0, :diameter 26.8}
-      {:distance-from-lhj 1.01, :diameter 28.4}
-      {:distance-from-lhj 2.2, :diameter 28.4}
-      {:distance-from-lhj 2.21, :diameter 28.0}
-      {:distance-from-lhj 3.0, :diameter 27.7}
-      {:distance-from-lhj 3.01, :diameter 27.3}
-      {:distance-from-lhj 3.5, :diameter 27.3}
-      {:distance-from-lhj 3.51, :diameter 26.8}
-      {:distance-from-lhj 15.8, :diameter 26.9}
-      {:distance-from-lhj 15.81, :diameter 27.5}
-      {:distance-from-lhj 17.0, :diameter 27.5}
-      {:distance-from-lhj 17.01, :diameter 28.6}
-      {:distance-from-lhj 17.75, :diameter 28.6}
-      {:distance-from-lhj 21.0, :diameter 34.25}
-      {:distance-from-lhj 25.0, :diameter 34.25}
-      {:distance-from-lhj 27.0, :diameter 29.45}
-      {:distance-from-lhj 27.5, :diameter 29.45}
-      {:distance-from-lhj 27.51, :diameter 27.5}
-      {:distance-from-lhj 28.6, :diameter 27.5}
-      {:distance-from-lhj 28.61, :diameter 25.6}
-      {:distance-from-lhj 97.6, :diameter 24.75}]},
-    :holes
-    {:data
-     [{:distance-from-rh-joint 30.8,
-       :longitudinal 9.1,
-       :lateral 8.7,
-       :diameter 8.9}]}}},
-  :model &quot;lot-dcm615&quot;},
- :errors
- ({:path [:data :head-joint 0 :bore],
-   :in [:data :head-joint :bore],
-   :schema
-   [:map [:bore [:vector :map]] [:outside-diameter [:vector :map]] [:holes [:vector #&apos;emacs_to_edn/hole]]],
-   :value nil,
-   :type :malli.core/missing-key}
-  {:path [:data :head-joint 0 :outside-diameter],
-   :in [:data :head-joint :outside-diameter],
-   :schema
-   [:map [:bore [:vector :map]] [:outside-diameter [:vector :map]] [:holes [:vector #&apos;emacs_to_edn/hole]]],
-   :value nil,
-   :type :malli.core/missing-key}
-  {:path [:data :head-joint 0 :holes],
-   :in [:data :head-joint :holes],
-   :schema [:vector #&apos;emacs_to_edn/hole],
-   :value
-   {:data
-    [{:longitudinal 12.0,
-      :lateral 12.0,
-      :distance-from-right-hand-end 159.0,
-      :diameter 12.0}]},
-   :type :malli.core/invalid-type}
-  {:path [:data :middle-joint],
-   :in [:data :middle-joint],
-   :schema
-   [:map [:head-joint #&apos;emacs_to_edn/joint] [:middle-joint #&apos;emacs_to_edn/joint] [:right-hand-joint #&apos;emacs_to_edn/joint]],
-   :value nil,
-   :type :malli.core/missing-key}
-  {:path [:data :right-hand-joint 0 :bore],
-   :in [:data :right-hand-joint :bore],
-   :schema
-   [:map [:bore [:vector :map]] [:outside-diameter [:vector :map]] [:holes [:vector #&apos;emacs_to_edn/hole]]],
-   :value nil,
-   :type :malli.core/missing-key}
-  {:path [:data :right-hand-joint 0 :outside-diameter],
-   :in [:data :right-hand-joint :outside-diameter],
-   :schema
-   [:map [:bore [:vector :map]] [:outside-diameter [:vector :map]] [:holes [:vector #&apos;emacs_to_edn/hole]]],
-   :value nil,
-   :type :malli.core/missing-key}
-  {:path [:data :right-hand-joint 0 :holes],
-   :in [:data :right-hand-joint :holes],
-   :schema [:vector #&apos;emacs_to_edn/hole],
-   :value
-   {:data
-    [{:distance-from-lh-joint 40.15,
-      :longitudinal 6.8,
-      :lateral 6.5,
-      :diameter 6.65}
-     {:distance-from-lh-joint 78.65,
-      :longitudinal 6.35,
-      :lateral 6.15,
-      :diameter 6.25}
-     {:distance-from-lh-joint 116.9,
-      :longitudinal 4.95,
-      :lateral 4.9,
-      :diameter 4.925}]},
-   :type :malli.core/invalid-type})}
+   [:head-joint       #&apos;joint]
+   [:middle-joint     #&apos;joint]
+   [:right-hand-joint #&apos;joint]
+   [:foot-joint       #&apos;joint]])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def post-proccessed_example (post-proccess-edn example-flute-data))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">post-proccessed_example</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:head-joint
+ {:bore-diameters
+  [{:bore-diameter 20.0, :distance-from-cap 1.0}
+   {:bore-diameter 19.9, :distance-from-cap 15.0}
+   {:bore-diameter 19.8, :distance-from-cap 165.0}
+   {:bore-diameter 19.7, :distance-from-cap 175.0}
+   {:bore-diameter 19.6, :distance-from-cap 185.0}
+   {:bore-diameter 19.5, :distance-from-cap 191.0}],
+  :outside-diameters
+  [{:distance-from-lhj 222.8, :min 29.3, :max 29.1, :diameter 29.2}
+   {:distance-from-lhj 159.0, :min 30.25, :max 30.15, :diameter 30.2}
+   {:distance-from-lhj 47.8, :min 29.8, :max 29.5, :diameter 29.65}
+   {:distance-from-lhj 38.16, :min 29.85, :max 29.85, :diameter 29.85}
+   {:distance-from-lhj 38.15, :min 30.2, :max 30.2, :diameter 30.2}
+   {:distance-from-lhj 37.8, :min 30.2, :max 30.2, :diameter 30.2}
+   {:distance-from-lhj 36.8, :min 31.4, :max 31.4, :diameter 31.4}
+   {:distance-from-lhj 36.79, :min 31.0, :max 31.0, :diameter 31.0}
+   {:distance-from-lhj 36.25, :min 31.0, :max 31.0, :diameter 31.0}
+   {:distance-from-lhj 36.24, :min 30.6, :max 30.6, :diameter 30.6}
+   {:distance-from-lhj 20.2, :min 35.45, :max 35.05, :diameter 35.25}
+   {:distance-from-lhj 2.51, :min 30.8, :max 30.8, :diameter 30.8}
+   {:distance-from-lhj 2.5, :min 31.05, :max 31.05, :diameter 31.05}
+   {:distance-from-lhj 2.0, :min 31.05, :max 31.05, :diameter 31.05}
+   {:distance-from-lhj 1.9, :min 31.85, :max 31.85, :diameter 31.85}
+   {:distance-from-lhj 1.0, :min 30.0, :max 30.0, :diameter 30.0}
+   {:distance-from-lhj 0.0, :min 30.0, :max 30.0, :diameter 30.0}],
+  :holes
+  [{:longitudinal 12.0,
+    :lateral 12.0,
+    :distance-from-right-hand-end 159.0,
+    :diameter 12.0}]},
+ :middle-joint-
+ {:bore-diameters
+  [{:bore-diameter 19.1, :distance-from-left-tenon 2.0}
+   {:bore-diameter 19.0, :distance-from-left-tenon 34.0}
+   {:bore-diameter 18.9, :distance-from-left-tenon 45.0}
+   {:bore-diameter 18.8, :distance-from-left-tenon 52.0}
+   {:bore-diameter 18.7, :distance-from-left-tenon 58.0}
+   {:bore-diameter 18.6, :distance-from-left-tenon 63.0}
+   {:bore-diameter 18.5, :distance-from-left-tenon 68.0}
+   {:bore-diameter 18.4, :distance-from-left-tenon 72.0}
+   {:bore-diameter 18.3, :distance-from-left-tenon 72.0}
+   {:bore-diameter 18.2, :distance-from-left-tenon 80.0}
+   {:bore-diameter 18.1, :distance-from-left-tenon 83.0}
+   {:bore-diameter 18.0, :distance-from-left-tenon 86.0}
+   {:bore-diameter 17.9, :distance-from-left-tenon 89.0}
+   {:bore-diameter 17.7, :distance-from-left-tenon 101.0}
+   {:bore-diameter 17.6, :distance-from-left-tenon 106.0}
+   {:bore-diameter 17.5, :distance-from-left-tenon 110.0}
+   {:bore-diameter 17.4, :distance-from-left-tenon 119.0}
+   {:bore-diameter 17.3, :distance-from-left-tenon 125.0}
+   {:bore-diameter 17.1, :distance-from-left-tenon 138.0}
+   {:bore-diameter 17.0, :distance-from-left-tenon 142.5}
+   {:bore-diameter 16.9, :distance-from-left-tenon 149.0}
+   {:bore-diameter 16.8, :distance-from-left-tenon 156.0}
+   {:bore-diameter 16.7, :distance-from-left-tenon 165.0}
+   {:bore-diameter 16.6, :distance-from-left-tenon 170.0}
+   {:bore-diameter 16.5, :distance-from-left-tenon 174.0}
+   {:bore-diameter 16.4, :distance-from-left-tenon 180.0}
+   {:bore-diameter 16.3, :distance-from-left-tenon 182.0}
+   {:bore-diameter 16.2, :distance-from-left-tenon 186.0}
+   {:bore-diameter 16.1, :distance-from-left-tenon 189.0}
+   {:bore-diameter 16.0, :distance-from-left-tenon 191.0}
+   {:bore-diameter 15.9, :distance-from-left-tenon 194.0}
+   {:bore-diameter 15.8, :distance-from-left-tenon 208.0}
+   {:bore-diameter 15.9, :distance-from-left-tenon 215.0}],
+  :outside-diameters
+  [{:distance-from-soundhole 159.05, :diameter 29.2}
+   {:distance-from-soundhole 317.49, :diameter 26.0}],
+  :holes
+  [{:distance-from-headjoint 64.6,
+    :longitudinal 6.9,
+    :lateral 6.45,
+    :diameter 6.675}
+   {:distance-from-headjoint 102.0,
+    :longitudinal 6.85,
+    :lateral 6.5,
+    :diameter 6.675}
+   {:distance-from-headjoint 141.7,
+    :longitudinal 5.75,
+    :lateral 5.55,
+    :diameter 5.65}]},
+ :right-hand-joint
+ {:bore-diameters
+  [{:bore-diameter 15.4, :distance-from-left-mortice 29.0}
+   {:bore-diameter 15.3, :distance-from-left-mortice 34.0}
+   {:bore-diameter 15.2, :distance-from-left-mortice 51.0}
+   {:bore-diameter 15.1, :distance-from-left-mortice 53.0}
+   {:bore-diameter 15.0, :distance-from-left-mortice 55.0}
+   {:bore-diameter 14.9, :distance-from-left-mortice 61.0}
+   {:bore-diameter 14.8, :distance-from-left-mortice 68.0}
+   {:bore-diameter 14.7, :distance-from-left-mortice 75.0}
+   {:bore-diameter 14.6, :distance-from-left-mortice 80.0}
+   {:bore-diameter 14.5, :distance-from-left-mortice 88.0}
+   {:bore-diameter 14.4, :distance-from-left-mortice 93.0}
+   {:bore-diameter 14.3, :distance-from-left-mortice 96.0}
+   {:bore-diameter 14.2, :distance-from-left-mortice 98.0}
+   {:bore-diameter 14.1, :distance-from-left-mortice 106.0}
+   {:bore-diameter 14.0, :distance-from-left-mortice 111.0}
+   {:bore-diameter 13.9, :distance-from-left-mortice 119.0}
+   {:bore-diameter 13.8, :distance-from-left-mortice 128.0}
+   {:bore-diameter 13.7, :distance-from-left-mortice 137.0}
+   {:bore-diameter 13.6, :distance-from-left-mortice 142.5}
+   {:bore-diameter 13.5, :distance-from-left-mortice 145.5}
+   {:bore-diameter 13.4, :distance-from-left-mortice 152.0}
+   {:bore-diameter 13.3, :distance-from-left-mortice 161.0}],
+  :outside-diameters
+  [{:distance-from-middle-joint 0.0,
+    :min 27.15,
+    :max 27.15,
+    :diameter 27.15}
+   {:distance-from-middle-joint 0.5,
+    :min 27.15,
+    :max 27.15,
+    :diameter 27.15}
+   {:distance-from-middle-joint 1.2,
+    :min 28.7,
+    :max 28.7,
+    :diameter 28.7}
+   {:distance-from-middle-joint 1.7,
+    :min 27.9,
+    :max 27.9,
+    :diameter 27.9}
+   {:distance-from-middle-joint 2.0,
+    :min 27.9,
+    :max 27.9,
+    :diameter 27.9}
+   {:distance-from-middle-joint 2.1,
+    :min 27.2,
+    :max 27.2,
+    :diameter 27.2}
+   {:distance-from-middle-joint 17.2,
+    :min 31.6,
+    :max 31.5,
+    :diameter 31.55}
+   {:distance-from-middle-joint 29.79,
+    :min 27.0,
+    :max 27.0,
+    :diameter 27.0}
+   {:distance-from-middle-joint 29.8,
+    :min 27.45,
+    :max 27.45,
+    :diameter 27.45}
+   {:distance-from-middle-joint 30.0,
+    :min 28.3,
+    :max 28.3,
+    :diameter 28.3}
+   {:distance-from-middle-joint 31.7,
+    :min 27.0,
+    :max 27.0,
+    :diameter 27.0}
+   {:distance-from-middle-joint 31.71,
+    :min 26.68,
+    :max 26.68,
+    :diameter 26.68}
+   {:distance-from-middle-joint 144.4,
+    :min 25.95,
+    :max 26.95,
+    :diameter 26.45}],
+  :holes
+  [{:distance-from-lh-joint 40.15,
+    :longitudinal 6.8,
+    :lateral 6.5,
+    :diameter 6.65}
+   {:distance-from-lh-joint 78.65,
+    :longitudinal 6.35,
+    :lateral 6.15,
+    :diameter 6.25}
+   {:distance-from-lh-joint 116.9,
+    :longitudinal 4.95,
+    :lateral 4.9,
+    :diameter 4.925}]},
+ :foot-joint
+ {:bore-diameters
+  [{:bore-diameter 15.0, :distance-from-end 40.0}
+   {:bore-diameter 14.9, :distance-from-end 45.0}
+   {:bore-diameter 14.8, :distance-from-end 47.0}
+   {:bore-diameter 14.7, :distance-from-end 50.0}
+   {:bore-diameter 14.6, :distance-from-end 51.0}
+   {:bore-diameter 14.5, :distance-from-end 55.0}
+   {:bore-diameter 14.4, :distance-from-end 57.0}
+   {:bore-diameter 14.3, :distance-from-end 60.0}
+   {:bore-diameter 14.1, :distance-from-end 63.0}
+   {:bore-diameter 14.0, :distance-from-end 66.0}
+   {:bore-diameter 13.9, :distance-from-end 68.0}
+   {:bore-diameter 13.8, :distance-from-end 70.0}
+   {:bore-diameter 13.7, :distance-from-end 71.0}
+   {:bore-diameter 13.6, :distance-from-end 73.0}
+   {:bore-diameter 13.5, :distance-from-end 76.0}
+   {:bore-diameter 13.43, :distance-from-end 78.0}],
+  :outside-diameters
+  [{:distance-from-lhj 0.0, :diameter 26.5}
+   {:distance-from-lhj 1.0, :diameter 26.8}
+   {:distance-from-lhj 1.01, :diameter 28.4}
+   {:distance-from-lhj 2.2, :diameter 28.4}
+   {:distance-from-lhj 2.21, :diameter 28.0}
+   {:distance-from-lhj 3.0, :diameter 27.7}
+   {:distance-from-lhj 3.01, :diameter 27.3}
+   {:distance-from-lhj 3.5, :diameter 27.3}
+   {:distance-from-lhj 3.51, :diameter 26.8}
+   {:distance-from-lhj 15.8, :diameter 26.9}
+   {:distance-from-lhj 15.81, :diameter 27.5}
+   {:distance-from-lhj 17.0, :diameter 27.5}
+   {:distance-from-lhj 17.01, :diameter 28.6}
+   {:distance-from-lhj 17.75, :diameter 28.6}
+   {:distance-from-lhj 21.0, :diameter 34.25}
+   {:distance-from-lhj 25.0, :diameter 34.25}
+   {:distance-from-lhj 27.0, :diameter 29.45}
+   {:distance-from-lhj 27.5, :diameter 29.45}
+   {:distance-from-lhj 27.51, :diameter 27.5}
+   {:distance-from-lhj 28.6, :diameter 27.5}
+   {:distance-from-lhj 28.61, :diameter 25.6}
+   {:distance-from-lhj 97.6, :diameter 24.75}],
+  :holes
+  [{:distance-from-rh-joint 30.8,
+    :longitudinal 9.1,
+    :lateral 8.7,
+    :diameter 8.9}]},
+ :model &quot;lot-dcm615&quot;}
+</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(m/validate flute post-proccessed_example)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">false
+</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(:errors (m/explain flute post-proccessed_example))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">({:path [:head-joint 0 :holes 0 0 :position],
+  :in [:head-joint :holes 0 :position],
+  :schema [:map [:position :float] [:diameter :float]],
+  :value nil,
+  :type :malli.core/missing-key}
+ {:path [:middle-joint],
+  :in [:middle-joint],
+  :schema
+  [:map [:model :string] [:head-joint #&apos;emacs-to-edn/joint] [:middle-joint #&apos;emacs-to-edn/joint] [:right-hand-joint #&apos;emacs-to-edn/joint] [:foot-joint #&apos;emacs-to-edn/joint]],
+  :value nil,
+  :type :malli.core/missing-key}
+ {:path [:right-hand-joint 0 :holes 0 0 :position],
+  :in [:right-hand-joint :holes 0 :position],
+  :schema [:map [:position :float] [:diameter :float]],
+  :value nil,
+  :type :malli.core/missing-key}
+ {:path [:right-hand-joint 0 :holes 0 0 :position],
+  :in [:right-hand-joint :holes 1 :position],
+  :schema [:map [:position :float] [:diameter :float]],
+  :value nil,
+  :type :malli.core/missing-key}
+ {:path [:right-hand-joint 0 :holes 0 0 :position],
+  :in [:right-hand-joint :holes 2 :position],
+  :schema [:map [:position :float] [:diameter :float]],
+  :value nil,
+  :type :malli.core/missing-key}
+ {:path [:foot-joint 0 :holes 0 0 :position],
+  :in [:foot-joint :holes 0 :position],
+  :schema [:map [:position :float] [:diameter :float]],
+  :value nil,
+  :type :malli.core/missing-key})
 </code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/emacs_to_edn.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors

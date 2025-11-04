@@ -1,4 +1,4 @@
-(ns emacs_to_edn
+(ns emacs-to-edn
   (:require
     [clojure.edn :as edn]
     [clojure.java.io :as io]
@@ -7,8 +7,6 @@
     [scicloj.tableplot.v1.plotly :as plotly]
     [tablecloth.api :as tc]
     [malli.core :as m]))
-
-;; #reading a lot file
 
 (def lot-dcm615-file-path "../../flute-data/models/lot-dcm615.org")
 
@@ -99,7 +97,8 @@ processed-content
     (assoc-in result-map path {})
     (= :table-content (:type row))
     ;; TODO re-write with specter!
-    (assoc-in result-map (conj path :data) (conj (into [] (get-in result-map (conj path :data))) (zipmap header (:data row))))
+    ;; :data should be removed
+    (assoc-in result-map path (conj (into [] (let [current-data (get-in result-map path)](if (map? current-data) [] current-data ))) (zipmap header (:data row))))
     :else result-map))
 
 (defn org-processed-list-to-edn
@@ -139,7 +138,7 @@ processed-content
       main-key (first (keys input))
       data (first (vals input))
    ]
-     (dissoc (assoc (assoc input :data data) :model (name main-key)) main-key)
+     (dissoc (assoc data :model (name main-key)) main-key)
 )
 )
 
@@ -156,20 +155,23 @@ example-flute-data
 
 (def joint
   [:map
-   [:bore             [:vector :map]]
-   [:outside-diameter [:vector :map]] 
-   [:holes            [:vector #'hole]]])
+   [:bore-diameters    [:vector :map]]
+   [:outside-diameters [:vector :map]] 
+   [:holes             [:vector #'hole]]])
 
 (def flute
   [:map
    [:model :string]
-   [:data
-    [:map
-    [:head-joint       #'joint]
-    [:middle-joint     #'joint]
-    [:right-hand-joint #'joint]]]])
+   [:head-joint       #'joint]
+   [:middle-joint     #'joint]
+   [:right-hand-joint #'joint]
+   [:foot-joint       #'joint]])
 
 
-(m/validate flute example-flute-data)
+(def post-proccessed_example (post-proccess-edn example-flute-data))
 
-(m/explain flute (post-proccess-edn example-flute-data))
+post-proccessed_example
+
+(m/validate flute post-proccessed_example)
+
+(:errors (m/explain flute post-proccessed_example))
