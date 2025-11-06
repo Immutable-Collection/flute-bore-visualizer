@@ -63,22 +63,20 @@ initially-cleaned-content
 
 ;; # processing contents
 (def processed-content
-  (map-indexed
+  (map
     #(cond
-       (is-table-content? %2) {:type :table-content
-                               :content %2
-                               :row %1
-                               :data (process-table-row %2)}
-       (is-table-header?  %2) {:type :table-heading
-                               :content %2 :row %1
-                               :data (process-table-header %2)}
-       (is-org-header?    %2) {:type :heading
-                               :level (count-* %2)
-                               :content (convert-title-to-keyword
-                                          (-> %2
-                                              (str/replace "* " "")
-                                              (str/replace "*" "")))
-                               :row %1}
+       (is-table-content? %) {:type :table-content
+                              :content %
+                              :data (process-table-row %)}
+       (is-table-header?  %) {:type :table-heading
+                              :content %
+                              :data (process-table-header %)}
+       (is-org-header?    %) {:type :heading
+                              :level (count-* %)
+                              :content (convert-title-to-keyword
+                                         (-> %
+                                             (str/replace "* " "")
+                                             (str/replace "*" "")))}
        :else nil)
     initially-cleaned-content))
 
@@ -98,7 +96,7 @@ processed-content
     (= :table-content (:type row))
     ;; TODO re-write with specter!
     ;; :data should be removed
-    (assoc-in result-map path (conj (into [] (let [current-data (get-in result-map path)](if (map? current-data) [] current-data ))) (zipmap header (:data row))))
+    (assoc-in result-map path (conj (into [] (let [current-data (get-in result-map path)] (if (map? current-data) [] current-data))) (zipmap header (:data row))))
     :else result-map))
 
 (defn org-processed-list-to-edn
@@ -133,14 +131,11 @@ processed-content
                       :else nil)]
         (recur (rest processing) (add-org-row-to-map processing-item  acc new-path heading) new-path new-level heading)))))
 
-(defn post-proccess-edn [input]
-   (let [
-      main-key (first (keys input))
-      data (first (vals input))
-   ]
-     (dissoc (assoc data :model (name main-key)) main-key)
-)
-)
+(defn post-proccess-edn
+  [input]
+  (let [main-key (first (keys input))
+        data (first (vals input))]
+    (dissoc (assoc data :model (name main-key)) main-key)))
 
 (def example-flute-data (org-processed-list-to-edn processed-content))
 
@@ -156,7 +151,7 @@ example-flute-data
 (def joint
   [:map
    [:bore-diameters    [:vector :map]]
-   [:outside-diameters [:vector :map]] 
+   [:outside-diameters [:vector :map]]
    [:holes             [:vector #'hole]]])
 
 (def flute
@@ -166,7 +161,6 @@ example-flute-data
    [:middle-joint     #'joint]
    [:right-hand-joint #'joint]
    [:foot-joint       #'joint]])
-
 
 (def post-proccessed_example (post-proccess-edn example-flute-data))
 
