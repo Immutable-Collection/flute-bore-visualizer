@@ -1,26 +1,39 @@
 (ns flute
   (:require [scad-clj.model :as m]
+            [malli.core :as mal]
+            [emacs-to-edn :as e2e]
             [scad-clj.scad :refer [write-scad] :as scad]
             [clojure.java.shell :refer [sh]]))
 
+(defn extract-positions-diameters
+  [data]
+  [(map :diameter data)
+   (map :position data)])
+
 (defn polygon-rotator
-  [points-diameter points-position]
-  (let [number-of-points (dec (count points-position))
-        profile-points (concat
-                         (for [i (range (inc number-of-points))]
-                           [(/ (nth points-diameter i) 2) (nth points-position i)])
-                         (for [i (reverse (range (inc number-of-points)))]
-                           [0 (nth points-position i)]))]
-    (m/extrude-rotate {:fn 64}
-                      (m/polygon profile-points))))
+  ([data] (let [[points-diameter
+                 points-position] (extract-positions-diameters data)]
+            (polygon-rotator points-diameter points-position)))
+  ([points-diameter points-position]
+   (let [number-of-points (dec (count points-position))
+         profile-points (concat
+                          (for [i (range (inc number-of-points))]
+                            [(/ (nth points-diameter i) 2) (nth points-position i)])
+                          (for [i (reverse (range (inc number-of-points)))]
+                            [0 (nth points-position i)]))]
+     (m/extrude-rotate {:fn 64}
+                       (m/polygon profile-points)))))
 
 (defn finger-holes
-  [finger-holes-diameter finger-holes-position]
-  (apply m/union
-         (for [i (range (count finger-holes-diameter))]
-           (->> (m/cylinder (/ (nth finger-holes-diameter i) 2) 40 {:center false})
-                (m/rotate [0 90 0])
-                (m/translate [0 0 (nth finger-holes-position i)])))))
+  ([data] (let [[diameters
+                 positions] (extract-positions-diameters data)]
+            (finger-holes diameters positions)))
+  ([finger-holes-diameter finger-holes-position]
+   (apply m/union
+          (for [i (range (count finger-holes-diameter))]
+            (->> (m/cylinder (/ (nth finger-holes-diameter i) 2) 40 {:center false})
+                 (m/rotate [0 90 0])
+                 (m/translate [0 0 (nth finger-holes-position i)]))))))
 
 (defn rudall-and-carte
   [outside-diameters lengths diameters inside-lengths finger-holes-diameter finger-holes-position]
@@ -78,3 +91,40 @@
                                           (m/difference
                                             model
                                             (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false}))))))
+
+;; TODO adding cork spec to the flute schema
+(defn flute-section
+  [data]
+  (let [validation-result (mal/validate e2e/joint data)]
+    (if validation-result
+      (m/with-fn 60
+                 (m/union
+                   (m/difference
+                     (polygon-rotator (:outside-diameters data))
+                     (polygon-rotator (:bore-diameters data))
+                     (finger-holes (:holes data)))))
+      ;; TODO else should raise exception
+      (throw (Exception. (:errors (mal/explain e2e/joint data)))))))
+
+;; define sections for each part of the model
+
+(defn flute-model
+  [data]
+  (let [head (flute-section (:head-joint data))
+        foot (flute-section (:foot-joint data))
+        middle (flute-section (:middle-joint data))
+        right-hand (flute-section (:right-hand-joint data))]
+    (m/union
+     (map-indexed #(m/translate [0 (* %1 20) 0] %2) [head middle right-hand foot])
+)))
+
+(defn org-to-flute-3d-model [org-path]
+  (let [data (-> org-path
+                 slurp
+                 e2e/org-processed-list-to-edn
+                 e2e/post-proccess-edn)
+        flute-data-validated? (mal/validate e2e/flute data)]
+    (if flute-data-validated?
+      (flute-model data)
+      (throw (Exception. (mal/explain e2e/flute data))))))
+;; single lot model is build through assembly of these parts

@@ -49,23 +49,34 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script><script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" type="text/javascript"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" type="text/javascript"></script>
 <div class="container"><div class="row"><div class="col-sm-12"><div><div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(ns flute
   (:require [scad-clj.model :as m]
+            [malli.core :as mal]
+            [emacs-to-edn :as e2e]
             [scad-clj.scad :refer [write-scad] :as scad]
-            [clojure.java.shell :refer [sh]]))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn polygon-rotator
-  [points-diameter points-position]
-  (let [number-of-points (dec (count points-position))
-        profile-points (concat
-                         (for [i (range (inc number-of-points))]
-                           [(/ (nth points-diameter i) 2) (nth points-position i)])
-                         (for [i (reverse (range (inc number-of-points)))]
-                           [0 (nth points-position i)]))]
-    (m/extrude-rotate {:fn 64}
-                      (m/polygon profile-points))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn finger-holes
-  [finger-holes-diameter finger-holes-position]
-  (apply m/union
-         (for [i (range (count finger-holes-diameter))]
-           (-&gt;&gt; (m/cylinder (/ (nth finger-holes-diameter i) 2) 40 {:center false})
-                (m/rotate [0 90 0])
-                (m/translate [0 0 (nth finger-holes-position i)])))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn rudall-and-carte
+            [clojure.java.shell :refer [sh]]))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn extract-positions-diameters
+  [data]
+  [(map :diameter data)
+   (map :position data)])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn polygon-rotator
+  ([data] (let [[points-diameter
+                 points-position] (extract-positions-diameters data)]
+            (polygon-rotator points-diameter points-position)))
+  ([points-diameter points-position]
+   (let [number-of-points (dec (count points-position))
+         profile-points (concat
+                          (for [i (range (inc number-of-points))]
+                            [(/ (nth points-diameter i) 2) (nth points-position i)])
+                          (for [i (reverse (range (inc number-of-points)))]
+                            [0 (nth points-position i)]))]
+     (m/extrude-rotate {:fn 64}
+                       (m/polygon profile-points)))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn finger-holes
+  ([data] (let [[diameters
+                 positions] (extract-positions-diameters data)]
+            (finger-holes diameters positions)))
+  ([finger-holes-diameter finger-holes-position]
+   (apply m/union
+          (for [i (range (count finger-holes-diameter))]
+            (-&gt;&gt; (m/cylinder (/ (nth finger-holes-diameter i) 2) 40 {:center false})
+                 (m/rotate [0 90 0])
+                 (m/translate [0 0 (nth finger-holes-position i)]))))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn rudall-and-carte
   [outside-diameters lengths diameters inside-lengths finger-holes-diameter finger-holes-position]
 
   (m/with-fn 60 (m/difference
@@ -109,7 +120,34 @@
   (m/rotate (/ 3.142 2) [0 1 0] (m/rotate 3.14 [0 0 1]
                                           (m/difference
                                             model
-                                            (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false}))))))</code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/flute.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
+                                            (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false}))))))</code></pre></div></div><div style="margin:15px;"><div><p>TODO adding cork spec to the flute schema</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-section
+  [data]
+  (let [validation-result (mal/validate e2e/joint data)]
+    (if validation-result
+      (m/with-fn 60
+                 (m/union
+                   (m/difference
+                     (polygon-rotator (:outside-diameters data))
+                     (polygon-rotator (:bore-diameters data))
+                     (finger-holes (:holes data)))))
+      ;; TODO else should raise exception
+      (throw (Exception. (:errors (mal/explain e2e/joint data)))))))</code></pre></div></div><div style="margin:15px;"><div><p>define sections for each part of the model</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-model
+  [data]
+  (let [head (flute-section (:head-joint data))
+        foot (flute-section (:foot-joint data))
+        middle (flute-section (:middle-joint data))
+        right-hand (flute-section (:right-hand-joint data))]
+    (m/union
+     (map-indexed #(m/translate [0 (* %1 20) 0] %2) [head middle right-hand foot])
+)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-to-flute-3d-model [org-path]
+  (let [data (-&gt; org-path
+                 slurp
+                 e2e/org-processed-list-to-edn
+                 e2e/post-proccess-edn)
+        flute-data-validated? (mal/validate e2e/flute data)]
+    (if flute-data-validated?
+      (flute-model data)
+      (throw (Exception. (mal/explain e2e/flute data))))))</code></pre></div></div><div style="margin:15px;"><div><p>single lot model is build through assembly of these parts</p></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/flute.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors
   License: BSD-3-Clause

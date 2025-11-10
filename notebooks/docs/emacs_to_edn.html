@@ -63,13 +63,13 @@
     (str/split-lines lot-dcm615-content)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">initially-cleaned-content</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">(&quot;* Lot DCM615&quot;
  &quot;** Head Joint&quot;
  &quot;*** Bore Diameters&quot;
- &quot;| Bore Diameter | Position |&quot;
- &quot;|          20.0 |        1 |&quot;
- &quot;|          19.9 |       15 |&quot;
- &quot;|          19.8 |      165 |&quot;
- &quot;|          19.7 |      175 |&quot;
- &quot;|          19.6 |      185 |&quot;
- &quot;|          19.5 |      191 |&quot;
+ &quot;| Diameter | Position |&quot;
+ &quot;|     20.0 |        1 |&quot;
+ &quot;|     19.9 |       15 |&quot;
+ &quot;|     19.8 |      165 |&quot;
+ &quot;|     19.7 |      175 |&quot;
+ &quot;|     19.6 |      185 |&quot;
+ &quot;|     19.5 |      191 |&quot;
  &quot;*** Outside Diameters&quot;
  &quot;| Position |   Min |   Max | Diameter |&quot;
  &quot;|    222.8 |  29.3 |  29.1 |     29.2 |&quot;
@@ -94,40 +94,40 @@
  &quot;|           12 |      12 |      159 |       12 |&quot;
  &quot;** Middle Joint&quot;
  &quot;*** Bore Diameters&quot;
- &quot;| Bore Diameter | Position |&quot;
- &quot;|          19.1 |        2 |&quot;
- &quot;|          19.0 |       34 |&quot;
- &quot;|          18.9 |       45 |&quot;
- &quot;|          18.8 |       52 |&quot;
- &quot;|          18.7 |       58 |&quot;
- &quot;|          18.6 |       63 |&quot;
- &quot;|          18.5 |       68 |&quot;
- &quot;|          18.4 |       72 |&quot;
- &quot;|          18.3 |       72 |&quot;
- &quot;|          18.2 |       80 |&quot;
- &quot;|          18.1 |       83 |&quot;
- &quot;|          18.0 |       86 |&quot;
- &quot;|          17.9 |       89 |&quot;
- &quot;|          17.7 |      101 |&quot;
- &quot;|          17.6 |      106 |&quot;
- &quot;|          17.5 |      110 |&quot;
- &quot;|          17.4 |      119 |&quot;
- &quot;|          17.3 |      125 |&quot;
- &quot;|          17.1 |      138 |&quot;
- &quot;|          17.0 |    142.5 |&quot;
- &quot;|          16.9 |      149 |&quot;
- &quot;|          16.8 |      156 |&quot;
- &quot;|          16.7 |      165 |&quot;
- &quot;|          16.6 |      170 |&quot;
- &quot;|          16.5 |      174 |&quot;
- &quot;|          16.4 |      180 |&quot;
- &quot;|          16.3 |      182 |&quot;
- &quot;|          16.2 |      186 |&quot;
- &quot;|          16.1 |      189 |&quot;
- &quot;|          16.0 |      191 |&quot;
- &quot;|          15.9 |      194 |&quot;
- &quot;|          15.8 |      208 |&quot;
- &quot;|          15.9 |      215 |&quot;
+ &quot;| Diameter | Position |&quot;
+ &quot;|     19.1 |        2 |&quot;
+ &quot;|     19.0 |       34 |&quot;
+ &quot;|     18.9 |       45 |&quot;
+ &quot;|     18.8 |       52 |&quot;
+ &quot;|     18.7 |       58 |&quot;
+ &quot;|     18.6 |       63 |&quot;
+ &quot;|     18.5 |       68 |&quot;
+ &quot;|     18.4 |       72 |&quot;
+ &quot;|     18.3 |       72 |&quot;
+ &quot;|     18.2 |       80 |&quot;
+ &quot;|     18.1 |       83 |&quot;
+ &quot;|     18.0 |       86 |&quot;
+ &quot;|     17.9 |       89 |&quot;
+ &quot;|     17.7 |      101 |&quot;
+ &quot;|     17.6 |      106 |&quot;
+ &quot;|     17.5 |      110 |&quot;
+ &quot;|     17.4 |      119 |&quot;
+ &quot;|     17.3 |      125 |&quot;
+ &quot;|     17.1 |      138 |&quot;
+ &quot;|     17.0 |    142.5 |&quot;
+ &quot;|     16.9 |      149 |&quot;
+ &quot;|     16.8 |      156 |&quot;
+ &quot;|     16.7 |      165 |&quot;
+ &quot;|     16.6 |      170 |&quot;
+ &quot;|     16.5 |      174 |&quot;
+ &quot;|     16.4 |      180 |&quot;
+ &quot;|     16.3 |      182 |&quot;
+ &quot;|     16.2 |      186 |&quot;
+ &quot;|     16.1 |      189 |&quot;
+ &quot;|     16.0 |      191 |&quot;
+ &quot;|     15.9 |      194 |&quot;
+ &quot;|     15.8 |      208 |&quot;
+ &quot;|     15.9 |      215 |&quot;
  &quot;*** Outside Diameters&quot;
  &quot;| Position | Diameter |&quot;
  &quot;|   159.05 |     29.2 |&quot;
@@ -139,29 +139,29 @@
  &quot;|    141.7 |         5.75 |    5.55 |     5.65 |&quot;
  &quot;** Right Hand Joint&quot;
  &quot;*** Bore Diameters&quot;
- &quot;| Bore Diameter | Position |&quot;
- &quot;|          15.4 |       29 |&quot;
- &quot;|          15.3 |       34 |&quot;
- &quot;|          15.2 |       51 |&quot;
- &quot;|          15.1 |       53 |&quot;
- &quot;|          15.0 |       55 |&quot;
- &quot;|          14.9 |       61 |&quot;
- &quot;|          14.8 |       68 |&quot;
- &quot;|          14.7 |       75 |&quot;
- &quot;|          14.6 |       80 |&quot;
- &quot;|          14.5 |       88 |&quot;
- &quot;|          14.4 |       93 |&quot;
- &quot;|          14.3 |       96 |&quot;
- &quot;|          14.2 |       98 |&quot;
- &quot;|          14.1 |      106 |&quot;
- &quot;|          14.0 |      111 |&quot;
- &quot;|          13.9 |      119 |&quot;
- &quot;|          13.8 |      128 |&quot;
- &quot;|          13.7 |      137 |&quot;
- &quot;|          13.6 |    142.5 |&quot;
- &quot;|          13.5 |    145.5 |&quot;
- &quot;|          13.4 |      152 |&quot;
- &quot;|          13.3 |      161 |&quot;
+ &quot;| Diameter | Position |&quot;
+ &quot;|     15.4 |       29 |&quot;
+ &quot;|     15.3 |       34 |&quot;
+ &quot;|     15.2 |       51 |&quot;
+ &quot;|     15.1 |       53 |&quot;
+ &quot;|     15.0 |       55 |&quot;
+ &quot;|     14.9 |       61 |&quot;
+ &quot;|     14.8 |       68 |&quot;
+ &quot;|     14.7 |       75 |&quot;
+ &quot;|     14.6 |       80 |&quot;
+ &quot;|     14.5 |       88 |&quot;
+ &quot;|     14.4 |       93 |&quot;
+ &quot;|     14.3 |       96 |&quot;
+ &quot;|     14.2 |       98 |&quot;
+ &quot;|     14.1 |      106 |&quot;
+ &quot;|     14.0 |      111 |&quot;
+ &quot;|     13.9 |      119 |&quot;
+ &quot;|     13.8 |      128 |&quot;
+ &quot;|     13.7 |      137 |&quot;
+ &quot;|     13.6 |    142.5 |&quot;
+ &quot;|     13.5 |    145.5 |&quot;
+ &quot;|     13.4 |      152 |&quot;
+ &quot;|     13.3 |      161 |&quot;
  &quot;*** Outside Diameters&quot;
  &quot;| Position |   Min |   Max | Diameter |&quot;
  &quot;|        0 | 27.15 | 27.15 |    27.15 |&quot;
@@ -184,23 +184,23 @@
  &quot;|    116.9 |         4.95 |     4.9 |    4.925 |&quot;
  &quot;** Foot Joint&quot;
  &quot;*** Bore Diameters&quot;
- &quot;| Bore Diameter | Position |&quot;
- &quot;|          15.0 |       40 |&quot;
- &quot;|          14.9 |       45 |&quot;
- &quot;|          14.8 |       47 |&quot;
- &quot;|          14.7 |       50 |&quot;
- &quot;|          14.6 |       51 |&quot;
- &quot;|          14.5 |       55 |&quot;
- &quot;|          14.4 |       57 |&quot;
- &quot;|          14.3 |       60 |&quot;
- &quot;|          14.1 |       63 |&quot;
- &quot;|          14.0 |       66 |&quot;
- &quot;|          13.9 |       68 |&quot;
- &quot;|          13.8 |       70 |&quot;
- &quot;|          13.7 |       71 |&quot;
- &quot;|          13.6 |       73 |&quot;
- &quot;|          13.5 |       76 |&quot;
- &quot;|         13.43 |       78 |&quot;
+ &quot;| Diameter | Position |&quot;
+ &quot;|     15.0 |       40 |&quot;
+ &quot;|     14.9 |       45 |&quot;
+ &quot;|     14.8 |       47 |&quot;
+ &quot;|     14.7 |       50 |&quot;
+ &quot;|     14.6 |       51 |&quot;
+ &quot;|     14.5 |       55 |&quot;
+ &quot;|     14.4 |       57 |&quot;
+ &quot;|     14.3 |       60 |&quot;
+ &quot;|     14.1 |       63 |&quot;
+ &quot;|     14.0 |       66 |&quot;
+ &quot;|     13.9 |       68 |&quot;
+ &quot;|     13.8 |       70 |&quot;
+ &quot;|     13.7 |       71 |&quot;
+ &quot;|     13.6 |       73 |&quot;
+ &quot;|     13.5 |       76 |&quot;
+ &quot;|    13.43 |       78 |&quot;
  &quot;*** Outside Diameters&quot;
  &quot;| Position | Diameter |&quot;
  &quot;|        0 |     26.5 |&quot;
@@ -268,25 +268,25 @@
  {:type :heading, :level 2, :content :head-joint}
  {:type :heading, :level 3, :content :bore-diameters}
  {:type :table-heading,
-  :content &quot;| Bore Diameter | Position |&quot;,
-  :data (:bore-diameter :position)}
+  :content &quot;| Diameter | Position |&quot;,
+  :data (:diameter :position)}
  {:type :table-content,
-  :content &quot;|          20.0 |        1 |&quot;,
+  :content &quot;|     20.0 |        1 |&quot;,
   :data (20.0 1.0)}
  {:type :table-content,
-  :content &quot;|          19.9 |       15 |&quot;,
+  :content &quot;|     19.9 |       15 |&quot;,
   :data (19.9 15.0)}
  {:type :table-content,
-  :content &quot;|          19.8 |      165 |&quot;,
+  :content &quot;|     19.8 |      165 |&quot;,
   :data (19.8 165.0)}
  {:type :table-content,
-  :content &quot;|          19.7 |      175 |&quot;,
+  :content &quot;|     19.7 |      175 |&quot;,
   :data (19.7 175.0)}
  {:type :table-content,
-  :content &quot;|          19.6 |      185 |&quot;,
+  :content &quot;|     19.6 |      185 |&quot;,
   :data (19.6 185.0)}
  {:type :table-content,
-  :content &quot;|          19.5 |      191 |&quot;,
+  :content &quot;|     19.5 |      191 |&quot;,
   :data (19.5 191.0)}
  {:type :heading, :level 3, :content :outside-diameters}
  {:type :table-heading,
@@ -353,106 +353,106 @@
  {:type :heading, :level 2, :content :middle-joint}
  {:type :heading, :level 3, :content :bore-diameters}
  {:type :table-heading,
-  :content &quot;| Bore Diameter | Position |&quot;,
-  :data (:bore-diameter :position)}
+  :content &quot;| Diameter | Position |&quot;,
+  :data (:diameter :position)}
  {:type :table-content,
-  :content &quot;|          19.1 |        2 |&quot;,
+  :content &quot;|     19.1 |        2 |&quot;,
   :data (19.1 2.0)}
  {:type :table-content,
-  :content &quot;|          19.0 |       34 |&quot;,
+  :content &quot;|     19.0 |       34 |&quot;,
   :data (19.0 34.0)}
  {:type :table-content,
-  :content &quot;|          18.9 |       45 |&quot;,
+  :content &quot;|     18.9 |       45 |&quot;,
   :data (18.9 45.0)}
  {:type :table-content,
-  :content &quot;|          18.8 |       52 |&quot;,
+  :content &quot;|     18.8 |       52 |&quot;,
   :data (18.8 52.0)}
  {:type :table-content,
-  :content &quot;|          18.7 |       58 |&quot;,
+  :content &quot;|     18.7 |       58 |&quot;,
   :data (18.7 58.0)}
  {:type :table-content,
-  :content &quot;|          18.6 |       63 |&quot;,
+  :content &quot;|     18.6 |       63 |&quot;,
   :data (18.6 63.0)}
  {:type :table-content,
-  :content &quot;|          18.5 |       68 |&quot;,
+  :content &quot;|     18.5 |       68 |&quot;,
   :data (18.5 68.0)}
  {:type :table-content,
-  :content &quot;|          18.4 |       72 |&quot;,
+  :content &quot;|     18.4 |       72 |&quot;,
   :data (18.4 72.0)}
  {:type :table-content,
-  :content &quot;|          18.3 |       72 |&quot;,
+  :content &quot;|     18.3 |       72 |&quot;,
   :data (18.3 72.0)}
  {:type :table-content,
-  :content &quot;|          18.2 |       80 |&quot;,
+  :content &quot;|     18.2 |       80 |&quot;,
   :data (18.2 80.0)}
  {:type :table-content,
-  :content &quot;|          18.1 |       83 |&quot;,
+  :content &quot;|     18.1 |       83 |&quot;,
   :data (18.1 83.0)}
  {:type :table-content,
-  :content &quot;|          18.0 |       86 |&quot;,
+  :content &quot;|     18.0 |       86 |&quot;,
   :data (18.0 86.0)}
  {:type :table-content,
-  :content &quot;|          17.9 |       89 |&quot;,
+  :content &quot;|     17.9 |       89 |&quot;,
   :data (17.9 89.0)}
  {:type :table-content,
-  :content &quot;|          17.7 |      101 |&quot;,
+  :content &quot;|     17.7 |      101 |&quot;,
   :data (17.7 101.0)}
  {:type :table-content,
-  :content &quot;|          17.6 |      106 |&quot;,
+  :content &quot;|     17.6 |      106 |&quot;,
   :data (17.6 106.0)}
  {:type :table-content,
-  :content &quot;|          17.5 |      110 |&quot;,
+  :content &quot;|     17.5 |      110 |&quot;,
   :data (17.5 110.0)}
  {:type :table-content,
-  :content &quot;|          17.4 |      119 |&quot;,
+  :content &quot;|     17.4 |      119 |&quot;,
   :data (17.4 119.0)}
  {:type :table-content,
-  :content &quot;|          17.3 |      125 |&quot;,
+  :content &quot;|     17.3 |      125 |&quot;,
   :data (17.3 125.0)}
  {:type :table-content,
-  :content &quot;|          17.1 |      138 |&quot;,
+  :content &quot;|     17.1 |      138 |&quot;,
   :data (17.1 138.0)}
  {:type :table-content,
-  :content &quot;|          17.0 |    142.5 |&quot;,
+  :content &quot;|     17.0 |    142.5 |&quot;,
   :data (17.0 142.5)}
  {:type :table-content,
-  :content &quot;|          16.9 |      149 |&quot;,
+  :content &quot;|     16.9 |      149 |&quot;,
   :data (16.9 149.0)}
  {:type :table-content,
-  :content &quot;|          16.8 |      156 |&quot;,
+  :content &quot;|     16.8 |      156 |&quot;,
   :data (16.8 156.0)}
  {:type :table-content,
-  :content &quot;|          16.7 |      165 |&quot;,
+  :content &quot;|     16.7 |      165 |&quot;,
   :data (16.7 165.0)}
  {:type :table-content,
-  :content &quot;|          16.6 |      170 |&quot;,
+  :content &quot;|     16.6 |      170 |&quot;,
   :data (16.6 170.0)}
  {:type :table-content,
-  :content &quot;|          16.5 |      174 |&quot;,
+  :content &quot;|     16.5 |      174 |&quot;,
   :data (16.5 174.0)}
  {:type :table-content,
-  :content &quot;|          16.4 |      180 |&quot;,
+  :content &quot;|     16.4 |      180 |&quot;,
   :data (16.4 180.0)}
  {:type :table-content,
-  :content &quot;|          16.3 |      182 |&quot;,
+  :content &quot;|     16.3 |      182 |&quot;,
   :data (16.3 182.0)}
  {:type :table-content,
-  :content &quot;|          16.2 |      186 |&quot;,
+  :content &quot;|     16.2 |      186 |&quot;,
   :data (16.2 186.0)}
  {:type :table-content,
-  :content &quot;|          16.1 |      189 |&quot;,
+  :content &quot;|     16.1 |      189 |&quot;,
   :data (16.1 189.0)}
  {:type :table-content,
-  :content &quot;|          16.0 |      191 |&quot;,
+  :content &quot;|     16.0 |      191 |&quot;,
   :data (16.0 191.0)}
  {:type :table-content,
-  :content &quot;|          15.9 |      194 |&quot;,
+  :content &quot;|     15.9 |      194 |&quot;,
   :data (15.9 194.0)}
  {:type :table-content,
-  :content &quot;|          15.8 |      208 |&quot;,
+  :content &quot;|     15.8 |      208 |&quot;,
   :data (15.8 208.0)}
  {:type :table-content,
-  :content &quot;|          15.9 |      215 |&quot;,
+  :content &quot;|     15.9 |      215 |&quot;,
   :data (15.9 215.0)}
  {:type :heading, :level 3, :content :outside-diameters}
  {:type :table-heading,
@@ -480,73 +480,73 @@
  {:type :heading, :level 2, :content :right-hand-joint}
  {:type :heading, :level 3, :content :bore-diameters}
  {:type :table-heading,
-  :content &quot;| Bore Diameter | Position |&quot;,
-  :data (:bore-diameter :position)}
+  :content &quot;| Diameter | Position |&quot;,
+  :data (:diameter :position)}
  {:type :table-content,
-  :content &quot;|          15.4 |       29 |&quot;,
+  :content &quot;|     15.4 |       29 |&quot;,
   :data (15.4 29.0)}
  {:type :table-content,
-  :content &quot;|          15.3 |       34 |&quot;,
+  :content &quot;|     15.3 |       34 |&quot;,
   :data (15.3 34.0)}
  {:type :table-content,
-  :content &quot;|          15.2 |       51 |&quot;,
+  :content &quot;|     15.2 |       51 |&quot;,
   :data (15.2 51.0)}
  {:type :table-content,
-  :content &quot;|          15.1 |       53 |&quot;,
+  :content &quot;|     15.1 |       53 |&quot;,
   :data (15.1 53.0)}
  {:type :table-content,
-  :content &quot;|          15.0 |       55 |&quot;,
+  :content &quot;|     15.0 |       55 |&quot;,
   :data (15.0 55.0)}
  {:type :table-content,
-  :content &quot;|          14.9 |       61 |&quot;,
+  :content &quot;|     14.9 |       61 |&quot;,
   :data (14.9 61.0)}
  {:type :table-content,
-  :content &quot;|          14.8 |       68 |&quot;,
+  :content &quot;|     14.8 |       68 |&quot;,
   :data (14.8 68.0)}
  {:type :table-content,
-  :content &quot;|          14.7 |       75 |&quot;,
+  :content &quot;|     14.7 |       75 |&quot;,
   :data (14.7 75.0)}
  {:type :table-content,
-  :content &quot;|          14.6 |       80 |&quot;,
+  :content &quot;|     14.6 |       80 |&quot;,
   :data (14.6 80.0)}
  {:type :table-content,
-  :content &quot;|          14.5 |       88 |&quot;,
+  :content &quot;|     14.5 |       88 |&quot;,
   :data (14.5 88.0)}
  {:type :table-content,
-  :content &quot;|          14.4 |       93 |&quot;,
+  :content &quot;|     14.4 |       93 |&quot;,
   :data (14.4 93.0)}
  {:type :table-content,
-  :content &quot;|          14.3 |       96 |&quot;,
+  :content &quot;|     14.3 |       96 |&quot;,
   :data (14.3 96.0)}
  {:type :table-content,
-  :content &quot;|          14.2 |       98 |&quot;,
+  :content &quot;|     14.2 |       98 |&quot;,
   :data (14.2 98.0)}
  {:type :table-content,
-  :content &quot;|          14.1 |      106 |&quot;,
+  :content &quot;|     14.1 |      106 |&quot;,
   :data (14.1 106.0)}
  {:type :table-content,
-  :content &quot;|          14.0 |      111 |&quot;,
+  :content &quot;|     14.0 |      111 |&quot;,
   :data (14.0 111.0)}
  {:type :table-content,
-  :content &quot;|          13.9 |      119 |&quot;,
+  :content &quot;|     13.9 |      119 |&quot;,
   :data (13.9 119.0)}
  {:type :table-content,
-  :content &quot;|          13.8 |      128 |&quot;,
+  :content &quot;|     13.8 |      128 |&quot;,
   :data (13.8 128.0)}
  {:type :table-content,
-  :content &quot;|          13.7 |      137 |&quot;,
+  :content &quot;|     13.7 |      137 |&quot;,
   :data (13.7 137.0)}
  {:type :table-content,
-  :content &quot;|          13.6 |    142.5 |&quot;,
+  :content &quot;|     13.6 |    142.5 |&quot;,
   :data (13.6 142.5)}
  {:type :table-content,
-  :content &quot;|          13.5 |    145.5 |&quot;,
+  :content &quot;|     13.5 |    145.5 |&quot;,
   :data (13.5 145.5)}
  {:type :table-content,
-  :content &quot;|          13.4 |      152 |&quot;,
+  :content &quot;|     13.4 |      152 |&quot;,
   :data (13.4 152.0)}
  {:type :table-content,
-  :content &quot;|          13.3 |      161 |&quot;,
+  :content &quot;|     13.3 |      161 |&quot;,
   :data (13.3 161.0)}
  {:type :heading, :level 3, :content :outside-diameters}
  {:type :table-heading,
@@ -607,55 +607,55 @@
  {:type :heading, :level 2, :content :foot-joint}
  {:type :heading, :level 3, :content :bore-diameters}
  {:type :table-heading,
-  :content &quot;| Bore Diameter | Position |&quot;,
-  :data (:bore-diameter :position)}
+  :content &quot;| Diameter | Position |&quot;,
+  :data (:diameter :position)}
  {:type :table-content,
-  :content &quot;|          15.0 |       40 |&quot;,
+  :content &quot;|     15.0 |       40 |&quot;,
   :data (15.0 40.0)}
  {:type :table-content,
-  :content &quot;|          14.9 |       45 |&quot;,
+  :content &quot;|     14.9 |       45 |&quot;,
   :data (14.9 45.0)}
  {:type :table-content,
-  :content &quot;|          14.8 |       47 |&quot;,
+  :content &quot;|     14.8 |       47 |&quot;,
   :data (14.8 47.0)}
  {:type :table-content,
-  :content &quot;|          14.7 |       50 |&quot;,
+  :content &quot;|     14.7 |       50 |&quot;,
   :data (14.7 50.0)}
  {:type :table-content,
-  :content &quot;|          14.6 |       51 |&quot;,
+  :content &quot;|     14.6 |       51 |&quot;,
   :data (14.6 51.0)}
  {:type :table-content,
-  :content &quot;|          14.5 |       55 |&quot;,
+  :content &quot;|     14.5 |       55 |&quot;,
   :data (14.5 55.0)}
  {:type :table-content,
-  :content &quot;|          14.4 |       57 |&quot;,
+  :content &quot;|     14.4 |       57 |&quot;,
   :data (14.4 57.0)}
  {:type :table-content,
-  :content &quot;|          14.3 |       60 |&quot;,
+  :content &quot;|     14.3 |       60 |&quot;,
   :data (14.3 60.0)}
  {:type :table-content,
-  :content &quot;|          14.1 |       63 |&quot;,
+  :content &quot;|     14.1 |       63 |&quot;,
   :data (14.1 63.0)}
  {:type :table-content,
-  :content &quot;|          14.0 |       66 |&quot;,
+  :content &quot;|     14.0 |       66 |&quot;,
   :data (14.0 66.0)}
  {:type :table-content,
-  :content &quot;|          13.9 |       68 |&quot;,
+  :content &quot;|     13.9 |       68 |&quot;,
   :data (13.9 68.0)}
  {:type :table-content,
-  :content &quot;|          13.8 |       70 |&quot;,
+  :content &quot;|     13.8 |       70 |&quot;,
   :data (13.8 70.0)}
  {:type :table-content,
-  :content &quot;|          13.7 |       71 |&quot;,
+  :content &quot;|     13.7 |       71 |&quot;,
   :data (13.7 71.0)}
  {:type :table-content,
-  :content &quot;|          13.6 |       73 |&quot;,
+  :content &quot;|     13.6 |       73 |&quot;,
   :data (13.6 73.0)}
  {:type :table-content,
-  :content &quot;|          13.5 |       76 |&quot;,
+  :content &quot;|     13.5 |       76 |&quot;,
   :data (13.5 76.0)}
  {:type :table-content,
-  :content &quot;|         13.43 |       78 |&quot;,
+  :content &quot;|    13.43 |       78 |&quot;,
   :data (13.43 78.0)}
  {:type :heading, :level 3, :content :outside-diameters}
  {:type :table-heading,
@@ -797,12 +797,12 @@
     (dissoc (assoc data :model (name main-key)) main-key)))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def example-flute-data (org-processed-list-to-edn processed-content))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">example-flute-data</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:lot-dcm615
  {:head-joint
   {:bore-diameters
-   [{:bore-diameter 20.0, :position 1.0}
-    {:bore-diameter 19.9, :position 15.0}
-    {:bore-diameter 19.8, :position 165.0}
-    {:bore-diameter 19.7, :position 175.0}
-    {:bore-diameter 19.6, :position 185.0}
-    {:bore-diameter 19.5, :position 191.0}],
+   [{:diameter 20.0, :position 1.0}
+    {:diameter 19.9, :position 15.0}
+    {:diameter 19.8, :position 165.0}
+    {:diameter 19.7, :position 175.0}
+    {:diameter 19.6, :position 185.0}
+    {:diameter 19.5, :position 191.0}],
    :outside-diameters
    [{:position 222.8, :min 29.3, :max 29.1, :diameter 29.2}
     {:position 159.0, :min 30.25, :max 30.15, :diameter 30.2}
@@ -828,39 +828,39 @@
      :diameter 12.0}]},
   :middle-joint
   {:bore-diameters
-   [{:bore-diameter 19.1, :position 2.0}
-    {:bore-diameter 19.0, :position 34.0}
-    {:bore-diameter 18.9, :position 45.0}
-    {:bore-diameter 18.8, :position 52.0}
-    {:bore-diameter 18.7, :position 58.0}
-    {:bore-diameter 18.6, :position 63.0}
-    {:bore-diameter 18.5, :position 68.0}
-    {:bore-diameter 18.4, :position 72.0}
-    {:bore-diameter 18.3, :position 72.0}
-    {:bore-diameter 18.2, :position 80.0}
-    {:bore-diameter 18.1, :position 83.0}
-    {:bore-diameter 18.0, :position 86.0}
-    {:bore-diameter 17.9, :position 89.0}
-    {:bore-diameter 17.7, :position 101.0}
-    {:bore-diameter 17.6, :position 106.0}
-    {:bore-diameter 17.5, :position 110.0}
-    {:bore-diameter 17.4, :position 119.0}
-    {:bore-diameter 17.3, :position 125.0}
-    {:bore-diameter 17.1, :position 138.0}
-    {:bore-diameter 17.0, :position 142.5}
-    {:bore-diameter 16.9, :position 149.0}
-    {:bore-diameter 16.8, :position 156.0}
-    {:bore-diameter 16.7, :position 165.0}
-    {:bore-diameter 16.6, :position 170.0}
-    {:bore-diameter 16.5, :position 174.0}
-    {:bore-diameter 16.4, :position 180.0}
-    {:bore-diameter 16.3, :position 182.0}
-    {:bore-diameter 16.2, :position 186.0}
-    {:bore-diameter 16.1, :position 189.0}
-    {:bore-diameter 16.0, :position 191.0}
-    {:bore-diameter 15.9, :position 194.0}
-    {:bore-diameter 15.8, :position 208.0}
-    {:bore-diameter 15.9, :position 215.0}],
+   [{:diameter 19.1, :position 2.0}
+    {:diameter 19.0, :position 34.0}
+    {:diameter 18.9, :position 45.0}
+    {:diameter 18.8, :position 52.0}
+    {:diameter 18.7, :position 58.0}
+    {:diameter 18.6, :position 63.0}
+    {:diameter 18.5, :position 68.0}
+    {:diameter 18.4, :position 72.0}
+    {:diameter 18.3, :position 72.0}
+    {:diameter 18.2, :position 80.0}
+    {:diameter 18.1, :position 83.0}
+    {:diameter 18.0, :position 86.0}
+    {:diameter 17.9, :position 89.0}
+    {:diameter 17.7, :position 101.0}
+    {:diameter 17.6, :position 106.0}
+    {:diameter 17.5, :position 110.0}
+    {:diameter 17.4, :position 119.0}
+    {:diameter 17.3, :position 125.0}
+    {:diameter 17.1, :position 138.0}
+    {:diameter 17.0, :position 142.5}
+    {:diameter 16.9, :position 149.0}
+    {:diameter 16.8, :position 156.0}
+    {:diameter 16.7, :position 165.0}
+    {:diameter 16.6, :position 170.0}
+    {:diameter 16.5, :position 174.0}
+    {:diameter 16.4, :position 180.0}
+    {:diameter 16.3, :position 182.0}
+    {:diameter 16.2, :position 186.0}
+    {:diameter 16.1, :position 189.0}
+    {:diameter 16.0, :position 191.0}
+    {:diameter 15.9, :position 194.0}
+    {:diameter 15.8, :position 208.0}
+    {:diameter 15.9, :position 215.0}],
    :outside-diameters
    [{:position 159.05, :diameter 29.2}
     {:position 317.49, :diameter 26.0}],
@@ -876,28 +876,28 @@
      :diameter 5.65}]},
   :right-hand-joint
   {:bore-diameters
-   [{:bore-diameter 15.4, :position 29.0}
-    {:bore-diameter 15.3, :position 34.0}
-    {:bore-diameter 15.2, :position 51.0}
-    {:bore-diameter 15.1, :position 53.0}
-    {:bore-diameter 15.0, :position 55.0}
-    {:bore-diameter 14.9, :position 61.0}
-    {:bore-diameter 14.8, :position 68.0}
-    {:bore-diameter 14.7, :position 75.0}
-    {:bore-diameter 14.6, :position 80.0}
-    {:bore-diameter 14.5, :position 88.0}
-    {:bore-diameter 14.4, :position 93.0}
-    {:bore-diameter 14.3, :position 96.0}
-    {:bore-diameter 14.2, :position 98.0}
-    {:bore-diameter 14.1, :position 106.0}
-    {:bore-diameter 14.0, :position 111.0}
-    {:bore-diameter 13.9, :position 119.0}
-    {:bore-diameter 13.8, :position 128.0}
-    {:bore-diameter 13.7, :position 137.0}
-    {:bore-diameter 13.6, :position 142.5}
-    {:bore-diameter 13.5, :position 145.5}
-    {:bore-diameter 13.4, :position 152.0}
-    {:bore-diameter 13.3, :position 161.0}],
+   [{:diameter 15.4, :position 29.0}
+    {:diameter 15.3, :position 34.0}
+    {:diameter 15.2, :position 51.0}
+    {:diameter 15.1, :position 53.0}
+    {:diameter 15.0, :position 55.0}
+    {:diameter 14.9, :position 61.0}
+    {:diameter 14.8, :position 68.0}
+    {:diameter 14.7, :position 75.0}
+    {:diameter 14.6, :position 80.0}
+    {:diameter 14.5, :position 88.0}
+    {:diameter 14.4, :position 93.0}
+    {:diameter 14.3, :position 96.0}
+    {:diameter 14.2, :position 98.0}
+    {:diameter 14.1, :position 106.0}
+    {:diameter 14.0, :position 111.0}
+    {:diameter 13.9, :position 119.0}
+    {:diameter 13.8, :position 128.0}
+    {:diameter 13.7, :position 137.0}
+    {:diameter 13.6, :position 142.5}
+    {:diameter 13.5, :position 145.5}
+    {:diameter 13.4, :position 152.0}
+    {:diameter 13.3, :position 161.0}],
    :outside-diameters
    [{:position 0.0, :min 27.15, :max 27.15, :diameter 27.15}
     {:position 0.5, :min 27.15, :max 27.15, :diameter 27.15}
@@ -924,22 +924,22 @@
      :diameter 4.925}]},
   :foot-joint
   {:bore-diameters
-   [{:bore-diameter 15.0, :position 40.0}
-    {:bore-diameter 14.9, :position 45.0}
-    {:bore-diameter 14.8, :position 47.0}
-    {:bore-diameter 14.7, :position 50.0}
-    {:bore-diameter 14.6, :position 51.0}
-    {:bore-diameter 14.5, :position 55.0}
-    {:bore-diameter 14.4, :position 57.0}
-    {:bore-diameter 14.3, :position 60.0}
-    {:bore-diameter 14.1, :position 63.0}
-    {:bore-diameter 14.0, :position 66.0}
-    {:bore-diameter 13.9, :position 68.0}
-    {:bore-diameter 13.8, :position 70.0}
-    {:bore-diameter 13.7, :position 71.0}
-    {:bore-diameter 13.6, :position 73.0}
-    {:bore-diameter 13.5, :position 76.0}
-    {:bore-diameter 13.43, :position 78.0}],
+   [{:diameter 15.0, :position 40.0}
+    {:diameter 14.9, :position 45.0}
+    {:diameter 14.8, :position 47.0}
+    {:diameter 14.7, :position 50.0}
+    {:diameter 14.6, :position 51.0}
+    {:diameter 14.5, :position 55.0}
+    {:diameter 14.4, :position 57.0}
+    {:diameter 14.3, :position 60.0}
+    {:diameter 14.1, :position 63.0}
+    {:diameter 14.0, :position 66.0}
+    {:diameter 13.9, :position 68.0}
+    {:diameter 13.8, :position 70.0}
+    {:diameter 13.7, :position 71.0}
+    {:diameter 13.6, :position 73.0}
+    {:diameter 13.5, :position 76.0}
+    {:diameter 13.43, :position 78.0}],
    :outside-diameters
    [{:position 0.0, :diameter 26.5}
     {:position 1.0, :diameter 26.8}
@@ -982,12 +982,12 @@
    [:right-hand-joint #&apos;joint]
    [:foot-joint       #&apos;joint]])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(def post-proccessed_example (post-proccess-edn example-flute-data))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">post-proccessed_example</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:head-joint
  {:bore-diameters
-  [{:bore-diameter 20.0, :position 1.0}
-   {:bore-diameter 19.9, :position 15.0}
-   {:bore-diameter 19.8, :position 165.0}
-   {:bore-diameter 19.7, :position 175.0}
-   {:bore-diameter 19.6, :position 185.0}
-   {:bore-diameter 19.5, :position 191.0}],
+  [{:diameter 20.0, :position 1.0}
+   {:diameter 19.9, :position 15.0}
+   {:diameter 19.8, :position 165.0}
+   {:diameter 19.7, :position 175.0}
+   {:diameter 19.6, :position 185.0}
+   {:diameter 19.5, :position 191.0}],
   :outside-diameters
   [{:position 222.8, :min 29.3, :max 29.1, :diameter 29.2}
    {:position 159.0, :min 30.25, :max 30.15, :diameter 30.2}
@@ -1013,39 +1013,39 @@
     :diameter 12.0}]},
  :middle-joint
  {:bore-diameters
-  [{:bore-diameter 19.1, :position 2.0}
-   {:bore-diameter 19.0, :position 34.0}
-   {:bore-diameter 18.9, :position 45.0}
-   {:bore-diameter 18.8, :position 52.0}
-   {:bore-diameter 18.7, :position 58.0}
-   {:bore-diameter 18.6, :position 63.0}
-   {:bore-diameter 18.5, :position 68.0}
-   {:bore-diameter 18.4, :position 72.0}
-   {:bore-diameter 18.3, :position 72.0}
-   {:bore-diameter 18.2, :position 80.0}
-   {:bore-diameter 18.1, :position 83.0}
-   {:bore-diameter 18.0, :position 86.0}
-   {:bore-diameter 17.9, :position 89.0}
-   {:bore-diameter 17.7, :position 101.0}
-   {:bore-diameter 17.6, :position 106.0}
-   {:bore-diameter 17.5, :position 110.0}
-   {:bore-diameter 17.4, :position 119.0}
-   {:bore-diameter 17.3, :position 125.0}
-   {:bore-diameter 17.1, :position 138.0}
-   {:bore-diameter 17.0, :position 142.5}
-   {:bore-diameter 16.9, :position 149.0}
-   {:bore-diameter 16.8, :position 156.0}
-   {:bore-diameter 16.7, :position 165.0}
-   {:bore-diameter 16.6, :position 170.0}
-   {:bore-diameter 16.5, :position 174.0}
-   {:bore-diameter 16.4, :position 180.0}
-   {:bore-diameter 16.3, :position 182.0}
-   {:bore-diameter 16.2, :position 186.0}
-   {:bore-diameter 16.1, :position 189.0}
-   {:bore-diameter 16.0, :position 191.0}
-   {:bore-diameter 15.9, :position 194.0}
-   {:bore-diameter 15.8, :position 208.0}
-   {:bore-diameter 15.9, :position 215.0}],
+  [{:diameter 19.1, :position 2.0}
+   {:diameter 19.0, :position 34.0}
+   {:diameter 18.9, :position 45.0}
+   {:diameter 18.8, :position 52.0}
+   {:diameter 18.7, :position 58.0}
+   {:diameter 18.6, :position 63.0}
+   {:diameter 18.5, :position 68.0}
+   {:diameter 18.4, :position 72.0}
+   {:diameter 18.3, :position 72.0}
+   {:diameter 18.2, :position 80.0}
+   {:diameter 18.1, :position 83.0}
+   {:diameter 18.0, :position 86.0}
+   {:diameter 17.9, :position 89.0}
+   {:diameter 17.7, :position 101.0}
+   {:diameter 17.6, :position 106.0}
+   {:diameter 17.5, :position 110.0}
+   {:diameter 17.4, :position 119.0}
+   {:diameter 17.3, :position 125.0}
+   {:diameter 17.1, :position 138.0}
+   {:diameter 17.0, :position 142.5}
+   {:diameter 16.9, :position 149.0}
+   {:diameter 16.8, :position 156.0}
+   {:diameter 16.7, :position 165.0}
+   {:diameter 16.6, :position 170.0}
+   {:diameter 16.5, :position 174.0}
+   {:diameter 16.4, :position 180.0}
+   {:diameter 16.3, :position 182.0}
+   {:diameter 16.2, :position 186.0}
+   {:diameter 16.1, :position 189.0}
+   {:diameter 16.0, :position 191.0}
+   {:diameter 15.9, :position 194.0}
+   {:diameter 15.8, :position 208.0}
+   {:diameter 15.9, :position 215.0}],
   :outside-diameters
   [{:position 159.05, :diameter 29.2}
    {:position 317.49, :diameter 26.0}],
@@ -1058,28 +1058,28 @@
     :diameter 5.65}]},
  :right-hand-joint
  {:bore-diameters
-  [{:bore-diameter 15.4, :position 29.0}
-   {:bore-diameter 15.3, :position 34.0}
-   {:bore-diameter 15.2, :position 51.0}
-   {:bore-diameter 15.1, :position 53.0}
-   {:bore-diameter 15.0, :position 55.0}
-   {:bore-diameter 14.9, :position 61.0}
-   {:bore-diameter 14.8, :position 68.0}
-   {:bore-diameter 14.7, :position 75.0}
-   {:bore-diameter 14.6, :position 80.0}
-   {:bore-diameter 14.5, :position 88.0}
-   {:bore-diameter 14.4, :position 93.0}
-   {:bore-diameter 14.3, :position 96.0}
-   {:bore-diameter 14.2, :position 98.0}
-   {:bore-diameter 14.1, :position 106.0}
-   {:bore-diameter 14.0, :position 111.0}
-   {:bore-diameter 13.9, :position 119.0}
-   {:bore-diameter 13.8, :position 128.0}
-   {:bore-diameter 13.7, :position 137.0}
-   {:bore-diameter 13.6, :position 142.5}
-   {:bore-diameter 13.5, :position 145.5}
-   {:bore-diameter 13.4, :position 152.0}
-   {:bore-diameter 13.3, :position 161.0}],
+  [{:diameter 15.4, :position 29.0}
+   {:diameter 15.3, :position 34.0}
+   {:diameter 15.2, :position 51.0}
+   {:diameter 15.1, :position 53.0}
+   {:diameter 15.0, :position 55.0}
+   {:diameter 14.9, :position 61.0}
+   {:diameter 14.8, :position 68.0}
+   {:diameter 14.7, :position 75.0}
+   {:diameter 14.6, :position 80.0}
+   {:diameter 14.5, :position 88.0}
+   {:diameter 14.4, :position 93.0}
+   {:diameter 14.3, :position 96.0}
+   {:diameter 14.2, :position 98.0}
+   {:diameter 14.1, :position 106.0}
+   {:diameter 14.0, :position 111.0}
+   {:diameter 13.9, :position 119.0}
+   {:diameter 13.8, :position 128.0}
+   {:diameter 13.7, :position 137.0}
+   {:diameter 13.6, :position 142.5}
+   {:diameter 13.5, :position 145.5}
+   {:diameter 13.4, :position 152.0}
+   {:diameter 13.3, :position 161.0}],
   :outside-diameters
   [{:position 0.0, :min 27.15, :max 27.15, :diameter 27.15}
    {:position 0.5, :min 27.15, :max 27.15, :diameter 27.15}
@@ -1103,22 +1103,22 @@
     :diameter 4.925}]},
  :foot-joint
  {:bore-diameters
-  [{:bore-diameter 15.0, :position 40.0}
-   {:bore-diameter 14.9, :position 45.0}
-   {:bore-diameter 14.8, :position 47.0}
-   {:bore-diameter 14.7, :position 50.0}
-   {:bore-diameter 14.6, :position 51.0}
-   {:bore-diameter 14.5, :position 55.0}
-   {:bore-diameter 14.4, :position 57.0}
-   {:bore-diameter 14.3, :position 60.0}
-   {:bore-diameter 14.1, :position 63.0}
-   {:bore-diameter 14.0, :position 66.0}
-   {:bore-diameter 13.9, :position 68.0}
-   {:bore-diameter 13.8, :position 70.0}
-   {:bore-diameter 13.7, :position 71.0}
-   {:bore-diameter 13.6, :position 73.0}
-   {:bore-diameter 13.5, :position 76.0}
-   {:bore-diameter 13.43, :position 78.0}],
+  [{:diameter 15.0, :position 40.0}
+   {:diameter 14.9, :position 45.0}
+   {:diameter 14.8, :position 47.0}
+   {:diameter 14.7, :position 50.0}
+   {:diameter 14.6, :position 51.0}
+   {:diameter 14.5, :position 55.0}
+   {:diameter 14.4, :position 57.0}
+   {:diameter 14.3, :position 60.0}
+   {:diameter 14.1, :position 63.0}
+   {:diameter 14.0, :position 66.0}
+   {:diameter 13.9, :position 68.0}
+   {:diameter 13.8, :position 70.0}
+   {:diameter 13.7, :position 71.0}
+   {:diameter 13.6, :position 73.0}
+   {:diameter 13.5, :position 76.0}
+   {:diameter 13.43, :position 78.0}],
   :outside-diameters
   [{:position 0.0, :diameter 26.5}
    {:position 1.0, :diameter 26.8}

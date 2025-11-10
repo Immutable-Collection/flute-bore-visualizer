@@ -163,3 +163,6 @@ finger-hole-data
 ;; ### edn format list of
 ;; #### putting finger on holes [{:hole-number}]
 ;; #### blowing speed [{:speed :time }] 
+
+;; TODO we have issues on the post process edn
+#_(flute/org-to-flute-3d-model "../../flute-data/models/lot-dcm615.org")
