@@ -156,13 +156,19 @@ finger-hole-data
   [:img {:src "notebooks/lot-cut.png"}])
 
 ;; TODO automatic convert Text base STL to binary STL
-
 ;; closing hour through
 ;; ## Music note
-
 ;; ### edn format list of
 ;; #### putting finger on holes [{:hole-number}]
 ;; #### blowing speed [{:speed :time }] 
-
 ;; TODO we have issues on the post process edn
-#_(flute/org-to-flute-3d-model "../../flute-data/models/lot-dcm615.org")
+;(flute/org-to-flute-3d-model "../../flute-data/models/lot-dcm615.org")
+
+
+
+(flute/org->cad!  "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot.scad")
+
+(export-png-file  "notebooks/org-lot-cut.png" "notebooks/org-lot.scad")
+
+(kind/hiccup
+ [:img {:src "notebooks/org-lot-cut.png"}])

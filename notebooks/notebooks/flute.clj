@@ -91,6 +91,19 @@
                                           (m/difference
                                             model
                                             (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false}))))))
+; TODO finger holes seems are not straight
+(defn bore-section [data]
+  (let [ordered-data (sort-by :position data)
+        start (first ordered-data)
+        end (last ordered-data)
+        new-data (conj (concat [{:diameter (:diameter start) :position (- (:position start) 0.1)}] data) 
+        {:diameter (:diameter end) :position (+ (:position end) 0.1)})]
+        (println "data")
+        (println data)
+        (println "new data")
+        (println new-data)
+    (polygon-rotator new-data))
+  )
 
 ;; TODO adding cork spec to the flute schema
 (defn flute-section
@@ -101,7 +114,7 @@
                  (m/union
                    (m/difference
                      (polygon-rotator (:outside-diameters data))
-                     (polygon-rotator (:bore-diameters data))
+                     (bore-section (:bore-diameters data))
                      (finger-holes (:holes data)))))
       ;; TODO else should raise exception
       (throw (Exception. (:errors (mal/explain e2e/joint data)))))))
@@ -115,16 +128,19 @@
         middle (flute-section (:middle-joint data))
         right-hand (flute-section (:right-hand-joint data))]
     (m/union
-     (map-indexed #(m/translate [0 (* %1 20) 0] %2) [head middle right-hand foot])
+     (map-indexed #(m/translate [0 (* %1 40) 0] %2) [head middle right-hand foot])
 )))
 
+
 (defn org-to-flute-3d-model [org-path]
-  (let [data (-> org-path
-                 slurp
-                 e2e/org-processed-list-to-edn
-                 e2e/post-proccess-edn)
+  (let [data (e2e/org-to-edn org-path)
         flute-data-validated? (mal/validate e2e/flute data)]
     (if flute-data-validated?
       (flute-model data)
-      (throw (Exception. (mal/explain e2e/flute data))))))
+(throw (Exception. (mal/explain e2e/flute data))))))
 ;; single lot model is build through assembly of these parts
+
+
+(defn org->cad! [org-path cad-path]
+ (render-code-model (org-to-flute-3d-model org-path) cad-path))
+  

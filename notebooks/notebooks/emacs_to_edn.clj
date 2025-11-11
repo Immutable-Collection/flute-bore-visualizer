@@ -21,6 +21,13 @@
     valid-prefix?
     (str/split-lines lot-dcm615-content)))
 
+(defn initially-cleaning 
+  "Remove all except the org headings and table data from the data representing the imported org file."
+  [data]
+  (filter
+   valid-prefix?
+   (str/split-lines data)))
+
 initially-cleaned-content
 
 (defn count-*
@@ -60,6 +67,24 @@ initially-cleaned-content
 (defn process-table-row
   [s]
   (map Float/parseFloat (get-row-items s)))
+
+(defn process-content [data]
+  (map
+    #(cond
+       (is-table-content? %) {:type :table-content
+                              :content %
+                              :data (process-table-row %)}
+       (is-table-header?  %) {:type :table-heading
+                              :content %
+                              :data (process-table-header %)}
+       (is-org-header?    %) {:type :heading
+                              :level (count-* %)
+                              :content (convert-title-to-keyword
+                                         (-> %
+                                             (str/replace "* " "")
+                                             (str/replace "*" "")))}
+       :else nil)
+    data))
 
 ;; # processing contents
 (def processed-content
@@ -169,3 +194,14 @@ post-proccessed_example
 (m/validate flute post-proccessed_example)
 
 (:errors (m/explain flute post-proccessed_example))
+
+(defn org-to-edn [org-path]
+(-> org-path
+    slurp
+    initially-cleaning
+    process-content
+    org-processed-list-to-edn
+    post-proccess-edn))
+    
+
+(org-to-edn "../../flute-data/models/lot-dcm615.org")    

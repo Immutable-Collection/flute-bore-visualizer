@@ -120,7 +120,18 @@
   (m/rotate (/ 3.142 2) [0 1 0] (m/rotate 3.14 [0 0 1]
                                           (m/difference
                                             model
-                                            (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false}))))))</code></pre></div></div><div style="margin:15px;"><div><p>TODO adding cork spec to the flute schema</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-section
+                                            (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false}))))))</code></pre></div></div><div style="margin:15px;"><div><p>TODO finger holes seems are not straight</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn bore-section [data]
+  (let [ordered-data (sort-by :position data)
+        start (first ordered-data)
+        end (last ordered-data)
+        new-data (conj (concat [{:diameter (:diameter start) :position (- (:position start) 0.1)}] data) 
+        {:diameter (:diameter end) :position (+ (:position end) 0.1)})]
+        (println &quot;data&quot;)
+        (println data)
+        (println &quot;new data&quot;)
+        (println new-data)
+    (polygon-rotator new-data))
+  )</code></pre></div></div><div style="margin:15px;"><div><p>TODO adding cork spec to the flute schema</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-section
   [data]
   (let [validation-result (mal/validate e2e/joint data)]
     (if validation-result
@@ -128,7 +139,7 @@
                  (m/union
                    (m/difference
                      (polygon-rotator (:outside-diameters data))
-                     (polygon-rotator (:bore-diameters data))
+                     (bore-section (:bore-diameters data))
                      (finger-holes (:holes data)))))
       ;; TODO else should raise exception
       (throw (Exception. (:errors (mal/explain e2e/joint data)))))))</code></pre></div></div><div style="margin:15px;"><div><p>define sections for each part of the model</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-model
@@ -138,16 +149,14 @@
         middle (flute-section (:middle-joint data))
         right-hand (flute-section (:right-hand-joint data))]
     (m/union
-     (map-indexed #(m/translate [0 (* %1 20) 0] %2) [head middle right-hand foot])
+     (map-indexed #(m/translate [0 (* %1 40) 0] %2) [head middle right-hand foot])
 )))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-to-flute-3d-model [org-path]
-  (let [data (-&gt; org-path
-                 slurp
-                 e2e/org-processed-list-to-edn
-                 e2e/post-proccess-edn)
+  (let [data (e2e/org-to-edn org-path)
         flute-data-validated? (mal/validate e2e/flute data)]
     (if flute-data-validated?
       (flute-model data)
-      (throw (Exception. (mal/explain e2e/flute data))))))</code></pre></div></div><div style="margin:15px;"><div><p>single lot model is build through assembly of these parts</p></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/flute.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
+(throw (Exception. (mal/explain e2e/flute data))))))</code></pre></div></div><div style="margin:15px;"><div><p>single lot model is build through assembly of these parts</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-&gt;cad! [org-path cad-path]
+ (render-code-model (org-to-flute-3d-model org-path) cad-path))</code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/flute.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors
   License: BSD-3-Clause
