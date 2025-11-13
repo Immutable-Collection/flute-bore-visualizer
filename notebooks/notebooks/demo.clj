@@ -131,6 +131,7 @@ outside-diameter-ds
 
 finger-hole-data
 
+
 (def generated-lot-model
   (lot-model
     outside-diameter-data
@@ -163,7 +164,6 @@ finger-hole-data
 ;; #### blowing speed [{:speed :time }] 
 ;; TODO we have issues on the post process edn
 ;(flute/org-to-flute-3d-model "../../flute-data/models/lot-dcm615.org")
-
 
 
 (flute/org->cad!  "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot.scad")
