@@ -165,10 +165,9 @@ finger-hole-data
 ;; TODO we have issues on the post process edn
 ;(flute/org-to-flute-3d-model "../../flute-data/models/lot-dcm615.org")
 
-
 (flute/org->cad!  "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot.scad")
 
 (export-png-file  "notebooks/org-lot-cut.png" "notebooks/org-lot.scad")
 
-(kind/hiccup
+ (kind/hiccup
  [:img {:src "notebooks/org-lot-cut.png"}])

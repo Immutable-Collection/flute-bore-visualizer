@@ -11,9 +11,8 @@
    (map :position data)])
 
 (defn polygon-rotator
-  ([data] (let [[points-diameter
-                 points-position] (extract-positions-diameters data)]
-            (polygon-rotator points-diameter points-position)))
+  ([data] (m/extrude-rotate {:fn 64}
+                            (m/polygon (map (fn [point][(/ (:diameter point) 2) (:position point)]) data))))
   ([points-diameter points-position]
    (let [number-of-points (dec (count points-position))
          profile-points (concat
@@ -96,8 +95,8 @@
   (let [ordered-data (sort-by :position data)
         start (first ordered-data)
         end (last ordered-data)
-        new-data (conj (concat [{:diameter (:diameter start) :position (- (:position start) 0.1)}] data) 
-        {:diameter (:diameter end) :position (+ (:position end) 0.1)})]
+        new-data (conj (into [] (concat [{:diameter 0 :position (- (:position start) 0.1)}] data) )
+        {:diameter 0 :position (+ (:position end) 0.1)})]
         (println "data")
         (println data)
         (println "new data")
@@ -115,8 +114,7 @@ bore-data
 
 (map (fn [item] [(:diameter item) (:position item)] ) bore-data)
 
-(def bore-section-rr (bore-section (sort-by #(:position %) bore-data)))
-
+(def bore-section-rr (bore-section bore-data))
 
 
 (render-code-model bore-section-rr "test2.scad")
@@ -124,16 +122,20 @@ bore-data
 ;; TODO adding cork spec to the flute schema
 (defn flute-section
   [data]
-  (let [validation-result (mal/validate e2e/joint data)]
+  (let [validation-result (mal/validate e2e/joint data)
+        section-data (concat (:outside-diameters data)
+                             (reverse (:bore-diameters data)))]
+    (println  section-data)
     (if validation-result
       (m/with-fn 60
-                 (m/union
-                   (m/difference
-                     (polygon-rotator (:outside-diameters data))
-                     (bore-section (:bore-diameters data))
-                     (finger-holes (:holes data)))))
+        (m/union
+         (m/difference
+          (polygon-rotator section-data)
+                     ;(bore-section (:bore-diameters data))
+          (finger-holes (:holes data)))))
       ;; TODO else should raise exception
       (throw (Exception. (:errors (mal/explain e2e/joint data)))))))
+
 
 ;; define sections for each part of the model
 
@@ -153,7 +155,6 @@ bore-data
 (defn org-to-flute-3d-model [org-path]
   (let [data (e2e/org-to-edn org-path)
         flute-data-validated? (mal/validate e2e/flute data)]
-    (println data)    
     (if flute-data-validated?
       (flute-model data)
        (throw (Exception. (mal/explain e2e/flute data))))))
