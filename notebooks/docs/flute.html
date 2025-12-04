@@ -54,7 +54,7 @@
             [scad-clj.scad :refer [write-scad] :as scad]
             [clojure.java.shell :refer [sh]]))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn extract-positions-diameters
   [data]
-  [(map :diameter data)
+         [(map :diameter data)
    (map :position data)])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn polygon-rotator
   ([data] (m/extrude-rotate {:fn 64}
                             (m/polygon (map (fn [point][(/ (:diameter point) 2) (:position point)]) data))))
@@ -89,7 +89,7 @@
   [stl-file filename]
   (sh &quot;openscad&quot; &quot;-o&quot; stl-file filename))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn export-png-file
   [picture filename]
-  (sh &quot;openscad&quot; &quot;--imgsize=800,600&quot; &quot;--render&quot; &quot;-o&quot; picture filename))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn lot-model
+  (sh &quot;openscad&quot; &quot;--imgsize=1000,800&quot; &quot;--render&quot; &quot;-o&quot; picture filename))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn lot-model
   ([outside-specs bore-specs finger-holes-specs]
    (lot-model outside-specs bore-specs finger-holes-specs {:start-from-soundhole -20 :end-from-soundhole -40 :diameter 20}))
   ([outside-specs bore-specs finger-holes-specs cork]
@@ -208,8 +208,8 @@ new data
 </code></pre></div></div><div style="margin:15px;"><div><p>TODO adding cork spec to the flute schema</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-section
   [data]
   (let [validation-result (mal/validate e2e/joint data)
-        section-data (concat (:outside-diameters data)
-                             (reverse (:bore-diameters data)))]
+        section-data (concat (sort-by :position (:outside-diameters data))
+                             (reverse (sort-by :position (:bore-diameters data))))]
     (println  section-data)
     (if validation-result
       (m/with-fn 60
@@ -227,7 +227,7 @@ new data
         right-hand (flute-section (:right-hand-joint data))]
     (m/union
      (map-indexed 
-     #(m/translate [0 (* %1 40) 0] %2) 
+     #(m/translate [(* %1 40) (* %1 40) 0] %2) 
      [head middle right-hand foot])
 )))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-to-flute-3d-model [org-path]
   (let [data (e2e/org-to-edn org-path)

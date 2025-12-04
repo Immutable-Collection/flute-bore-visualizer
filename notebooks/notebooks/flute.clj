@@ -7,7 +7,7 @@
 
 (defn extract-positions-diameters
   [data]
-  [(map :diameter data)
+         [(map :diameter data)
    (map :position data)])
 
 (defn polygon-rotator
@@ -55,7 +55,7 @@
 
 (defn export-png-file
   [picture filename]
-  (sh "openscad" "--imgsize=800,600" "--render" "-o" picture filename))
+  (sh "openscad" "--imgsize=1000,800" "--render" "-o" picture filename))
 
 (defn lot-model
   ([outside-specs bore-specs finger-holes-specs]
@@ -123,8 +123,8 @@ bore-data
 (defn flute-section
   [data]
   (let [validation-result (mal/validate e2e/joint data)
-        section-data (concat (:outside-diameters data)
-                             (reverse (:bore-diameters data)))]
+        section-data (concat (sort-by :position (:outside-diameters data))
+                             (reverse (sort-by :position (:bore-diameters data))))]
     (println  section-data)
     (if validation-result
       (m/with-fn 60
@@ -147,7 +147,7 @@ bore-data
         right-hand (flute-section (:right-hand-joint data))]
     (m/union
      (map-indexed 
-     #(m/translate [0 (* %1 40) 0] %2) 
+     #(m/translate [(* %1 40) (* %1 40) 0] %2) 
      [head middle right-hand foot])
 )))
 
