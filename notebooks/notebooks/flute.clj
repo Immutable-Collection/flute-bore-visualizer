@@ -122,10 +122,14 @@ bore-data
 ;; TODO adding cork spec to the flute schema
 (defn flute-section
   [data]
+  (println "data")
+  (println data)
   (let [validation-result (mal/validate e2e/joint data)
         section-data (concat (sort-by :position (:outside-diameters data))
                              (reverse (sort-by :position (:bore-diameters data))))]
-    (println  section-data)
+    (println "section data")
+    (println section-data)     
+    (println "end section data")                    
     (if validation-result
       (m/with-fn 60
         (m/union

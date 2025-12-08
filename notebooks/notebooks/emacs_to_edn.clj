@@ -40,7 +40,7 @@ initially-cleaned-content
 
 (defn is-table-content?
   [s]
-  (boolean (re-find #"^\|\s*(\d+(?:\.\d+)?)" s)))
+  (boolean (re-find #"^\|\s*(-?\d+(?:\.\d+)?)" s)))
 
 (defn is-org-header?
   [s]
@@ -203,5 +203,18 @@ post-proccessed_example
     org-processed-list-to-edn
     post-proccess-edn))
     
+    
+(-> "../../flute-data/models/lot-dcm615.org"
+    slurp
+    initially-cleaning
+    process-content
+    org-processed-list-to-edn
+    post-proccess-edn
+    )
+(is-table-content? "|       27 |    29.45 |")
+(is-table-content? "|   -27.85 |     24.3 |") 
+(map type (process-table-row "|   -27.85 |     24.3 |")    )
 
-(org-to-edn "../../flute-data/models/lot-dcm615.org")    
+'(2 3)
+[2 3]
+(apply + [4 5 6 7])

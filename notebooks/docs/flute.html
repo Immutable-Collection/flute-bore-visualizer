@@ -207,10 +207,14 @@ new data
 </code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(render-code-model bore-section-rr &quot;test2.scad&quot;)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">nil
 </code></pre></div></div><div style="margin:15px;"><div><p>TODO adding cork spec to the flute schema</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-section
   [data]
+  (println &quot;data&quot;)
+  (println data)
   (let [validation-result (mal/validate e2e/joint data)
         section-data (concat (sort-by :position (:outside-diameters data))
                              (reverse (sort-by :position (:bore-diameters data))))]
-    (println  section-data)
+    (println &quot;section data&quot;)
+    (println section-data)     
+    (println &quot;end section data&quot;)                    
     (if validation-result
       (m/with-fn 60
         (m/union
