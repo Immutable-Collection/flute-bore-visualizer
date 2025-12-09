@@ -103,7 +103,7 @@
  &quot;** Middle Joint&quot;
  &quot;*** Bore Diameters&quot;
  &quot;| Diameter | Position |&quot;
- &quot;|     19.1 |   -27.85 |&quot;
+ &quot;|     19.1 |        0 |&quot;
  &quot;|     19.1 |        2 |&quot;
  &quot;|     19.0 |       34 |&quot;
  &quot;|     18.9 |       45 |&quot;
@@ -150,7 +150,6 @@
  &quot;|     64.6 |          6.9 |    6.45 |    6.675 |&quot;
  &quot;|      102 |         6.85 |     6.5 |    6.675 |&quot;
  &quot;|    141.7 |         5.75 |    5.55 |     5.65 |&quot;
- &quot;** Right Hand Joint&quot;
  &quot;*** Bore Diameters&quot;
  &quot;| Diameter | Position |&quot;
  &quot;|    21.65 |        0 |&quot;
@@ -406,8 +405,8 @@
   :content &quot;| Diameter | Position |&quot;,
   :data (:diameter :position)}
  {:type :table-content,
-  :content &quot;|     19.1 |   -27.85 |&quot;,
-  :data (19.1 -27.85)}
+  :content &quot;|     19.1 |        0 |&quot;,
+  :data (19.1 0.0)}
  {:type :table-content,
   :content &quot;|     19.1 |        2 |&quot;,
   :data (19.1 2.0)}
@@ -542,7 +541,6 @@
  {:type :table-content,
   :content &quot;|    141.7 |         5.75 |    5.55 |     5.65 |&quot;,
   :data (141.7 5.75 5.55 5.65)}
- {:type :heading, :level 2, :content :right-hand-joint}
  {:type :heading, :level 3, :content :bore-diameters}
  {:type :table-heading,
   :content &quot;| Diameter | Position |&quot;,
@@ -844,7 +842,6 @@
  {:type :heading, :level 3, :content :bore-diameters}
  {:type :heading, :level 3, :content :outside-diameters}
  {:type :heading, :level 3, :content :holes}
- {:type :heading, :level 2, :content :right-hand-joint}
  {:type :heading, :level 3, :content :bore-diameters}
  {:type :heading, :level 3, :content :outside-diameters}
  {:type :heading, :level 3, :content :holes}
@@ -931,59 +928,6 @@
      :position 159.0,
      :diameter 12.0}]},
   :middle-joint
-  {:bore-diameters
-   [{:diameter 19.1, :position -27.85}
-    {:diameter 19.1, :position 2.0}
-    {:diameter 19.0, :position 34.0}
-    {:diameter 18.9, :position 45.0}
-    {:diameter 18.8, :position 52.0}
-    {:diameter 18.7, :position 58.0}
-    {:diameter 18.6, :position 63.0}
-    {:diameter 18.5, :position 68.0}
-    {:diameter 18.4, :position 72.0}
-    {:diameter 18.3, :position 72.0}
-    {:diameter 18.2, :position 80.0}
-    {:diameter 18.1, :position 83.0}
-    {:diameter 18.0, :position 86.0}
-    {:diameter 17.9, :position 89.0}
-    {:diameter 17.7, :position 101.0}
-    {:diameter 17.6, :position 106.0}
-    {:diameter 17.5, :position 110.0}
-    {:diameter 17.4, :position 119.0}
-    {:diameter 17.3, :position 125.0}
-    {:diameter 17.1, :position 138.0}
-    {:diameter 17.0, :position 142.5}
-    {:diameter 16.9, :position 149.0}
-    {:diameter 16.8, :position 156.0}
-    {:diameter 16.7, :position 165.0}
-    {:diameter 16.6, :position 170.0}
-    {:diameter 16.5, :position 174.0}
-    {:diameter 16.4, :position 180.0}
-    {:diameter 16.3, :position 182.0}
-    {:diameter 16.2, :position 186.0}
-    {:diameter 16.1, :position 189.0}
-    {:diameter 16.0, :position 191.0}
-    {:diameter 15.9, :position 194.0}
-    {:diameter 15.8, :position 208.0}
-    {:diameter 15.9, :position 215.0}],
-   :outside-diameters
-   [{:position -27.85, :diameter 24.3}
-    {:position 0.0, :diameter 24.95}
-    {:position 0.01, :diameter 29.2}
-    {:position 158.5, :diameter 26.0}
-    {:position 168.51, :diameter 21.25}
-    {:position 185.15, :diameter 20.5}],
-   :holes
-   [{:position 64.6, :longitudinal 6.9, :lateral 6.45, :diameter 6.675}
-    {:position 102.0,
-     :longitudinal 6.85,
-     :lateral 6.5,
-     :diameter 6.675}
-    {:position 141.7,
-     :longitudinal 5.75,
-     :lateral 5.55,
-     :diameter 5.65}]},
-  :right-hand-joint
   {:bore-diameters
    [{:diameter 21.65, :position 0.0}
     {:diameter 21.65, :position 27.2}
@@ -1137,56 +1081,6 @@
     :diameter 12.0}]},
  :middle-joint
  {:bore-diameters
-  [{:diameter 19.1, :position -27.85}
-   {:diameter 19.1, :position 2.0}
-   {:diameter 19.0, :position 34.0}
-   {:diameter 18.9, :position 45.0}
-   {:diameter 18.8, :position 52.0}
-   {:diameter 18.7, :position 58.0}
-   {:diameter 18.6, :position 63.0}
-   {:diameter 18.5, :position 68.0}
-   {:diameter 18.4, :position 72.0}
-   {:diameter 18.3, :position 72.0}
-   {:diameter 18.2, :position 80.0}
-   {:diameter 18.1, :position 83.0}
-   {:diameter 18.0, :position 86.0}
-   {:diameter 17.9, :position 89.0}
-   {:diameter 17.7, :position 101.0}
-   {:diameter 17.6, :position 106.0}
-   {:diameter 17.5, :position 110.0}
-   {:diameter 17.4, :position 119.0}
-   {:diameter 17.3, :position 125.0}
-   {:diameter 17.1, :position 138.0}
-   {:diameter 17.0, :position 142.5}
-   {:diameter 16.9, :position 149.0}
-   {:diameter 16.8, :position 156.0}
-   {:diameter 16.7, :position 165.0}
-   {:diameter 16.6, :position 170.0}
-   {:diameter 16.5, :position 174.0}
-   {:diameter 16.4, :position 180.0}
-   {:diameter 16.3, :position 182.0}
-   {:diameter 16.2, :position 186.0}
-   {:diameter 16.1, :position 189.0}
-   {:diameter 16.0, :position 191.0}
-   {:diameter 15.9, :position 194.0}
-   {:diameter 15.8, :position 208.0}
-   {:diameter 15.9, :position 215.0}],
-  :outside-diameters
-  [{:position -27.85, :diameter 24.3}
-   {:position 0.0, :diameter 24.95}
-   {:position 0.01, :diameter 29.2}
-   {:position 158.5, :diameter 26.0}
-   {:position 168.51, :diameter 21.25}
-   {:position 185.15, :diameter 20.5}],
-  :holes
-  [{:position 64.6, :longitudinal 6.9, :lateral 6.45, :diameter 6.675}
-   {:position 102.0, :longitudinal 6.85, :lateral 6.5, :diameter 6.675}
-   {:position 141.7,
-    :longitudinal 5.75,
-    :lateral 5.55,
-    :diameter 5.65}]},
- :right-hand-joint
- {:bore-diameters
   [{:diameter 21.65, :position 0.0}
    {:diameter 21.65, :position 27.2}
    {:diameter 15.4, :position 27.21}
@@ -1286,8 +1180,13 @@
   :holes
   [{:position 30.8, :longitudinal 9.1, :lateral 8.7, :diameter 8.9}]},
  :model &quot;lot-dcm615&quot;}
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(m/validate flute post-proccessed_example)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">true
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(:errors (m/explain flute post-proccessed_example))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">nil
+</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(m/validate flute post-proccessed_example)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">false
+</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(:errors (m/explain flute post-proccessed_example))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">({:path [:right-hand-joint],
+  :in [:right-hand-joint],
+  :schema
+  [:map [:model :string] [:head-joint #&apos;emacs-to-edn/joint] [:middle-joint #&apos;emacs-to-edn/joint] [:right-hand-joint #&apos;emacs-to-edn/joint] [:foot-joint #&apos;emacs-to-edn/joint]],
+  :value nil,
+  :type :malli.core/missing-key})
 </code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-to-edn [org-path]
 (-&gt; org-path
     slurp
@@ -1336,56 +1235,6 @@
     :diameter 12.0}]},
  :middle-joint
  {:bore-diameters
-  [{:diameter 19.1, :position -27.85}
-   {:diameter 19.1, :position 2.0}
-   {:diameter 19.0, :position 34.0}
-   {:diameter 18.9, :position 45.0}
-   {:diameter 18.8, :position 52.0}
-   {:diameter 18.7, :position 58.0}
-   {:diameter 18.6, :position 63.0}
-   {:diameter 18.5, :position 68.0}
-   {:diameter 18.4, :position 72.0}
-   {:diameter 18.3, :position 72.0}
-   {:diameter 18.2, :position 80.0}
-   {:diameter 18.1, :position 83.0}
-   {:diameter 18.0, :position 86.0}
-   {:diameter 17.9, :position 89.0}
-   {:diameter 17.7, :position 101.0}
-   {:diameter 17.6, :position 106.0}
-   {:diameter 17.5, :position 110.0}
-   {:diameter 17.4, :position 119.0}
-   {:diameter 17.3, :position 125.0}
-   {:diameter 17.1, :position 138.0}
-   {:diameter 17.0, :position 142.5}
-   {:diameter 16.9, :position 149.0}
-   {:diameter 16.8, :position 156.0}
-   {:diameter 16.7, :position 165.0}
-   {:diameter 16.6, :position 170.0}
-   {:diameter 16.5, :position 174.0}
-   {:diameter 16.4, :position 180.0}
-   {:diameter 16.3, :position 182.0}
-   {:diameter 16.2, :position 186.0}
-   {:diameter 16.1, :position 189.0}
-   {:diameter 16.0, :position 191.0}
-   {:diameter 15.9, :position 194.0}
-   {:diameter 15.8, :position 208.0}
-   {:diameter 15.9, :position 215.0}],
-  :outside-diameters
-  [{:position -27.85, :diameter 24.3}
-   {:position 0.0, :diameter 24.95}
-   {:position 0.01, :diameter 29.2}
-   {:position 158.5, :diameter 26.0}
-   {:position 168.51, :diameter 21.25}
-   {:position 185.15, :diameter 20.5}],
-  :holes
-  [{:position 64.6, :longitudinal 6.9, :lateral 6.45, :diameter 6.675}
-   {:position 102.0, :longitudinal 6.85, :lateral 6.5, :diameter 6.675}
-   {:position 141.7,
-    :longitudinal 5.75,
-    :lateral 5.55,
-    :diameter 5.65}]},
- :right-hand-joint
- {:bore-diameters
   [{:diameter 21.65, :position 0.0}
    {:diameter 21.65, :position 27.2}
    {:diameter 15.4, :position 27.21}
@@ -1485,11 +1334,6 @@
   :holes
   [{:position 30.8, :longitudinal 9.1, :lateral 8.7, :diameter 8.9}]},
  :model &quot;lot-dcm615&quot;}
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(is-table-content? &quot;|       27 |    29.45 |&quot;)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">true
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(is-table-content? &quot;|   -27.85 |     24.3 |&quot;)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">true
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(map type (process-table-row &quot;|   -27.85 |     24.3 |&quot;)    )</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">(java.lang.Float java.lang.Float)
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">[2 3]</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">[2 3]
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(apply + [4 5 6 7])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">22
 </code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/emacs_to_edn.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors

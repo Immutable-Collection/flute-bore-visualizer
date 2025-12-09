@@ -156,6 +156,7 @@ finger-hole-data
 (kind/hiccup
   [:img {:src "notebooks/lot-cut.png"}])
 
+
 ;; TODO automatic convert Text base STL to binary STL
 ;; closing hour through
 ;; ## Music note
@@ -166,7 +167,6 @@ finger-hole-data
 ;(flute/org-to-flute-3d-model "../../flute-data/models/lot-dcm615.org")
 
 (flute/org->cad!  "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot.scad")
-
 
 (export-png-file  "notebooks/org-lot-cut.png" "notebooks/org-lot.scad")
 

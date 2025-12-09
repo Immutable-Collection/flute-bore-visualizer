@@ -53,7 +53,7 @@
             [emacs-to-edn :as e2e]
             [scad-clj.scad :refer [write-scad] :as scad]
             [clojure.java.shell :refer [sh]]))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn extract-positions-diameters
-  [data]
+   [data]
          [(map :diameter data)
    (map :position data)])</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn polygon-rotator
   ([data] (m/extrude-rotate {:fn 64}
@@ -74,7 +74,7 @@
    (apply m/union
           (for [i (range (count finger-holes-diameter))]
             (-&gt;&gt; (m/cylinder (/ (nth finger-holes-diameter i) 2) 40 {:center false})
-                 (m/rotate [0 90 0])
+                 (m/rotate [0 1.57 0])
                  (m/translate [0 0 (nth finger-holes-position i)]))))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn rudall-and-carte
   [outside-diameters lengths diameters inside-lengths finger-holes-diameter finger-holes-position]
 
@@ -238,7 +238,8 @@ new data
         flute-data-validated? (mal/validate e2e/flute data)]
     (if flute-data-validated?
       (flute-model data)
-       (throw (Exception. (mal/explain e2e/flute data))))))</code></pre></div></div><div style="margin:15px;"><div><p>single lot model is build through assembly of these parts</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-&gt;cad! [org-path cad-path]
+      (println (mal/explain e2e/flute data))
+       #_(throw (Exception. &quot;my message&quot; #_(mal/explain e2e/flute data))))))</code></pre></div></div><div style="margin:15px;"><div><p>single lot model is build through assembly of these parts</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-&gt;cad! [org-path cad-path]
  (render-code-model (org-to-flute-3d-model org-path) cad-path))</code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/flute.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors

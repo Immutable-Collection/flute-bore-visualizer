@@ -6,7 +6,7 @@
             [clojure.java.shell :refer [sh]]))
 
 (defn extract-positions-diameters
-  [data]
+   [data]
          [(map :diameter data)
    (map :position data)])
 
@@ -31,7 +31,7 @@
    (apply m/union
           (for [i (range (count finger-holes-diameter))]
             (->> (m/cylinder (/ (nth finger-holes-diameter i) 2) 40 {:center false})
-                 (m/rotate [0 90 0])
+                 (m/rotate [0 1.57 0])
                  (m/translate [0 0 (nth finger-holes-position i)]))))))
 
 (defn rudall-and-carte
@@ -161,7 +161,8 @@ bore-data
         flute-data-validated? (mal/validate e2e/flute data)]
     (if flute-data-validated?
       (flute-model data)
-       (throw (Exception. (mal/explain e2e/flute data))))))
+      (println (mal/explain e2e/flute data))
+       #_(throw (Exception. "my message" #_(mal/explain e2e/flute data))))))
 ;; single lot model is build through assembly of these parts
 
 

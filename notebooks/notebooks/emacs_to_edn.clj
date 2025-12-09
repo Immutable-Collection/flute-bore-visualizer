@@ -211,10 +211,3 @@ post-proccessed_example
     org-processed-list-to-edn
     post-proccess-edn
     )
-(is-table-content? "|       27 |    29.45 |")
-(is-table-content? "|   -27.85 |     24.3 |") 
-(map type (process-table-row "|   -27.85 |     24.3 |")    )
-
-'(2 3)
-[2 3]
-(apply + [4 5 6 7])
