@@ -49,6 +49,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script><script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" type="text/javascript"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" type="text/javascript"></script>
 <div class="container"><div class="row"><div class="col-sm-12"><div><div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(ns flute
   (:require [scad-clj.model :as m]
+            [clojure.math :refer [PI]]
             [malli.core :as mal]
             [emacs-to-edn :as e2e]
             [scad-clj.scad :refer [write-scad] :as scad]
@@ -74,7 +75,7 @@
    (apply m/union
           (for [i (range (count finger-holes-diameter))]
             (-&gt;&gt; (m/cylinder (/ (nth finger-holes-diameter i) 2) 40 {:center false})
-                 (m/rotate [0 1.57 0])
+                 (m/rotate [0 (/ PI 2) 0])
                  (m/translate [0 0 (nth finger-holes-position i)]))))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn rudall-and-carte
   [outside-diameters lengths diameters inside-lengths finger-holes-diameter finger-holes-position]
 
@@ -116,7 +117,7 @@
                     (finger-holes filtered-finger-holes-diameter filtered-finger-holes-position))
                   (polygon-rotator cork-diameters cork-positions))))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn cut-view
   [model]
-  (m/rotate (/ 3.142 2) [0 1 0] (m/rotate 3.14 [0 0 1]
+  (m/rotate (/ PI 2) [0 1 0] (m/rotate PI [0 0 1]
                                           (m/difference
                                             model
                                             (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false}))))))</code></pre></div></div><div style="margin:15px;"><div><p>TODO finger holes seems are not straight</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn bore-section [data]

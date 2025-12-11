@@ -172,3 +172,12 @@ finger-hole-data
 
  (kind/hiccup
   [:img {:src "notebooks/org-lot-cut.png"}])
+
+  (comment
+  for getting cut view
+
+  translate([0,32,0])
+rotate([0,0,-45])
+translate([0,-100,0])
+cube(size=[24,440,240],center=false);
+  )

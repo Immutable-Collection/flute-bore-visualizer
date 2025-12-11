@@ -1,9 +1,12 @@
 (ns flute
   (:require [scad-clj.model :as m]
+            [clojure.math :refer [PI]]
             [malli.core :as mal]
             [emacs-to-edn :as e2e]
             [scad-clj.scad :refer [write-scad] :as scad]
             [clojure.java.shell :refer [sh]]))
+
+
 
 (defn extract-positions-diameters
    [data]
@@ -31,7 +34,7 @@
    (apply m/union
           (for [i (range (count finger-holes-diameter))]
             (->> (m/cylinder (/ (nth finger-holes-diameter i) 2) 40 {:center false})
-                 (m/rotate [0 1.57 0])
+                 (m/rotate [0 (/ PI 2) 0])
                  (m/translate [0 0 (nth finger-holes-position i)]))))))
 
 (defn rudall-and-carte
@@ -86,7 +89,7 @@
 
 (defn cut-view
   [model]
-  (m/rotate (/ 3.142 2) [0 1 0] (m/rotate 3.14 [0 0 1]
+  (m/rotate (/ PI 2) [0 1 0] (m/rotate PI [0 0 1]
                                           (m/difference
                                             model
                                             (m/translate [-50 0 -70] (m/cube 100 100 700 {:center false}))))))
