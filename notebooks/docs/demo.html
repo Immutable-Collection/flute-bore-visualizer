@@ -132,7 +132,7 @@ Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualiz
 </code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:exit 0,
  :out &quot;&quot;,
  :err
- &quot;Geometries in cache: 30\nGeometry cache size in bytes: 1338168\nCGAL Polyhedrons in cache: 6\nCGAL cache size in bytes: 70277600\nTotal rendering time: 0:00:17.510\n   Top level object is a 3D object:\n   Simple:        yes\n   Vertices:     4650\n   Halfedges:   23086\n   Edges:       11543\n   Halffacets:  13790\n   Facets:       6895\n   Volumes:         2\n&quot;}
+ &quot;Geometries in cache: 30\nGeometry cache size in bytes: 1338168\nCGAL Polyhedrons in cache: 6\nCGAL cache size in bytes: 70277600\nTotal rendering time: 0:00:21.549\n   Top level object is a 3D object:\n   Simple:        yes\n   Vertices:     4650\n   Halfedges:   23086\n   Edges:       11543\n   Halffacets:  13790\n   Facets:       6895\n   Volumes:         2\n&quot;}
 </code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(kind/hiccup
   [:img {:src &quot;notebooks/lot.png&quot;}])</code></pre></div></div><div style="margin:15px;"><img src="notebooks/lot.png"></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(kind/hiccup
   [:img {:src &quot;notebooks/lot-cut.png&quot;}])</code></pre></div></div><div style="margin:15px;"><img src="notebooks/lot-cut.png"></div><div style="margin:15px;"><div><p>TODO automatic convert Text base STL to binary STL closing hour through</p><h2 id="music-note">Music note</h2><h3 id="edn-format-list-of">edn format list of</h3><h4 id="putting-finger-on-holes-[{:hole-number}]">putting finger on holes [{:hole-number}]</h4><h4 id="blowing-speed-[{:speed-:time-}]">blowing speed [{:speed :time }]</h4><p>TODO we have issues on the post process edn (flute/org-to-flute-3d-model "../../flute-data/models/lot-dcm615.org")</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(flute/org-&gt;cad!  &quot;../../flute-data/models/lot-dcm615.org&quot; &quot;notebooks/org-lot.scad&quot;)</code></pre></div></div><div style="margin:15px;"><div><strong>OUT</strong><pre><code>data
@@ -161,9 +161,16 @@ Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualiz
 </code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">{:exit 0,
  :out &quot;&quot;,
  :err
- &quot;Geometries in cache: 32\nGeometry cache size in bytes: 1449744\nCGAL Polyhedrons in cache: 15\nCGAL cache size in bytes: 87018400\nTotal rendering time: 0:00:08.496\n   Top level object is a 3D object:\n   Simple:        yes\n   Vertices:     9905\n   Halfedges:   49812\n   Edges:       24906\n   Halffacets:  29988\n   Facets:      14994\n   Volumes:         5\n&quot;}
+ &quot;Geometries in cache: 32\nGeometry cache size in bytes: 1449744\nCGAL Polyhedrons in cache: 15\nCGAL cache size in bytes: 87018400\nTotal rendering time: 0:00:09.711\n   Top level object is a 3D object:\n   Simple:        yes\n   Vertices:     9905\n   Halfedges:   49812\n   Edges:       24906\n   Halffacets:  29988\n   Facets:      14994\n   Volumes:         5\n&quot;}
 </code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(kind/hiccup
-  [:img {:src &quot;notebooks/org-lot-cut.png&quot;}])</code></pre></div></div><div style="margin:15px;"><img src="notebooks/org-lot-cut.png"></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/demo.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
+  [:img {:src &quot;notebooks/org-lot-cut.png&quot;}])</code></pre></div></div><div style="margin:15px;"><img src="notebooks/org-lot-cut.png"></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(comment
+  for getting cut view
+
+  translate([0,32,0])
+rotate([0,0,-45])
+translate([0,-100,0])
+cube(size=[24,440,240],center=false);
+  )</code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/demo.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors
   License: BSD-3-Clause
