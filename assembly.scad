@@ -87,13 +87,14 @@ module forth () {
     }
     
     }
+// TODO Add this info to the org file and read it in from there
+// TODO Add constructive as a git submodule
 
-
-TOUP() stack(TOUP)
-    box(20)
-    box(15)
-    box(10,h=30)
-    first()
-    second()
-    third()
-    forth();
+assemble() {
+    g(solid()){
+    add(Z(222.8) ,turnXZ(180),turnXY(180))   first()  ;
+    add(Z(194.95))  second();
+    add(Z(381.3))  third();
+    add(Z(525.7)) forth()  ;
+    }
+}    
