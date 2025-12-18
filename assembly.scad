@@ -88,7 +88,7 @@ module forth () {
     
     }
 // TODO Add this info to the org file and read it in from there
-// TODO Add constructive as a git submodule
+// TODO Add constructive as a git submodule https://github.com/solidboredom/constructive
 
 assemble() {
     g(solid()){

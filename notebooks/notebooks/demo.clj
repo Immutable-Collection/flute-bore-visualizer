@@ -45,26 +45,7 @@ df
 
 ;; (def flute-data (concat right-hand-section left-hand-section foot-section))
 
-
-;; TODO these should read from the data files
-(def inside-lengths
-  [-0.01, 3, 4, 6, 8, 11, 13, 17, 29, 35, 42, 47, 51, 60, 65, 72, 79, 84, 96, 102, 107, 112, 117, 123, 130, 139, 145, 151, 155, 161, 165, 173, 177, 183, 187, 188, 193, 200, 205, 207, 209.01])
-
-(def lengths
-  [0, 3, 4, 6, 8, 11, 13, 17, 29, 35, 42, 47, 51, 60, 65, 72, 79, 84, 96, 102, 107, 112, 117, 123, 130, 139, 145, 151, 155, 161, 165, 173, 177, 183, 187, 188, 193, 200, 205, 207, 209])
-
-(def diameters
-  [18.9, 18.8, 18.7, 18.6, 18.5, 18.4, 18.3, 18.2, 18.1, 18.0, 17.9, 17.8, 17.7, 17.6, 17.5, 17.4, 17.3, 17.2, 17.1, 17.0, 16.9, 16.8, 16.7, 16.6, 16.5, 16.4, 16.3, 16.2, 16.1, 16.0, 15.9, 15.8, 15.7, 15.6, 15.5, 15.4, 15.3, 15.2, 15.3, 15.4, 15.5])
-
-(def outside-diameters
-  [30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,
-   30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,
-   30,30,30,30,30,30,30,30,30,30,30])
-
-(def finger-holes-diameter [10,10,10,10])
-(def finger-holes-position [30,60,90,120])
-
-(spit "flute_example.scad"
+#_(spit "flute_example.scad"
       (rudall-and-carte
         outside-diameters lengths
         diameters inside-lengths
@@ -131,7 +112,6 @@ outside-diameter-ds
 
 finger-hole-data
 
-
 (def generated-lot-model
   (lot-model
     outside-diameter-data
@@ -156,7 +136,6 @@ finger-hole-data
 (kind/hiccup
   [:img {:src "notebooks/lot-cut.png"}])
 
-
 ;; TODO automatic convert Text base STL to binary STL
 ;; closing hour through
 ;; ## Music note
@@ -164,20 +143,11 @@ finger-hole-data
 ;; #### putting finger on holes [{:hole-number}]
 ;; #### blowing speed [{:speed :time }] 
 ;; TODO we have issues on the post process edn
-;(flute/org-to-flute-3d-model "../../flute-data/models/lot-dcm615.org")
+;; (flute/org-to-flute-3d-model "../../flute-data/models/lot-dcm615.org")
 
 (flute/org->cad!  "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot.scad")
 
 (export-png-file  "notebooks/org-lot-cut.png" "notebooks/org-lot.scad")
 
- (kind/hiccup
+(kind/hiccup
   [:img {:src "notebooks/org-lot-cut.png"}])
-
-  (comment
-  for getting cut view
-
-  translate([0,32,0])
-rotate([0,0,-45])
-translate([0,-100,0])
-cube(size=[24,440,240],center=false);
-  )
