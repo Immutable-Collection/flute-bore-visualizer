@@ -1,5 +1,5 @@
-(ns dev-experiments.emacs-to-edn
-  (:require 
+(ns scratch.emacs-to-edn
+  (:require
     [clojure.string :as str]
     [schema :refer [flute]]
     [emacs-to-edn :refer [valid-prefix?
@@ -31,8 +31,6 @@ initially-cleaned-content
 (defn process-headings
   [])
 
-
-
 (def processed-content
   (map
     #(cond
@@ -50,7 +48,6 @@ initially-cleaned-content
                                              (str/replace "*" "")))}
        :else nil)
     initially-cleaned-content))
-
 
 processed-content
 

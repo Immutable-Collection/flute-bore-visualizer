@@ -1,4 +1,4 @@
-(ns dev-experiments.demo
+(ns scratch.demo
   (:require
     [clojure.edn :as edn]
     [flute :refer [export-png-file export-stl-file polygon-rotator
@@ -7,3 +7,7 @@
     [scicloj.kindly.v4.kind :as kind]
     [scicloj.tableplot.v1.plotly :as plotly]
     [tablecloth.api :as tc]))
+
+(comment
+  (scicloj.clay.v2.api/make! 
+  {:source-path "notebooks/scratch/demo.clj"}))

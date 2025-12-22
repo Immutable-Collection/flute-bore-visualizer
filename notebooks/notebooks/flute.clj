@@ -133,6 +133,14 @@
         #(m/translate [(* %1 40) (* %1 40) 0] %2)
         [head middle right-hand foot]))))
 
+(defn flute-model-parts
+  [data]
+  (let [head (flute-section (:head-joint data))
+        foot (flute-section (:foot-joint data))
+        middle (flute-section (:middle-joint data))
+        right-hand (flute-section (:right-hand-joint data))]
+    [head middle right-hand foot]))
+
 (defn org-to-flute-3d-model
   [org-path]
   (let [data (e2e/org-to-edn org-path)
@@ -144,7 +152,22 @@
 
 ;; single lot model is build through assembly of these parts
 
+(defn org-to-flute-3d-model-parts
+  [org-path]
+  (let [data (e2e/org-to-edn org-path)
+        flute-data-validated? (mal/validate e2e/flute data)]
+    (if flute-data-validated?
+      (flute-model-parts data)
+      (println (mal/explain e2e/flute data))
+      #_(throw (Exception. "my message" #_(mal/explain e2e/flute data))))))
 
 (defn org->cad!
   [org-path cad-path]
   (render-code-model (org-to-flute-3d-model org-path) cad-path))
+
+(defn org->cad-parts!
+  [org-path cad-path]
+  (let [parts (org-to-flute-3d-model-parts org-path)]
+    (doseq [part parts]
+      ;; TODO cad path should change for each part
+      (render-code-model part cad-path))))

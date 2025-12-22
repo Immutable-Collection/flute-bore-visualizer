@@ -1,4 +1,4 @@
-(ns dev-experiments.flute
+(ns scratch.flute
   (:require [flute :refer [bore-section
                            render-code-model]]))
 

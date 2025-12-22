@@ -1,5 +1,5 @@
 (ns emacs-to-edn
-  (:require 
+  (:require
     [clojure.string :as str]))
 
 (defn valid-prefix?
