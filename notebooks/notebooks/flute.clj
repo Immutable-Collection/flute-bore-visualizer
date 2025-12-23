@@ -3,6 +3,7 @@
             [clojure.math :refer [PI]]
             [malli.core :as mal]
             [emacs-to-edn :as e2e]
+            [schema :refer [joint flute]]
             [scad-clj.scad :refer [write-scad] :as scad]
             [clojure.java.shell :refer [sh]]))
 
@@ -106,7 +107,7 @@
 (defn flute-section
   [data]
 
-  (let [validation-result (mal/validate e2e/joint data)
+  (let [validation-result (mal/validate joint data)
         section-data (concat (sort-by :position (:outside-diameters data))
                              (reverse (sort-by :position (:bore-diameters data))))]
 
@@ -118,7 +119,7 @@
                      ;; (bore-section (:bore-diameters data))
                      (finger-holes (:holes data)))))
       ;; TODO else should raise exception
-      (throw (Exception. (:errors (mal/explain e2e/joint data)))))))
+      (throw (Exception. (:errors (mal/explain joint data)))))))
 
 ;; define sections for each part of the model
 
@@ -144,22 +145,22 @@
 (defn org-to-flute-3d-model
   [org-path]
   (let [data (e2e/org-to-edn org-path)
-        flute-data-validated? (mal/validate e2e/flute data)]
+        flute-data-validated? (mal/validate flute data)]
     (if flute-data-validated?
       (flute-model data)
-      (println (mal/explain e2e/flute data))
-      #_(throw (Exception. "my message" #_(mal/explain e2e/flute data))))))
+      (println (mal/explain flute data))
+      #_(throw (Exception. "my message" #_(mal/explain flute data))))))
 
 ;; single lot model is build through assembly of these parts
 
 (defn org-to-flute-3d-model-parts
   [org-path]
   (let [data (e2e/org-to-edn org-path)
-        flute-data-validated? (mal/validate e2e/flute data)]
+        flute-data-validated? (mal/validate flute data)]
     (if flute-data-validated?
       (flute-model-parts data)
-      (println (mal/explain e2e/flute data))
-      #_(throw (Exception. "my message" #_(mal/explain e2e/flute data))))))
+      (println (mal/explain flute data))
+      #_(throw (Exception. "my message" #_(mal/explain flute data))))))
 
 (defn org->cad!
   [org-path cad-path]
@@ -167,7 +168,20 @@
 
 (defn org->cad-parts!
   [org-path cad-path]
-  (let [parts (org-to-flute-3d-model-parts org-path)]
-    (doseq [part parts]
-      ;; TODO cad path should change for each part
-      (render-code-model part cad-path))))
+  (let [parts (org-to-flute-3d-model-parts org-path)
+        part-names ["head" "middle" "right-hand" "foot"]]
+    (spit
+      cad-path
+      (apply write-scad parts)
+      #_(write-scad
+        (concat 
+        [(m/include "../constructive/constructive-compiled.scad")]
+        (map-indexed
+          (fn [idx part]
+            (m/define-module (nth part-names idx) part)) parts))
+        (m/call-module "assemble" (map (fn [part-name]
+                                         (do
+                                           (m/call "add")
+                                           (m/call-module part-name))) part-names))))))
+
+(org->cad-parts! "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot-assembled.scad")
