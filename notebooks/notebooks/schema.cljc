@@ -13,12 +13,16 @@
    [:outside-diameters [:vector :map]]
    [:holes             [:vector #'hole]]])
 
+(def assembly-item 
+[:map
+[:distance :float]])
+
 (def assembly
   [:map
-   [:head-joint       [:vector :float]]
-   [:middle-joint     [:vector :float]]
-   [:right-hand-joint [:vector :float]]
-   [:foot-joint       [:vector :float]]])
+   [:head-joint       [:vector #'assembly-item]]
+   [:middle-joint     [:vector #'assembly-item]]
+   [:right-hand-joint [:vector #'assembly-item]]
+   [:foot-joint       [:vector #'assembly-item]]])
 
 (def flute
   [:map

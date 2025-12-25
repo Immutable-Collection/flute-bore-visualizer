@@ -3,7 +3,7 @@
             [clojure.math :refer [PI]]
             [malli.core :as mal]
             [emacs-to-edn :as e2e]
-            [schema :refer [joint flute]]
+            [schema :refer [joint flute assembly]]
             [scad-clj.scad :refer [write-scad] :as scad]
             [clojure.java.shell :refer [sh]]))
 
@@ -159,7 +159,7 @@
         flute-data-validated? (mal/validate flute data)]
     (if flute-data-validated?
       (flute-model-parts data)
-      (println (mal/explain flute data))
+      (println (:errors (mal/explain flute data)))
       #_(throw (Exception. "my message" #_(mal/explain flute data))))))
 
 (defn org->cad!
@@ -169,19 +169,31 @@
 (defn org->cad-parts!
   [org-path cad-path]
   (let [parts (org-to-flute-3d-model-parts org-path)
-        part-names ["head" "middle" "right-hand" "foot"]]
-    (spit
+        part-names ["head" "middle" "right-hand" "foot"]] 
+      ;cad-path
+      ;(apply write-scad parts)
+      (spit 
       cad-path
-      (apply write-scad parts)
-      #_(write-scad
-        (concat 
-        [(m/include "../constructive/constructive-compiled.scad")]
-        (map-indexed
-          (fn [idx part]
-            (m/define-module (nth part-names idx) part)) parts))
-        (m/call-module "assemble" (map (fn [part-name]
-                                         (do
-                                           (m/call "add")
-                                           (m/call-module part-name))) part-names))))))
+      (write-scad
+        (m/include "../constructive/constructive-compiled.scad")
+         (map-indexed
+         (fn [idx part]
+           (m/define-module (nth part-names idx) part)) parts)
+        (m/call-module-with-block 
+         "assemble" 
+        (map (fn [part-name]
+        (do
+
+
+                                           (m/call-module-with-block "add" (m/call-module part-name))
+                                           )) part-names))))))
+
+
+flute
+
+(m/call "add")
+;(:call {:function "add"} nil)
+
+assembly
 
 (org->cad-parts! "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot-assembled.scad")
