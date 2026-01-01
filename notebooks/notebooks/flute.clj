@@ -136,7 +136,8 @@
 
 (defn flute-model-parts
   [data]
-  (let [head (flute-section (:head-joint data))
+  (let [head (m/rotatec [m/pi 0 0]
+                        (flute-section (:head-joint data)))
         foot (flute-section (:foot-joint data))
         middle (flute-section (:middle-joint data))
         right-hand (flute-section (:right-hand-joint data))]
@@ -169,31 +170,41 @@
 (defn org->cad-parts!
   [org-path cad-path]
   (let [parts (org-to-flute-3d-model-parts org-path)
-        part-names ["head" "middle" "right-hand" "foot"]] 
-      ;cad-path
-      ;(apply write-scad parts)
-      (spit 
+        data (e2e/org-to-edn org-path)
+        assembly (:assembly data)
+        assembly-keys [:head-joint :middle-joint :right-hand-joint :foot-joint]
+        part-names ["head" "middle" "right_hand" "foot"]]
+    ;; cad-path
+    ;; (apply write-scad parts)
+    (spit
       cad-path
       (write-scad
         (m/include "../constructive/constructive-compiled.scad")
-         (map-indexed
-         (fn [idx part]
-           (m/define-module (nth part-names idx) part)) parts)
-        (m/call-module-with-block 
-         "assemble" 
-        (map (fn [part-name]
-        (do
-
-
-                                           (m/call-module-with-block "add" (m/call-module part-name))
-                                           )) part-names))))))
-
+        (map-indexed
+          (fn [idx part]
+            (m/define-module (nth part-names idx) part)) parts)
+        (m/rotatec 
+         [0 (/ (* 3 m/pi) 2) m/pi]
+                   (m/call-module-with-block
+                     "assemble"
+                     (map-indexed
+                       (fn [idx part-name]
+                         (m/call-module-with-block
+                          "add"
+                          (m/translate
+                           [0 0 (get-in
+                                 assembly
+                                 [(nth assembly-keys idx) 0 :distance])]
+                           (m/call-module part-name))))
+                       part-names)))))))
 
 flute
 
 (m/call "add")
-;(:call {:function "add"} nil)
+
+;; (:call {:function "add"} nil)
+
 
 assembly
 
-(org->cad-parts! "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot-assembled.scad")
+(org->cad-parts! "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot-assembled3.scad")

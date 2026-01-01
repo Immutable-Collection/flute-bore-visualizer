@@ -1,6 +1,6 @@
 (ns emacs-to-edn
   (:require
-   [clojure.string :as str]))
+    [clojure.string :as str]))
 
 (defn valid-prefix?
   [s]
@@ -127,4 +127,4 @@
       org-processed-list-to-edn
       post-proccess-edn))
 
-
+;; (org-to-edn  "../../flute-data/models/lot-dcm615.org")

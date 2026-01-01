@@ -85,7 +85,7 @@ module foot() {
     }
   }
 };
-rotate ([0.0,90.0,180.0]) {
+rotate ([0.0,90.0,0.0]) {
   assemble () {
     add () {
       translate ([0, 0, 222.8]) {

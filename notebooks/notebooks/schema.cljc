@@ -13,9 +13,9 @@
    [:outside-diameters [:vector :map]]
    [:holes             [:vector #'hole]]])
 
-(def assembly-item 
-[:map
-[:distance :float]])
+(def assembly-item
+  [:map
+   [:distance :float]])
 
 (def assembly
   [:map
