@@ -3,7 +3,7 @@
             [clojure.math :refer [PI]]
             [malli.core :as mal]
             [emacs-to-edn :as e2e]
-            [schema :refer [joint flute assembly]]
+            [schema :refer [joint flute assembly cork]]
             [scad-clj.scad :refer [write-scad] :as scad]
             [clojure.java.shell :refer [sh]]))
 
@@ -119,7 +119,19 @@
                      ;; (bore-section (:bore-diameters data))
                      (finger-holes (:holes data)))))
       ;; TODO else should raise exception
+
       (throw (Exception. (:errors (mal/explain joint data)))))))
+
+(defn cork-section
+  [data]
+
+
+  (let [cork-data (first data)
+        validation-result (mal/validate cork cork-data)]
+    (if validation-result
+      (m/with-fn 60
+                 (m/cylinder (/ (:diameter cork-data) 2) (:length cork-data) {:center true}))
+      (throw (Exception. (:errors (mal/explain cork cork-data)))))))
 
 ;; define sections for each part of the model
 
@@ -128,11 +140,12 @@
   (let [head (flute-section (:head-joint data))
         foot (flute-section (:foot-joint data))
         middle (flute-section (:middle-joint data))
-        right-hand (flute-section (:right-hand-joint data))]
+        right-hand (flute-section (:right-hand-joint data))
+        cork-part (cork-section (:cork data))]
     (m/union
       (map-indexed
         #(m/translate [(* %1 40) (* %1 40) 0] %2)
-        [head middle right-hand foot]))))
+        [head middle right-hand foot cork-part]))))
 
 (defn flute-model-parts
   [data]
@@ -140,8 +153,9 @@
                         (flute-section (:head-joint data)))
         foot (flute-section (:foot-joint data))
         middle (flute-section (:middle-joint data))
-        right-hand (flute-section (:right-hand-joint data))]
-    [head middle right-hand foot]))
+        right-hand (flute-section (:right-hand-joint data))
+        cork-part (cork-section (:cork data))]
+    [head middle right-hand foot cork-part]))
 
 (defn org-to-flute-3d-model
   [org-path]
@@ -172,8 +186,8 @@
   (let [parts (org-to-flute-3d-model-parts org-path)
         data (e2e/org-to-edn org-path)
         assembly (:assembly data)
-        assembly-keys [:head-joint :middle-joint :right-hand-joint :foot-joint]
-        part-names ["head" "middle" "right_hand" "foot"]]
+        assembly-keys [:head-joint :middle-joint :right-hand-joint :foot-joint :cork]
+        part-names ["head" "middle" "right_hand" "foot" "cork"]]
     ;; cad-path
     ;; (apply write-scad parts)
     (spit
@@ -183,20 +197,20 @@
         (map-indexed
           (fn [idx part]
             (m/define-module (nth part-names idx) part)) parts)
-        (m/rotatec 
-         [0 (/ (* 3 m/pi) 2) m/pi]
-                   (m/call-module-with-block
-                     "assemble"
-                     (map-indexed
-                       (fn [idx part-name]
-                         (m/call-module-with-block
-                          "add"
-                          (m/translate
-                           [0 0 (get-in
-                                 assembly
-                                 [(nth assembly-keys idx) 0 :distance])]
-                           (m/call-module part-name))))
-                       part-names)))))))
+        (m/rotatec
+          [0 (/ (* 3 m/pi) 2) m/pi]
+          (m/call-module-with-block
+            "assemble"
+            (map-indexed
+              (fn [idx part-name]
+                (m/call-module-with-block
+                  "add"
+                  (m/translate
+                    [0 0 (get-in
+                           assembly
+                           [(nth assembly-keys idx) 0 :distance])]
+                    (m/call-module part-name))))
+              part-names)))))))
 
 flute
 
@@ -207,4 +221,4 @@ flute
 
 assembly
 
-(org->cad-parts! "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot-assembled3.scad")
+(org->cad-parts! "../../flute-data/models/lot-dcm615.org" "notebooks/org-lot-assembled1.scad")

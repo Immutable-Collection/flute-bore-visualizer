@@ -127,4 +127,4 @@
       org-processed-list-to-edn
       post-proccess-edn))
 
-;; (org-to-edn  "../../flute-data/models/lot-dcm615.org")
+(org-to-edn  "../../flute-data/models/lot-dcm615.org")

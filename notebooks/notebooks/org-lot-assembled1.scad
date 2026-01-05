@@ -86,7 +86,7 @@ module foot() {
   }
 };
 module cork() {
-  cylinder ($fn=60, h=20.0, r=0.05102040717026833, center=true);
+  cylinder ($fn=60, h=20.0, r=9.800000190734863, center=true);
 };
 rotate ([0.0,270.0,180.0]) {
   assemble () {

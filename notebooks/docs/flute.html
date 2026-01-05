@@ -52,7 +52,7 @@
             [clojure.math :refer [PI]]
             [malli.core :as mal]
             [emacs-to-edn :as e2e]
-            [schema :refer [joint flute assembly]]
+            [schema :refer [joint flute assembly cork]]
             [scad-clj.scad :refer [write-scad] :as scad]
             [clojure.java.shell :refer [sh]]))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn extract-positions-diameters
   [data]
@@ -144,23 +144,35 @@
                      ;; (bore-section (:bore-diameters data))
                      (finger-holes (:holes data)))))
       ;; TODO else should raise exception
-      (throw (Exception. (:errors (mal/explain joint data)))))))</code></pre></div></div><div style="margin:15px;"><div><p>define sections for each part of the model</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-model
+
+      (throw (Exception. (:errors (mal/explain joint data)))))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn cork-section
+  [data]
+
+
+  (let [cork-data (first data)
+        validation-result (mal/validate cork cork-data)]
+    (if validation-result
+      (m/with-fn 60
+                 (m/cylinder (/ (:diameter cork-data) 2) (:length cork-data) {:center true}))
+      (throw (Exception. (:errors (mal/explain cork cork-data)))))))</code></pre></div></div><div style="margin:15px;"><div><p>define sections for each part of the model</p></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-model
   [data]
   (let [head (flute-section (:head-joint data))
         foot (flute-section (:foot-joint data))
         middle (flute-section (:middle-joint data))
-        right-hand (flute-section (:right-hand-joint data))]
+        right-hand (flute-section (:right-hand-joint data))
+        cork-part (cork-section (:cork data))]
     (m/union
       (map-indexed
         #(m/translate [(* %1 40) (* %1 40) 0] %2)
-        [head middle right-hand foot]))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-model-parts
+        [head middle right-hand foot cork-part]))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn flute-model-parts
   [data]
   (let [head (m/rotatec [m/pi 0 0]
                         (flute-section (:head-joint data)))
         foot (flute-section (:foot-joint data))
         middle (flute-section (:middle-joint data))
-        right-hand (flute-section (:right-hand-joint data))]
-    [head middle right-hand foot]))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-to-flute-3d-model
+        right-hand (flute-section (:right-hand-joint data))
+        cork-part (cork-section (:cork data))]
+    [head middle right-hand foot cork-part]))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(defn org-to-flute-3d-model
   [org-path]
   (let [data (e2e/org-to-edn org-path)
         flute-data-validated? (mal/validate flute data)]
@@ -181,8 +193,8 @@
   (let [parts (org-to-flute-3d-model-parts org-path)
         data (e2e/org-to-edn org-path)
         assembly (:assembly data)
-        assembly-keys [:head-joint :middle-joint :right-hand-joint :foot-joint]
-        part-names [&quot;head&quot; &quot;middle&quot; &quot;right_hand&quot; &quot;foot&quot;]]
+        assembly-keys [:head-joint :middle-joint :right-hand-joint :foot-joint :cork]
+        part-names [&quot;head&quot; &quot;middle&quot; &quot;right_hand&quot; &quot;foot&quot; &quot;cork&quot;]]
     ;; cad-path
     ;; (apply write-scad parts)
     (spit
@@ -192,21 +204,22 @@
         (map-indexed
           (fn [idx part]
             (m/define-module (nth part-names idx) part)) parts)
-        (m/rotatec 
-         [0 (/ (* 3 m/pi) 2) m/pi]
-                   (m/call-module-with-block
-                     &quot;assemble&quot;
-                     (map-indexed
-                       (fn [idx part-name]
-                         (m/call-module-with-block
-                          &quot;add&quot;
-                          (m/translate
-                           [0 0 (get-in
-                                 assembly
-                                 [(nth assembly-keys idx) 0 :distance])]
-                           (m/call-module part-name))))
-                       part-names)))))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">flute</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">[:map
+        (m/rotatec
+          [0 (/ (* 3 m/pi) 2) m/pi]
+          (m/call-module-with-block
+            &quot;assemble&quot;
+            (map-indexed
+              (fn [idx part-name]
+                (m/call-module-with-block
+                  &quot;add&quot;
+                  (m/translate
+                    [0 0 (get-in
+                           assembly
+                           [(nth assembly-keys idx) 0 :distance])]
+                    (m/call-module part-name))))
+              part-names)))))))</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">flute</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">[:map
  [:model :string]
+ [:cork [:vector #&apos;schema/cork]]
  [:head-joint #&apos;schema/joint]
  [:middle-joint #&apos;schema/joint]
  [:right-hand-joint #&apos;schema/joint]
@@ -218,7 +231,7 @@
  [:middle-joint [:vector #&apos;schema/assembly-item]]
  [:right-hand-joint [:vector #&apos;schema/assembly-item]]
  [:foot-joint [:vector #&apos;schema/assembly-item]]]
-</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(org-&gt;cad-parts! &quot;../../flute-data/models/lot-dcm615.org&quot; &quot;notebooks/org-lot-assembled3.scad&quot;)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">nil
+</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure source-clojure bg-light">(org-&gt;cad-parts! &quot;../../flute-data/models/lot-dcm615.org&quot; &quot;notebooks/org-lot-assembled1.scad&quot;)</code></pre></div></div><div style="margin:15px;"><div><pre><code class="sourceCode language-clojure printed-clojure">nil
 </code></pre></div></div><div style="margin:15px;"><div style="background-color:grey;height:2px;width:100%;"></div></div><div style="margin:15px;"><div><pre><small><small>source: notebooks/notebooks/flute.clj</small></small></pre></div></div></div></div></div></div></div><script type="text/javascript">/*!
   Highlight.js v11.9.0 (git: b7ec4bfafc)
   (c) 2006-2023 undefined and other contributors

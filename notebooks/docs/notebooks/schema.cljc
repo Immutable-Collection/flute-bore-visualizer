@@ -17,16 +17,23 @@
   [:map
    [:distance :float]])
 
+(def cork
+  [:map
+   [:diameter :float]
+   [:length   :float]])
+
 (def assembly
   [:map
    [:head-joint       [:vector #'assembly-item]]
    [:middle-joint     [:vector #'assembly-item]]
    [:right-hand-joint [:vector #'assembly-item]]
-   [:foot-joint       [:vector #'assembly-item]]])
+   [:foot-joint       [:vector #'assembly-item]]
+   [:cork             [:vector #'assembly-item]]])
 
 (def flute
   [:map
    [:model :string]
+   [:cork             [:vector #'cork]]
    [:head-joint       #'joint]
    [:middle-joint     #'joint]
    [:right-hand-joint #'joint]

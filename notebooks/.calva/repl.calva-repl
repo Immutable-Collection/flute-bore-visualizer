@@ -345,3 +345,191 @@ clj꞉repl꞉> 
 ; Clay make started:  #{notebooks/flute.clj}
 ; Clay:  Evaluated flute in 0.098 seconds
 ; Clay:  [:wrote docs/flute.html #inst "2026-01-01T10:01:27.754-00:00"]
+; Jacking in...
+; Connecting using "deps.edn" project type.
+; Starting Jack-in: (cd /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks; clojure -Sdeps '{:deps {nrepl/nrepl {:mvn/version,"1.5.1"},cider/cider-nrepl {:mvn/version,"0.58.0"}}}' -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]")
+; Using host:port localhost:37007 ...
+; Hooking up nREPL sessions on port 37007...
+; Connected session: clj, port: 37007
+; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
+nil
+clj꞉user꞉> 
+"Please see https://calva.io/output/#about-stdout-in-the-repl-window
+about why stdout printed to this file is prepended with `;` to be line comments."
+clj꞉user꞉> 
+; Jack-in done.
+clj꞉user꞉> 
+; Clay make started:  #{notebooks/flute.clj}
+; Clay serving at http://localhost:1971/
+; Clay:  Evaluated flute in 1.32 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:01:49.669-00:00"]
+; Clay watching: #{"/home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks"}
+{:url "http://localhost:1971/",
+ :key "clay",
+ :title "Clay",
+ :display :editor,
+ :reveal false,
+ :info [[[[:wrote "docs/flute.html"] nil nil] nil] [:watching [#object[sun.nio.fs.UnixPath 0x71dd977b "notebooks"]]]]}
+; 
+; SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+; SLF4J: Defaulting to no-operation (NOP) logger implementation
+; SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+clj꞉repl꞉> 
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.079 seconds
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/org-lot-assembled3.scad
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:17:45.349-00:00"]
+{:url "http://localhost:1971/",
+ :key "clay",
+ :title "Clay",
+ :display :editor,
+ :reveal false,
+ :info [[[[:wrote "docs/flute.html"] nil nil] nil] [:watching [#object[sun.nio.fs.UnixPath 0x16728633 "notebooks"]]]]}
+clj꞉repl꞉> 
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.08 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:18:15.351-00:00"]
+{:url "http://localhost:1971/",
+ :key "clay",
+ :title "Clay",
+ :display :editor,
+ :reveal false,
+ :info [[[[:wrote "docs/flute.html"] nil nil] nil] [:watching [#object[sun.nio.fs.UnixPath 0x7ffbc2a5 "notebooks"]]]]}
+clj꞉repl꞉> 
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/schema.cljc
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/schema.cljc
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.102 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:29:51.107-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/schema.cljc
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/schema.cljc
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.271 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:41:12.256-00:00"]
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.105 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:42:15.381-00:00"]
+; Execution error (IllegalAccessError) at flute/eval43285$loading (repl.clj:1).
+; cork does not exist
+clj꞉repl꞉> 
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/schema.cljc
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.103 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:43:31.706-00:00"]
+; Execution error (IllegalAccessError) at flute/eval43414$loading (repl.clj:1).
+; cork does not exist
+clj꞉repl꞉> 
+#'schema/cork
+clj꞉schema꞉> 
+#'schema/flute
+clj꞉schema꞉> 
+nil
+clj꞉flute꞉> 
+; Clay make started:  #{notebooks/flute.clj}
+; ({:path [:cork 0], :in [:cork], :schema [:map [:diameter :float] [:length :float]], :value [{:diameter 19.6, :length 20.0}], :type :malli.core/invalid-type})
+; Clay:  Evaluated flute in 0.061 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:44:23.714-00:00"]
+; Execution error (IndexOutOfBoundsException) at flute/org->cad-parts!$fn (repl.clj:205).
+; null
+clj꞉repl꞉> 
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/schema.cljc
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/emacs_to_edn.clj
+; Clay make started:  #{notebooks/emacs_to_edn.clj}
+; Clay:  Evaluated emacs-to-edn in 0.051 seconds
+; Clay:  [:wrote docs/emacs_to_edn.html #inst "2026-01-05T09:46:00.807-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/schema.cljc
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/schema.cljc
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; ({:path [:cork 0], :in [:cork], :schema [:map [:diameter :float] [:length :float]], :value [{:diameter 19.6, :length 20.0}], :type :malli.core/invalid-type})
+; Clay:  Evaluated flute in 0.08 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:48:42.057-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; ({:path [:cork 0], :in [:cork], :schema [:map [:diameter :float] [:length :float]], :value [{:diameter 19.6, :length 20.0}], :type :malli.core/invalid-type})
+; Clay:  Evaluated flute in 0.064 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:49:41.725-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/schema.cljc
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; ({:path [:cork 0], :in [:cork], :schema [:map [:diameter :float] [:length :float]], :value [{:diameter 19.6, :length 20.0}], :type :malli.core/invalid-type})
+; Clay:  Evaluated flute in 0.062 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:49:56.037-00:00"]
+#'schema/flute
+clj꞉schema꞉> 
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; [{:diameter 19.6, :length 20.0}]
+; false
+; Clay:  Evaluated flute in 0.063 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:50:37.306-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; [{:diameter 19.6, :length 20.0}]
+; false
+; Clay:  Evaluated flute in 0.068 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:51:36.947-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; [{:diameter 19.6, :length 20.0}]
+; true
+; Clay:  Evaluated flute in 0.094 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:52:13.571-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.053 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:52:52.610-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/emacs_to_edn.clj
+; Clay make started:  #{notebooks/emacs_to_edn.clj}
+; Clay:  Evaluated emacs-to-edn in 0.026 seconds
+; Clay:  [:wrote docs/emacs_to_edn.html #inst "2026-01-05T09:53:40.683-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.079 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:55:13.194-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/org-lot-assembled3.scad
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.06 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:56:44.350-00:00"]
+{:url "http://localhost:1971/",
+ :key "clay",
+ :title "Clay",
+ :display :editor,
+ :reveal false,
+ :info [[[[:wrote "docs/flute.html"] nil nil] nil] [:watching [#object[sun.nio.fs.UnixPath 0x43b5098e "notebooks"]]]]}
+clj꞉repl꞉> 
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.065 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:56:55.498-00:00"]
+{:url "http://localhost:1971/",
+ :key "clay",
+ :title "Clay",
+ :display :editor,
+ :reveal false,
+ :info [[[[:wrote "docs/flute.html"] nil nil] nil] [:watching [#object[sun.nio.fs.UnixPath 0x3ea5cfee "notebooks"]]]]}
+clj꞉repl꞉> 
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.062 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T09:57:55.871-00:00"]
+; Clay file event: :create /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/org-lot-assembled1.scad
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.07 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T10:01:38.001-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.063 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T10:01:46.781-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/org-lot-assembled1.scad
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/schema.cljc
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/emacs_to_edn.clj
+; Clay make started:  #{notebooks/emacs_to_edn.clj}
+; Clay:  Evaluated emacs-to-edn in 0.045 seconds
+; Clay:  [:wrote docs/emacs_to_edn.html #inst "2026-01-05T10:03:20.708-00:00"]
+; Clay file event: :modify /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks/notebooks/flute.clj
+; Clay make started:  #{notebooks/flute.clj}
+; Clay:  Evaluated flute in 0.114 seconds
+; Clay:  [:wrote docs/flute.html #inst "2026-01-05T10:03:20.862-00:00"]
