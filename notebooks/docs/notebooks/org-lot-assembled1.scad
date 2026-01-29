@@ -92,22 +92,22 @@ rotate ([0.0,270.0,180.0]) {
   assemble () {
     add () {
       translate ([0, 0, 222.8]) {
-        head ();
+        #head ();
       }
     }
     add () {
       translate ([0, 0, 194.95]) {
-        middle ();
+        #middle ();
       }
     }
     add () {
       translate ([0, 0, 381.3]) {
-        right_hand ();
+        #right_hand ();
       }
     }
     add () {
       translate ([0, 0, 525.7]) {
-        foot ();
+        #foot ();
       }
     }
     add () {
