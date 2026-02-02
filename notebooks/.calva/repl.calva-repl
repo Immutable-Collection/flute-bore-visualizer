@@ -564,3 +564,38 @@ clj꞉user꞉> 
 ; SLF4J: Defaulting to no-operation (NOP) logger implementation
 ; SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 clj꞉repl꞉> 
+; Jacking in...
+; Connecting using "deps.edn" project type.
+; Starting Jack-in: (cd /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks; java -jar "/home/iain/.vscode/extensions/betterthantomorrow.calva-2.0.546/deps.clj.jar" -Sdeps '{:deps {nrepl/nrepl {:mvn/version,"1.5.1"},cider/cider-nrepl {:mvn/version,"0.58.0"}}}' -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]")
+; Jacking in...
+; Connecting using "deps.edn" project type.
+; Starting Jack-in: (cd /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks; java -jar "/home/iain/.vscode/extensions/betterthantomorrow.calva-2.0.546/deps.clj.jar" -Sdeps '{:deps {nrepl/nrepl {:mvn/version,"1.5.1"},cider/cider-nrepl {:mvn/version,"0.58.0"}}}' -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]")
+; Jacking in...
+; Connecting using "deps.edn" project type.
+; Starting Jack-in: (cd /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks; java -jar "/home/iain/.vscode/extensions/betterthantomorrow.calva-2.0.546/deps.clj.jar" -Sdeps '{:deps {nrepl/nrepl {:mvn/version,"1.5.1"},cider/cider-nrepl {:mvn/version,"0.58.0"}}}' -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]")
+; Jacking in...
+; Connecting using "deps.edn" project type.
+; Starting Jack-in: (cd /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks; java -jar "/home/iain/.vscode/extensions/betterthantomorrow.calva-2.0.546/deps.clj.jar" -Sdeps '{:deps {nrepl/nrepl {:mvn/version,"1.5.1"},cider/cider-nrepl {:mvn/version,"0.58.0"}}}' -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]")
+; Jacking in...
+; Connecting using "deps.edn" project type.
+; Starting Jack-in: (cd /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks; java -jar "/home/iain/.vscode/extensions/betterthantomorrow.calva-2.0.546/deps.clj.jar" -Sdeps '{:deps {nrepl/nrepl {:mvn/version,"1.5.1"},cider/cider-nrepl {:mvn/version,"0.58.0"}}}' -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]")
+; Jacking in...
+; Connecting using "deps.edn" project type.
+; Starting Jack-in: (cd /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks; java -jar "/home/iain/.vscode/extensions/betterthantomorrow.calva-2.0.546/deps.clj.jar" -Sdeps '{:deps {nrepl/nrepl {:mvn/version,"1.5.1"},cider/cider-nrepl {:mvn/version,"0.58.0"}}}' -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]")
+; Jacking in...
+; TypeError: Cannot read properties of undefined (reading 'label')
+; Aborting jack-in.
+; Jacking in...
+; Connecting using "deps.edn" project type.
+; Starting Jack-in: (cd /home/iain/Code/ImmutableCollection/flute-bore-visualizer/notebooks; java -jar "/home/iain/.vscode/extensions/betterthantomorrow.calva-2.0.546/deps.clj.jar" -Sdeps '{:deps {nrepl/nrepl {:mvn/version,"1.5.1"},cider/cider-nrepl {:mvn/version,"0.58.0"}}}' -M -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]")
+; Using host:port localhost:43131 ...
+; Hooking up nREPL sessions on port 43131...
+; Connected session: clj, port: 43131
+; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
+nil
+clj꞉user꞉> 
+"Please see https://calva.io/output/#about-stdout-in-the-repl-window
+about why stdout printed to this file is prepended with `;` to be line comments."
+clj꞉user꞉> 
+; Jack-in done.
+clj꞉user꞉> 

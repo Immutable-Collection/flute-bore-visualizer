@@ -1,3 +1,7 @@
 [submodule "notebooks/constructive"]
 	path = notebooks/constructive
 	url = https://github.com/solidboredom/constructive.git
+[submodule "FluidX3D"]
+	path = FluidX3D
+	url = https://github.com/ProjectPhysX/FluidX3D
+	branch = master

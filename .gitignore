@@ -21,3 +21,6 @@ notebooks/.lsp/.cache/db.transit.json
 .clj-kondo/
 .lsp/
 notebooks/.lsp/
+FluidX3D/*
+FluidX3D/
+/FluidX3D/
