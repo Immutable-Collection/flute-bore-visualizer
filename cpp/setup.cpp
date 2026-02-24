@@ -77,7 +77,7 @@ void main_setup() { // aerodynamics of a cow; required extensions in defines.hpp
 		*
 		float3x3(float3(0, 1, 0), 
 				radians(90.0f))		;
-	Mesh* mesh = read_stl(get_exe_path()+"../../flute-bore-visualizer/stl/embouchure.stl", lbm.size(), lbm.center(), rotation, lbm_length); // https://www.thingiverse.com/thing:182114/files
+	Mesh* mesh = read_stl(get_exe_path()+"../../flute-bore-visualizer/stl/embouchure-plate.stl", lbm.size(), lbm.center(), rotation, lbm_length); // https://www.thingiverse.com/thing:182114/files
 	mesh->translate(float3(0.0f, 1.0f-mesh->pmin.y+0.1f*lbm_length, 1.0f-mesh->pmin.z)); // move mesh forward a bit and to simulation box bottom, keep in mind 1 cell thick box boundaries
 	lbm.voxelize_mesh_on_device(mesh);
 	const uint Nx=lbm.get_Nx(), Ny=lbm.get_Ny(), Nz=lbm.get_Nz(); 
@@ -87,9 +87,9 @@ void main_setup() { // aerodynamics of a cow; required extensions in defines.hpp
 		if(x==0u||x==Nx-1u||y==0u||y==Ny-1u||z==Nz-1u) lbm.flags[n] = TYPE_E; // all other simulation box boundaries are inflow/outflow
 		//if(lbm.flags[n] != TYPE_S && lbm.flags[n] != TYPE_E) lbm.flags[n] = TYPE_F; // GAS cells everywhere else
 		if(lbm.flags[n]!=TYPE_S) {
-			if (x > Nx/2-10 && x < Nx/2+10 & z < 50 && z > 10 && y < Ny/2 && y > 30 ){
-				lbm.u.z[n] = lbm_u;
-			}
+			//if ( y < 5 || y > Ny - 5){
+				lbm.u.y[n] = lbm_u;
+			//}
 			//lbm.u.y[n] = lbm_u; // initialize y-velocity everywhere except in solid cells
 		}
 		

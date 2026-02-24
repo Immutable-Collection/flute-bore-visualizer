@@ -1,0 +1,12 @@
+union(){
+    difference(){
+        cylinder(100,11,11);
+        translate([0,0,-0.5])    
+            cylinder(101,10,10);
+    }
+    linear_extrude(10)
+        difference(){
+            square([400,400],true);
+            circle(10);    
+        }
+}
